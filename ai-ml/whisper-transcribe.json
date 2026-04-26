@@ -1,0 +1,78 @@
+{
+  "name": "whisper-transcribe",
+  "version": "1.0.0",
+  "category": "ai-ml",
+  "description": "Transcribe audio or video files to text using OpenAI Whisper, with optional timestamps and speaker labels.",
+  "intent_triggers": [
+    "語音轉文字",
+    "把音檔變成文字",
+    "轉錄這段錄音",
+    "transcribe audio",
+    "convert speech to text",
+    "speech to text",
+    "幫我把影片的聲音轉成字幕",
+    "把會議錄音整理成逐字稿",
+    "transcribe meeting recording",
+    "audio transcription",
+    "turn voice into text",
+    "把 mp3 轉成文字",
+    "影片字幕生成",
+    "generate subtitles from video",
+    "逐字稿"
+  ],
+  "input_schema": {
+    "file": {
+      "type": "string",
+      "required": true,
+      "description": "Path to audio or video file (mp3, mp4, wav, m4a, webm, ogg)"
+    },
+    "model": {
+      "type": "enum",
+      "required": false,
+      "default": "base",
+      "description": "Whisper model size: tiny, base, small, medium, large"
+    },
+    "language": {
+      "type": "string",
+      "required": false,
+      "description": "Language code (e.g. zh, en, ja); auto-detected if omitted"
+    },
+    "timestamps": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include word-level timestamps in output"
+    },
+    "output_format": {
+      "type": "enum",
+      "required": false,
+      "default": "json",
+      "description": "Output format: json, txt, srt, vtt"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["text", "segments", "language", "duration_seconds"]
+  },
+  "examples": [
+    {
+      "intent": "把這個 mp3 轉成逐字稿",
+      "invocation": "whisper-transcribe --file meeting.mp3 --language zh"
+    },
+    {
+      "intent": "generate SRT subtitles from a video",
+      "invocation": "whisper-transcribe --file lecture.mp4 --output-format srt --model medium"
+    },
+    {
+      "intent": "transcribe with timestamps",
+      "invocation": "whisper-transcribe --file interview.wav --timestamps --output-format json"
+    }
+  ],
+  "error_codes": {
+    "E001": "File not found",
+    "E002": "Unsupported audio format",
+    "E003": "Model download failed — check internet connection",
+    "E004": "Transcription failed — file may be corrupted or silent"
+  },
+  "tags": ["whisper", "transcription", "speech-to-text", "audio", "subtitles", "nlp", "openai"]
+}

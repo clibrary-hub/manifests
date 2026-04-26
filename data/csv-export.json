@@ -1,0 +1,77 @@
+{
+  "name": "csv-export",
+  "version": "1.0.0",
+  "category": "data",
+  "description": "Export data from JSON, database query results, or stdin to a well-formatted CSV file.",
+  "intent_triggers": [
+    "匯出 CSV",
+    "存成 CSV 檔",
+    "把資料轉成 CSV",
+    "export to CSV",
+    "convert data to CSV",
+    "save as CSV file",
+    "下載 CSV 格式",
+    "產生 CSV 報表",
+    "generate CSV report",
+    "把 JSON 變成 CSV",
+    "轉檔成 CSV",
+    "export spreadsheet",
+    "資料匯出",
+    "output CSV format",
+    "write data to CSV"
+  ],
+  "input_schema": {
+    "input": {
+      "type": "string",
+      "required": false,
+      "description": "Input file path (JSON array or newline-delimited JSON); reads stdin if omitted"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output CSV file path; writes to stdout if omitted"
+    },
+    "delimiter": {
+      "type": "string",
+      "required": false,
+      "default": ",",
+      "description": "Field delimiter character"
+    },
+    "fields": {
+      "type": "array",
+      "required": false,
+      "description": "List of field names to include; includes all fields if omitted"
+    },
+    "no_header": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Omit the header row"
+    }
+  },
+  "output_schema": {
+    "format": "csv",
+    "fields": ["row_count", "output_path"]
+  },
+  "examples": [
+    {
+      "intent": "把 JSON 檔轉成 CSV",
+      "invocation": "csv-export --input data.json --output report.csv"
+    },
+    {
+      "intent": "export only specific columns to CSV",
+      "invocation": "csv-export --input records.json --fields id,name,email --output users.csv"
+    },
+    {
+      "intent": "以 Tab 分隔匯出",
+      "invocation": "csv-export --input data.json --delimiter \"\\t\" --output data.tsv"
+    }
+  ],
+  "error_codes": {
+    "E001": "Input file not found",
+    "E002": "Input is not valid JSON",
+    "E003": "Specified field not found in data",
+    "E004": "Cannot write to output path"
+  },
+  "tags": ["csv", "export", "data", "spreadsheet", "json", "transform"]
+}

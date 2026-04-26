@@ -1,0 +1,72 @@
+{
+  "name": "docker-cleanup",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Remove stopped containers, dangling images, unused volumes, and build cache to reclaim Docker disk space.",
+  "intent_triggers": [
+    "清理 Docker",
+    "刪掉沒用的 Docker 容器",
+    "Docker 磁碟空間不夠",
+    "docker cleanup",
+    "remove unused docker resources",
+    "clean up docker images and containers",
+    "prune docker",
+    "釋放 Docker 磁碟",
+    "刪掉舊的 Docker image",
+    "docker disk space full",
+    "清除 docker build cache",
+    "remove dangling images",
+    "Docker 垃圾清理",
+    "free up docker storage",
+    "docker system prune"
+  ],
+  "input_schema": {
+    "target": {
+      "type": "enum",
+      "required": false,
+      "default": "all",
+      "description": "What to clean: all, containers, images, volumes, cache"
+    },
+    "force": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Skip confirmation prompt"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show what would be removed without actually removing"
+    },
+    "older_than": {
+      "type": "string",
+      "required": false,
+      "description": "Only remove resources older than this duration (e.g. 24h, 7d)"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["removed_containers", "removed_images", "removed_volumes", "reclaimed_bytes"]
+  },
+  "examples": [
+    {
+      "intent": "清理所有沒用的 Docker 資源",
+      "invocation": "docker-cleanup --target all --force"
+    },
+    {
+      "intent": "dry run to see what would be deleted",
+      "invocation": "docker-cleanup --dry-run"
+    },
+    {
+      "intent": "只刪掉 7 天前的 image",
+      "invocation": "docker-cleanup --target images --older-than 7d --force"
+    }
+  ],
+  "error_codes": {
+    "E001": "Docker daemon not running",
+    "E002": "Insufficient permissions — try running with sudo",
+    "E003": "Cannot remove image in use by running container"
+  },
+  "tags": ["docker", "cleanup", "devops", "containers", "images", "disk-space", "maintenance"]
+}
