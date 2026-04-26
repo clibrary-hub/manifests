@@ -1,0 +1,78 @@
+{
+  "name": "doc-fill",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Auto-generate docstrings and inline comments for functions and classes missing documentation.",
+  "intent_triggers": [
+    "幫我的程式碼補上文件",
+    "自動生成函式的 docstring",
+    "檢查哪些函式缺少註解",
+    "幫我產出 API 文件",
+    "統計程式碼的文件覆蓋率",
+    "fill in missing docstrings for my code",
+    "generate documentation for functions",
+    "scan for undocumented methods",
+    "auto-generate API docs from source",
+    "幫我跑一下 doc-fill 看看覆蓋率"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: scan, coverage, fill, api-docs",
+      "default": "fill"
+    },
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Source file or directory path"
+    },
+    "style": {
+      "type": "enum",
+      "required": false,
+      "default": "google",
+      "description": "Docstring style: google, numpy, or sphinx"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview mode without modifying files"
+    },
+    "inline": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include inline comment generation"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output path for generated API docs"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["coverage_rate", "missing_functions", "generated_docstrings", "output_path"]
+  },
+  "examples": [
+    {
+      "intent": "為缺少 docstring 的函式自動生成文件",
+      "invocation": "doc-fill fill src/main.py --style google"
+    },
+    {
+      "intent": "檢查原始碼文件覆蓋率",
+      "invocation": "doc-fill coverage src/"
+    },
+    {
+      "intent": "生成 API 文件",
+      "invocation": "doc-fill api-docs src/ -o docs/api.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Source path not found",
+    "2": "Failed to parse AST",
+    "3": "Invalid docstring style"
+  },
+  "tags": ["documentation", "docstring", "productivity", "code-quality", "api-docs"]
+}

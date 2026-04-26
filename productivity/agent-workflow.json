@@ -1,0 +1,73 @@
+{
+  "name": "agent-workflow",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Orchestrate the full agent project lifecycle from task intake to report generation and memory archiving.",
+  "intent_triggers": [
+    "幫我規劃一個完整的開發工作流",
+    "按照標準流程執行這個專案",
+    "生成工作報告和簡報",
+    "把今天的進度寫入記憶檔案",
+    "分類存檔所有產出的文件",
+    "run the full agent project workflow",
+    "generate work reports and slides",
+    "archive project outputs by category",
+    "how do I track progress every two hours",
+    "幫我產出 PPT 和 HTML 簡報"
+  ],
+  "input_schema": {
+    "phase": {
+      "type": "enum",
+      "required": false,
+      "description": "Workflow phase: intake, parse, allocate, develop, track, report, archive, memory",
+      "default": null
+    },
+    "project_name": {
+      "type": "string",
+      "required": false,
+      "description": "Project name in UPPER_SNAKE_CASE",
+      "default": null
+    },
+    "budget_tokens": {
+      "type": "integer",
+      "required": false,
+      "description": "Estimated token budget for the project",
+      "default": null
+    },
+    "output_dir": {
+      "type": "string",
+      "required": false,
+      "description": "Directory for generated reports",
+      "default": "reports/"
+    },
+    "theme": {
+      "type": "enum",
+      "required": false,
+      "description": "Presentation theme: dark or light",
+      "default": "dark"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["phase", "status", "report_paths", "memory_path"]
+  },
+  "examples": [
+    {
+      "intent": "按照標準工作流開發 CLI 工具",
+      "invocation": "agent-workflow --phase develop --project-name CLI_TOOLS"
+    },
+    {
+      "intent": "生成專案報告和簡報",
+      "invocation": "agent-workflow --phase report --project-name CLI_TOOLS --output-dir reports/"
+    },
+    {
+      "intent": "Archive project outputs",
+      "invocation": "agent-workflow --phase archive --project-name CLI_TOOLS"
+    }
+  ],
+  "error_codes": {
+    "1": "Project name format invalid",
+    "2": "Token budget exceeded"
+  },
+  "tags": ["workflow", "project-management", "reporting", "agent", "productivity"]
+}

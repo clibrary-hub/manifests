@@ -1,0 +1,75 @@
+{
+  "name": "prompt-vault",
+  "version": "1.0.0",
+  "category": "ai-ml",
+  "description": "Local prompt template manager with categorization, Jinja2 variable substitution, version history, and clipboard integration.",
+  "intent_triggers": [
+    "幫我管理 prompt 模板",
+    "我想找之前寫過的程式碼審查 prompt",
+    "新增一個翻譯用的 prompt 到資料庫",
+    "列出所有開發類別的 prompt",
+    "幫我把這個 prompt 複製到剪貼簿",
+    "manage my prompt templates",
+    "search for a code review prompt",
+    "add a new prompt to the vault",
+    "copy this prompt template to clipboard",
+    "幫我用這個 template 帶入 lang=Python 的變數"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: add, list, search, use, edit, stats, export, share, import"
+    },
+    "name": {
+      "type": "string",
+      "required": false,
+      "description": "Prompt template name"
+    },
+    "category": {
+      "type": "string",
+      "required": false,
+      "description": "Prompt category"
+    },
+    "body": {
+      "type": "string",
+      "required": false,
+      "description": "Prompt template body text"
+    },
+    "from_clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Import prompt from clipboard"
+    },
+    "var": {
+      "type": "array",
+      "required": false,
+      "description": "Jinja2 variable assignments (key=value)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for export/share"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["prompt_text", "clipboard_status", "template_list", "export_path"]
+  },
+  "examples": [
+    {
+      "intent": "新增一個程式碼審查 prompt",
+      "invocation": "prompt-vault add --name \"程式碼審查\" --category \"開發\" --body \"請審查以下程式碼...\""
+    },
+    {
+      "intent": "Use a template with variable substitution",
+      "invocation": "prompt-vault use \"程式碼審查\" --var lang=Python --var file=main.py"
+    }
+  ],
+  "error_codes": {
+    "1": "Prompt not found",
+    "2": "Invalid variable format"
+  },
+  "tags": ["prompt", "template", "llm", "jinja2", "clipboard"]
+}

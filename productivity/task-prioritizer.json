@@ -1,0 +1,79 @@
+{
+  "name": "task-prioritizer",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Read multi-source todo items and auto-prioritize them using Eisenhower matrix plus energy-level matching.",
+  "intent_triggers": [
+    "幫我排序今天的待辦事項",
+    "用艾森豪矩陣分析我的任務",
+    "推薦我現在應該先做哪件事",
+    "根據精力和截止日排行程",
+    "新增一個高優先的待辦",
+    "prioritize my todo list",
+    "sort tasks by urgency and importance",
+    "which task should I do first",
+    "add a new task with high priority",
+    "幫我分析哪些任務可以 delegate 掉"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: prioritize, add, or status",
+      "default": "prioritize"
+    },
+    "local": {
+      "type": "string",
+      "required": false,
+      "default": "~/todo.md",
+      "description": "Path to local todo file"
+    },
+    "energy": {
+      "type": "enum",
+      "required": false,
+      "default": "auto",
+      "description": "Current energy level: high, medium, low, auto"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "table",
+      "description": "Output format: table, json, or markdown"
+    },
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Task title (add command)"
+    },
+    "deadline": {
+      "type": "string",
+      "required": false,
+      "description": "Deadline in YYYY-MM-DD format (add command)"
+    },
+    "priority": {
+      "type": "enum",
+      "required": false,
+      "default": "medium",
+      "description": "Task priority: high, medium, low"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["quadrant", "title", "urgency", "importance", "energy", "suggested_time"]
+  },
+  "examples": [
+    {
+      "intent": "排序今天的待辦事項",
+      "invocation": "task-prioritizer prioritize --energy high"
+    },
+    {
+      "intent": "新增一個緊急任務",
+      "invocation": "task-prioritizer add \"準備客戶簡報\" -d 2026-04-27 -p high"
+    }
+  ],
+  "error_codes": {
+    "1": "Todo file not found",
+    "2": "No tasks to prioritize"
+  },
+  "tags": ["todo", "productivity", "eisenhower", "priority", "task"]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "code-dedupe",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan projects for duplicate or structurally similar code blocks, group them, and suggest refactorings into shared functions.",
+  "intent_triggers": [
+    "掃描專案中的重複程式碼",
+    "幫我找出相似的程式碼片段",
+    "偵測跨檔案的重複區塊",
+    "生成重構建議統一函式",
+    "計算這個專案的重複率",
+    "find duplicate code in the project",
+    "detect similar code blocks across files",
+    "generate refactoring suggestions for clones",
+    "scan source for code duplication",
+    "report the duplication rate of the codebase",
+    "show me repeated patterns in the repo",
+    "幫我檢查這個 repo 有多少重複程式碼"
+  ],
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Project directory or file path to scan"
+    },
+    "min_lines": {
+      "type": "integer",
+      "required": false,
+      "default": 5,
+      "description": "Minimum number of lines to consider a duplicate"
+    },
+    "threshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.85,
+      "description": "Similarity threshold (0.0-1.0)"
+    },
+    "cross_file": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Only detect duplicates across different files"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for report"
+    },
+    "preview": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include refactoring code preview"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["duplicates", "groups", "similarity", "suggestions", "duplication_rate"]
+  },
+  "examples": [
+    {
+      "intent": "掃描 src/ 目錄中的重複程式碼",
+      "invocation": "code-dedupe scan src/"
+    },
+    {
+      "intent": "設定相似度閾值為 0.9 並跨檔案偵測",
+      "invocation": "code-dedupe scan src/ --threshold 0.9 --cross-file"
+    },
+    {
+      "intent": "生成重構建議並預覽程式碼",
+      "invocation": "code-dedupe suggest src/ --preview"
+    }
+  ],
+  "error_codes": {
+    "1": "Path not found",
+    "2": "No duplicates detected"
+  },
+  "tags": ["deduplication", "refactor", "code-quality", "scan", "devops"]
+}

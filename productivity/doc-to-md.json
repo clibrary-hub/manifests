@@ -1,0 +1,87 @@
+{
+  "name": "doc-to-md",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Convert documents like PDF, Word, Excel, and PowerPoint into Markdown or plain text for agent processing.",
+  "intent_triggers": [
+    "把 PDF 轉成 Markdown",
+    "幫我轉換 Word 文件",
+    "Excel 表格轉成 Markdown",
+    "批次轉換資料夾裡的文件",
+    "處理掃描件的 PDF",
+    "convert a PDF to Markdown",
+    "turn my Word doc into text",
+    "batch convert documents in a folder",
+    "extract text from a PowerPoint",
+    "幫我把 report.pdf 轉成可以編輯的 md"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: convert, batch",
+      "default": "convert"
+    },
+    "input": {
+      "type": "string",
+      "required": true,
+      "description": "Input file or directory path"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file or directory path"
+    },
+    "ext": {
+      "type": "array",
+      "required": false,
+      "description": "Filter file extensions for batch conversion"
+    },
+    "ocr": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Enable OCR for scanned PDFs"
+    },
+    "extract_images": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Extract and save images separately"
+    },
+    "pages": {
+      "type": "string",
+      "required": false,
+      "description": "Page range to convert, e.g. 1-10"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum output token limit"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["markdown_content", "extracted_images", "page_count"]
+  },
+  "examples": [
+    {
+      "intent": "將 PDF 報告轉為 Markdown",
+      "invocation": "doc-to-md convert report.pdf -o report.md"
+    },
+    {
+      "intent": "批次轉換目錄中的所有文件",
+      "invocation": "doc-to-md batch ./reports/ -o ./markdown/"
+    },
+    {
+      "intent": "處理掃描件 PDF 並啟用 OCR",
+      "invocation": "doc-to-md convert scanned.pdf --ocr -o scanned.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Input file not found or unsupported format",
+    "2": "OCR failed or missing dependencies",
+    "3": "Output directory not writable"
+  },
+  "tags": ["document", "converter", "pdf", "word", "excel", "markdown", "ocr"]
+}

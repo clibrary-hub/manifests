@@ -1,0 +1,73 @@
+{
+  "name": "sec-scan",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "Scan code for security vulnerabilities like hardcoded secrets, SQL injection, XSS, and weak crypto with fix suggestions.",
+  "intent_triggers": [
+    "掃描程式碼安全漏洞",
+    "檢查有沒有硬編碼的 API key",
+    "幫我掃一下這個專案的安全性",
+    "看一下這段程式碼有沒有 SQL injection",
+    "掃描安全問題並給修復建議",
+    "run a security scan on my codebase",
+    "check for hardcoded secrets and tokens",
+    "scan for SQL injection and XSS vulnerabilities",
+    "generate a security report with fix suggestions",
+    "幫我檢查一下這個 repo 有沒有安全風險"
+  ],
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "File or directory path to scan"
+    },
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: scan, rules, or report",
+      "default": "scan"
+    },
+    "changed": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Only scan files modified by the Agent"
+    },
+    "severity": {
+      "type": "enum",
+      "required": false,
+      "default": "all",
+      "description": "Filter by severity: high, medium, low"
+    },
+    "fix_suggestions": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include fix suggestions in the report"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output report file path"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["severity", "issue", "file", "location", "fix_suggestion"]
+  },
+  "examples": [
+    {
+      "intent": "掃描整個專案的安全漏洞",
+      "invocation": "sec-scan scan src/ --severity high"
+    },
+    {
+      "intent": "產出包含修復建議的安全報告",
+      "invocation": "sec-scan report src/ --fix-suggestions -o security_report.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target path does not exist",
+    "2": "Invalid severity filter"
+  },
+  "tags": ["security", "vulnerability", "static-analysis", "code-scan"]
+}

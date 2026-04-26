@@ -1,0 +1,90 @@
+{
+  "name": "web-clean",
+  "version": "1.0.0",
+  "category": "web",
+  "description": "Extract main content from URLs, remove ads, nav bars, and footers, output clean Markdown or plain text.",
+  "intent_triggers": [
+    "幫我把這個網頁內容洗乾淨",
+    "提取文章主體去掉廣告",
+    "把網頁轉成乾淨的 Markdown",
+    "批次清洗 URL 清單的內容",
+    "從剪貼簿的 HTML 提取主要內容",
+    "clean this webpage content",
+    "extract article body from URL",
+    "convert webpage to clean markdown",
+    "batch clean a list of URLs",
+    "幫我爬取這個網站並去除雜訊"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: clean, batch, or crawl",
+      "default": "clean"
+    },
+    "url": {
+      "type": "string",
+      "required": false,
+      "description": "Target URL to clean (clean command)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file or directory path"
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "default": "markdown",
+      "description": "Output format: markdown or text"
+    },
+    "clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Read HTML from clipboard (clean command)"
+    },
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "default": 1,
+      "description": "Crawl depth for recursive extraction (crawl command)"
+    },
+    "keep_images": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preserve images in output"
+    },
+    "keep_code": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preserve code blocks in output"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum token limit for output content"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["title", "content", "url", "word_count", "output_path"]
+  },
+  "examples": [
+    {
+      "intent": "清洗單一網頁為 Markdown",
+      "invocation": "web-clean clean https://example.com/article -o article.md"
+    },
+    {
+      "intent": "批次清洗 URL 清單",
+      "invocation": "web-clean batch urls.txt -o ./articles/"
+    }
+  ],
+  "error_codes": {
+    "1": "URL is unreachable",
+    "2": "Failed to extract main content"
+  },
+  "tags": ["web", "scraping", "markdown", "content-extraction", "clean"]
+}

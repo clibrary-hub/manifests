@@ -1,0 +1,85 @@
+{
+  "name": "agent-config",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Export, import, and sync agent configuration across environments with conflict detection.",
+  "intent_triggers": [
+    "匯出 Agent 設定",
+    "把設定打包到另一台電腦",
+    "同步我的 agent 配置",
+    "幫我備份所有規則和 prompt",
+    "設定要怎麼遷移到新環境",
+    "export agent settings",
+    "migrate my agent config to a new machine",
+    "backup all agent rules and prompts",
+    "how do I sync configs across devices",
+    "幫我 import 這個 config.zip 到目前環境"
+  ],
+  "input_schema": {
+    "action": {
+      "type": "enum",
+      "required": true,
+      "description": "Action to perform: export, import, or sync",
+      "default": null
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output path for export (file or directory)",
+      "default": "my_config.zip"
+    },
+    "include": {
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of config items to include",
+      "default": null
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "description": "Export format: zip or directory",
+      "default": "zip"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "description": "Preview import without applying changes",
+      "default": false
+    },
+    "merge": {
+      "type": "boolean",
+      "required": false,
+      "description": "Merge with existing configs instead of overwriting",
+      "default": false
+    },
+    "target": {
+      "type": "string",
+      "required": false,
+      "description": "Sync target directory",
+      "default": null
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["exported_items", "file_count", "total_size", "status"]
+  },
+  "examples": [
+    {
+      "intent": "匯出當前環境的所有 Agent 設定",
+      "invocation": "agent-config export -o my_config.zip"
+    },
+    {
+      "intent": "預覽匯入內容",
+      "invocation": "agent-config import my_config.zip --dry-run"
+    },
+    {
+      "intent": "Sync config to Dropbox",
+      "invocation": "agent-config sync --target ~/Dropbox/agent-config/"
+    }
+  ],
+  "error_codes": {
+    "1": "Source configuration not found",
+    "2": "Conflict detected during import"
+  },
+  "tags": ["agent", "config", "backup", "sync", "migration"]
+}

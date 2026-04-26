@@ -1,0 +1,80 @@
+{
+  "name": "flow-tracker",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Define workflow templates and track step-by-step progress with status, timing, and notes for each stage.",
+  "intent_triggers": [
+    "建立一個新的工作流程",
+    "更新任務進度到下一步",
+    "看一下目前專案做到哪了",
+    "列出所有進行中的工作流程",
+    "標記這個步驟已完成",
+    "create a new workflow tracker",
+    "update the progress of my task",
+    "show me the kanban board",
+    "mark a workflow step as done",
+    "幫我開一個 feature 開發流程來追蹤"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: start, done, skip, note, status, list, board, templates",
+      "default": "list"
+    },
+    "name": {
+      "type": "string",
+      "required": false,
+      "description": "Workflow name or identifier"
+    },
+    "template": {
+      "type": "string",
+      "required": false,
+      "description": "Built-in template name (e.g. feature)"
+    },
+    "file": {
+      "type": "string",
+      "required": false,
+      "description": "Custom YAML template file path"
+    },
+    "step": {
+      "type": "string",
+      "required": false,
+      "description": "Step name to update"
+    },
+    "reason": {
+      "type": "string",
+      "required": false,
+      "description": "Reason for skipping a step"
+    },
+    "note": {
+      "type": "string",
+      "required": false,
+      "description": "Note to attach to a step"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["workflow_name", "steps", "progress_percent", "status", "notes"]
+  },
+  "examples": [
+    {
+      "intent": "從模板建立功能開發工作流程",
+      "invocation": "flow-tracker start --template feature -n shopping-cart"
+    },
+    {
+      "intent": "完成工作流程中的開發步驟",
+      "invocation": "flow-tracker done shopping-cart --step development"
+    },
+    {
+      "intent": "查看看板總覽",
+      "invocation": "flow-tracker board"
+    }
+  ],
+  "error_codes": {
+    "1": "Workflow not found",
+    "2": "Step not found in workflow",
+    "3": "Template file not found or invalid YAML"
+  },
+  "tags": ["workflow", "project-management", "productivity", "kanban", "tracker"]
+}

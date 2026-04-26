@@ -1,0 +1,72 @@
+{
+  "name": "lint-guard",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Auto-detect project linter and run lint with auto-fix on agent-generated code.",
+  "intent_triggers": [
+    "自動修復 lint 錯誤",
+    "對程式碼執行 lint 檢查",
+    "幫我跑 ESLint 並自動修復",
+    "檢查 Agent 產出的程式碼品質",
+    "偵測專案使用的 linter",
+    "auto-fix lint errors",
+    "run linter on generated code",
+    "check code quality with ruff",
+    "detect project linter configuration",
+    "對修改過的檔案跑 lint fix"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: fix, check, detect, setup",
+      "default": "fix"
+    },
+    "target": {
+      "type": "string",
+      "required": false,
+      "description": "Target file or directory to lint"
+    },
+    "linter": {
+      "type": "enum",
+      "required": false,
+      "description": "Linter to use: ruff, eslint, pylint, biome"
+    },
+    "changed": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Only lint files changed in git diff"
+    },
+    "suggest": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show fix suggestions in check mode"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output report file path"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["fixed_count", "remaining_issues", "report_file"]
+  },
+  "examples": [
+    {
+      "intent": "對 src 目錄自動執行 lint 修復",
+      "invocation": "lint-guard fix src/"
+    },
+    {
+      "intent": "僅檢查 Git  diff 中修改的檔案",
+      "invocation": "lint-guard fix --changed"
+    }
+  ],
+  "error_codes": {
+    "1": "No linter detected in project",
+    "2": "Target file or directory not found"
+  },
+  "tags": ["lint", "code-quality", "auto-fix", "eslint", "ruff"]
+}

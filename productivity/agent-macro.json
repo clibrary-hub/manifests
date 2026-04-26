@@ -1,0 +1,91 @@
+{
+  "name": "agent-macro",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Record and replay sequences of agent commands as reusable macros with variables.",
+  "intent_triggers": [
+    "錄製一組常用指令",
+    "幫我建立一個部署巨集",
+    "執行剛剛錄好的 macro",
+    "把這五個步驟存成可以重複跑的流程",
+    "預覽這個巨集會做什麼",
+    "record a macro for daily deployment",
+    "run the lint-and-test macro",
+    "create a reusable command sequence",
+    "how do I replay yesterday's steps",
+    "幫我匯出這個 macro 成 YAML 檔"
+  ],
+  "input_schema": {
+    "action": {
+      "type": "enum",
+      "required": true,
+      "description": "Action: record, create, from-history, run, list, edit, delete, export, import",
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "required": false,
+      "description": "Macro name",
+      "default": null
+    },
+    "steps": {
+      "type": "string",
+      "required": false,
+      "description": "Path to YAML steps file",
+      "default": null
+    },
+    "last": {
+      "type": "integer",
+      "required": false,
+      "description": "Number of recent commands to include from history",
+      "default": null
+    },
+    "var": {
+      "type": "array",
+      "required": false,
+      "description": "Variable assignments in key=value format",
+      "default": null
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "description": "Preview macro without executing",
+      "default": false
+    },
+    "step_by_step": {
+      "type": "boolean",
+      "required": false,
+      "description": "Pause for confirmation at each step",
+      "default": false
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output path for export",
+      "default": null
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["macro_name", "steps_executed", "status", "output"]
+  },
+  "examples": [
+    {
+      "intent": "錄製一個每日部署巨集",
+      "invocation": "agent-macro record --name \"每日部署\""
+    },
+    {
+      "intent": "執行巨集並帶變數",
+      "invocation": "agent-macro run \"部署\" --var env=staging --var branch=main"
+    },
+    {
+      "intent": "Preview macro execution",
+      "invocation": "agent-macro run \"每日部署\" --dry-run"
+    }
+  ],
+  "error_codes": {
+    "1": "Macro not found",
+    "2": "Step execution failed"
+  },
+  "tags": ["macro", "automation", "workflow", "recording", "productivity"]
+}

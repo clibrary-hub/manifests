@@ -1,0 +1,90 @@
+{
+  "name": "sandbox-run",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Execute commands in a restricted sandbox with filesystem, network, and resource limits, plus risk assessment before running.",
+  "intent_triggers": [
+    "在沙箱裡執行這個指令",
+    "幫我評估這條命令有沒有風險",
+    "限制網路和檔案存取來跑這個腳本",
+    "我要安全地測試這個安裝命令",
+    "把 rm -rf 加到黑名單",
+    "run this command in a sandbox",
+    "assess the risk of this command",
+    "execute with restricted filesystem access",
+    "block dangerous commands like curl pipe bash",
+    "幫我設定沙箱的預設政策為 strict"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: exec, assess, assess-file, config, whitelist, blacklist"
+    },
+    "cmd": {
+      "type": "string",
+      "required": false,
+      "description": "Command string to execute or assess (exec/assess)"
+    },
+    "allow_path": {
+      "type": "array",
+      "required": false,
+      "description": "Allowed filesystem paths (exec)"
+    },
+    "no_network": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disable network access (exec)"
+    },
+    "max_time": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum execution time in seconds (exec)"
+    },
+    "max_memory": {
+      "type": "string",
+      "required": false,
+      "description": "Maximum memory limit (e.g., 1G) (exec)"
+    },
+    "file": {
+      "type": "string",
+      "required": false,
+      "description": "File path containing commands to assess (assess-file)"
+    },
+    "default_policy": {
+      "type": "enum",
+      "required": false,
+      "description": "Default sandbox policy: strict or relaxed (config)"
+    },
+    "entry": {
+      "type": "string",
+      "required": false,
+      "description": "Command pattern to add to whitelist or blacklist"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["risk_level", "execution_time", "exit_code", "file_access", "network_access", "blocked_actions"]
+  },
+  "examples": [
+    {
+      "intent": "在沙箱中執行指令並限制檔案存取",
+      "invocation": "sandbox-run exec \"python script.py\" --allow-path ./src --allow-path ./data --no-network"
+    },
+    {
+      "intent": "Assess command risk without executing",
+      "invocation": "sandbox-run assess \"rm -rf /tmp/old_backups\""
+    },
+    {
+      "intent": "加入黑名單",
+      "invocation": "sandbox-run blacklist add \"rm -rf\""
+    }
+  ],
+  "error_codes": {
+    "1": "Command blocked by blacklist",
+    "2": "Sandbox resource limit exceeded",
+    "3": "Risk assessment detected high danger"
+  },
+  "tags": ["sandbox", "security", "command", "risk-assessment", "devops"]
+}

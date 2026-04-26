@@ -1,0 +1,86 @@
+{
+  "name": "git-fetch-auth",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Securely fetch files or directories from private Git repositories using token or SSH authentication.",
+  "intent_triggers": [
+    "從私有 Git 倉庫抓取檔案",
+    "設定 Git 認證 token",
+    "抓取指定分支的原始碼",
+    "瀏覽遠端倉庫的檔案結構",
+    "搜尋倉庫裡的特定程式碼",
+    "fetch a file from a private repo",
+    "set up Git authentication token",
+    "pull source from a specific branch",
+    "browse the tree of a remote repository",
+    "幫我從 GitHub 私有倉庫抓 main.py 下來"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: fetch, config, tree, search, log",
+      "default": "fetch"
+    },
+    "repo": {
+      "type": "string",
+      "required": true,
+      "description": "Git repository URL"
+    },
+    "file": {
+      "type": "string",
+      "required": false,
+      "description": "Specific file path to fetch"
+    },
+    "path": {
+      "type": "string",
+      "required": false,
+      "description": "Directory path to fetch"
+    },
+    "branch": {
+      "type": "string",
+      "required": false,
+      "description": "Target branch name"
+    },
+    "ref": {
+      "type": "string",
+      "required": false,
+      "description": "Specific commit hash or tag"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path"
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "default": "raw",
+      "description": "Output format: raw or markdown"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["files", "sizes", "output_path", "branch"]
+  },
+  "examples": [
+    {
+      "intent": "從私有倉庫抓取指定檔案",
+      "invocation": "git-fetch-auth fetch https://github.com/org/repo.git --file src/main.py"
+    },
+    {
+      "intent": "抓取指定分支的目錄內容",
+      "invocation": "git-fetch-auth fetch https://github.com/org/repo.git --path src/models/ --branch develop"
+    },
+    {
+      "intent": "瀏覽倉庫檔案結構",
+      "invocation": "git-fetch-auth tree https://github.com/org/repo.git"
+    }
+  ],
+  "error_codes": {
+    "1": "Authentication failed or missing credentials",
+    "2": "Repository not found or inaccessible",
+    "3": "File or path not found in repository"
+  },
+  "tags": ["git", "repository", "authentication", "devops", "fetch", "private-repo"]
+}

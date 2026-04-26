@@ -1,0 +1,79 @@
+{
+  "name": "report-naming",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Validate, generate, and check report filenames against a unified naming convention ({PROJECT}_{TYPE}_{DATE}.{EXT}).",
+  "intent_triggers": [
+    "幫我檢查這個檔案命名是否符合規範",
+    "生成一份報告的標準檔名",
+    "列出所有可用的報告類型碼",
+    "檢查這個目錄下有哪些檔案命名錯了",
+    "顯示報告命名的完整規則",
+    "validate this report filename",
+    "generate a standard report name",
+    "list all report type codes",
+    "check filenames in this directory",
+    "幫我產出 MEDIA_FETCH 專案的完整命名範例"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: validate, generate, list-types, rules, example, check-dir"
+    },
+    "filename": {
+      "type": "string",
+      "required": false,
+      "description": "Filename to validate (validate)"
+    },
+    "project": {
+      "type": "string",
+      "required": false,
+      "description": "Project name in uppercase (generate/example)"
+    },
+    "type": {
+      "type": "enum",
+      "required": false,
+      "description": "Type code: REPORT, GUIDE, WORK, SLIDES, PPT, SOURCE, ARCHIVE (generate)"
+    },
+    "date": {
+      "type": "string",
+      "required": false,
+      "description": "Date in YYYYMMDD (generate/example)"
+    },
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "File extension: md, html, pptx (generate)"
+    },
+    "directory": {
+      "type": "string",
+      "required": false,
+      "description": "Directory path to check (check-dir)"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["validation_result", "errors", "suggested_filename", "suggested_path", "valid_files", "invalid_files"]
+  },
+  "examples": [
+    {
+      "intent": "驗證單一檔案命名是否符合規範",
+      "invocation": "report-naming validate \"CLI_TOOLS_REPORT_20260423.md\""
+    },
+    {
+      "intent": "Generate a standard report filename",
+      "invocation": "report-naming generate CLI_TOOLS REPORT 20260423 md"
+    },
+    {
+      "intent": "檢查目錄下所有檔案的命名",
+      "invocation": "report-naming check-dir workspace/reports/"
+    }
+  ],
+  "error_codes": {
+    "1": "Filename does not follow naming convention",
+    "2": "Unknown type code or invalid date format",
+    "3": "Directory not found"
+  },
+  "tags": ["naming-convention", "report", "filename", "validation", "productivity"]
+}

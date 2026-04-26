@@ -1,0 +1,100 @@
+{
+  "name": "format-fix",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Detect and fix JSON, YAML, and TOML formatting errors such as trailing commas, missing quotes, and unmatched braces.",
+  "intent_triggers": [
+    "修復壞掉的 JSON 格式",
+    "檢查 YAML 有沒有語法錯誤",
+    "幫我美化這個 config 檔",
+    "把 JSON 轉成 YAML",
+    "批次檢查設定檔格式",
+    "fix broken JSON formatting",
+    "check YAML syntax errors",
+    "prettify my config file",
+    "convert JSON to TOML",
+    "幫我跑 format-fix 檢查整個 configs 目錄"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: fix, check, convert, prettify, minify",
+      "default": "fix"
+    },
+    "file": {
+      "type": "string",
+      "required": true,
+      "description": "Input file or directory path"
+    },
+    "clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Read input from clipboard"
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "description": "Input format when using clipboard: json, yaml, toml"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path"
+    },
+    "to": {
+      "type": "enum",
+      "required": false,
+      "description": "Target format for conversion: json, yaml, toml"
+    },
+    "indent": {
+      "type": "integer",
+      "required": false,
+      "default": 2,
+      "description": "Indentation spaces for prettify"
+    },
+    "sort_keys": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Sort keys alphabetically"
+    },
+    "recursive": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Recursively check directory"
+    },
+    "detail": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show detailed error report"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["fixed_content", "error_count", "error_details", "output_path"]
+  },
+  "examples": [
+    {
+      "intent": "修復單一 JSON 檔案的格式錯誤",
+      "invocation": "format-fix fix broken.json -o fixed.json"
+    },
+    {
+      "intent": "批次檢查目錄中的所有設定檔",
+      "invocation": "format-fix check ./configs/ --recursive"
+    },
+    {
+      "intent": "將 JSON 轉換為 YAML",
+      "invocation": "format-fix convert data.json --to yaml"
+    }
+  ],
+  "error_codes": {
+    "1": "Input file not found",
+    "2": "Format cannot be auto-detected",
+    "3": "Unable to fix unrecoverable syntax error"
+  },
+  "tags": ["json", "yaml", "toml", "formatter", "lint", "devops", "config"]
+}

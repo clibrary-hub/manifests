@@ -1,0 +1,86 @@
+{
+  "name": "refactor-verify",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Verify refactoring equivalence by auto-generating test cases, fuzzing with Hypothesis, and comparing outputs between old and new code.",
+  "intent_triggers": [
+    "幫我驗證重構後的程式碼是否等價",
+    "這段重構有沒有改壞東西",
+    "對這兩個版本的函式做模糊測試",
+    "幫我生成行為快照並驗證",
+    "比較舊版和新版的輸出是否一致",
+    "verify my refactoring didn't break anything",
+    "compare two functions for behavioral equivalence",
+    "run fuzz tests on refactored code",
+    "generate a snapshot before refactoring",
+    "幫我檢查這個重構在邊界值上表現是否相同"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: compare, fuzz, test, snapshot, verify, report"
+    },
+    "old_file": {
+      "type": "string",
+      "required": false,
+      "description": "Path to the original code file"
+    },
+    "new_file": {
+      "type": "string",
+      "required": false,
+      "description": "Path to the refactored code file"
+    },
+    "function": {
+      "type": "string",
+      "required": false,
+      "description": "Target function name to compare"
+    },
+    "rounds": {
+      "type": "integer",
+      "required": false,
+      "default": 100,
+      "description": "Number of fuzz test rounds"
+    },
+    "test_file": {
+      "type": "string",
+      "required": false,
+      "description": "Existing test file path to run"
+    },
+    "functions": {
+      "type": "string",
+      "required": false,
+      "description": "Functions to snapshot: 'all' or comma-separated names"
+    },
+    "snapshot": {
+      "type": "string",
+      "required": false,
+      "description": "Snapshot file path for verify command"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Report output file path"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["equivalent_count", "diff_count", "error_count", "diff_details", "test_cases"]
+  },
+  "examples": [
+    {
+      "intent": "比較兩個版本的函式是否等價",
+      "invocation": "refactor-verify compare old_module.py new_module.py --function process_data"
+    },
+    {
+      "intent": "Fuzz test refactored code with 1000 rounds",
+      "invocation": "refactor-verify fuzz old_module.py new_module.py --function calculate --rounds 1000"
+    }
+  ],
+  "error_codes": {
+    "1": "Function not found in source file",
+    "2": "Behavioral differences detected",
+    "3": "Hypothesis or dependency missing"
+  },
+  "tags": ["refactoring", "testing", "hypothesis", "fuzzing", "equivalence"]
+}

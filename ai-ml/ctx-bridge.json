@@ -1,0 +1,81 @@
+{
+  "name": "ctx-bridge",
+  "version": "1.0.0",
+  "category": "ai-ml",
+  "description": "Extract, compress, and convert conversation context between agents so discussions can continue across different platforms.",
+  "intent_triggers": [
+    "把這個對話上下文轉給另一個 Agent",
+    "幫我壓縮上下文到 4000 tokens",
+    "從 Claude 格式轉換成 Gemini 格式",
+    "提取關鍵決策摘要",
+    "匯出對話紀錄的上下文",
+    "export context for another agent",
+    "compress conversation history to fit token limit",
+    "convert Claude context to system prompt format",
+    "bridge context between different AI platforms",
+    "summarize key decisions from the chat",
+    "transfer project context across agents",
+    "幫我把這份對話壓縮後餵給新 Agent"
+  ],
+  "input_schema": {
+    "source": {
+      "type": "string",
+      "required": true,
+      "description": "Conversation file path"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path"
+    },
+    "compression": {
+      "type": "enum",
+      "required": false,
+      "default": "medium",
+      "description": "Compression level: low, medium, high"
+    },
+    "focus": {
+      "type": "string",
+      "required": false,
+      "description": "Focus areas: decisions, code, etc."
+    },
+    "from": {
+      "type": "enum",
+      "required": false,
+      "description": "Source agent format: claude, gemini, etc."
+    },
+    "to": {
+      "type": "enum",
+      "required": false,
+      "description": "Target agent format: claude, gemini, system-prompt, etc."
+    },
+    "max_tokens": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum tokens for compressed output"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["compressed_context", "format", "token_count", "key_decisions"]
+  },
+  "examples": [
+    {
+      "intent": "將對話上下文匯出為 Markdown",
+      "invocation": "ctx-bridge export conversation.json -o context.md"
+    },
+    {
+      "intent": "從 Claude 格式轉換為 Gemini 格式",
+      "invocation": "ctx-bridge convert context.md --from claude --to gemini"
+    },
+    {
+      "intent": "壓縮上下文到 4000 tokens",
+      "invocation": "ctx-bridge compress context.md --max-tokens 4000"
+    }
+  ],
+  "error_codes": {
+    "1": "Source conversation file not found",
+    "2": "Unsupported agent format"
+  },
+  "tags": ["context", "bridge", "convert", "compress", "ai-ml"]
+}

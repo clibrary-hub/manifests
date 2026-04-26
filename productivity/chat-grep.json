@@ -1,0 +1,82 @@
+{
+  "name": "chat-grep",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Search local conversation histories with full-text and semantic search to quickly locate past discussions.",
+  "intent_triggers": [
+    "搜尋之前的對話紀錄",
+    "幫我找上週討論過的 Redis 快取",
+    "查一下歷史對話裡的 API 設計",
+    "跑個全文搜尋在聊天記錄上",
+    "我想定位過去的討論內容",
+    "search through my chat history",
+    "find past conversations about authentication",
+    "grep my dialogue logs for errors",
+    "run a full-text search on exported chats",
+    "look up previous discussions in local logs",
+    "幫我grep一下對話紀錄",
+    "搜尋聊天記錄裡的登入相關內容"
+  ],
+  "input_schema": {
+    "query": {
+      "type": "string",
+      "required": true,
+      "description": "Search keyword or pattern"
+    },
+    "role": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by role: user or assistant"
+    },
+    "since": {
+      "type": "string",
+      "required": false,
+      "description": "Start date (YYYY-MM-DD)"
+    },
+    "until": {
+      "type": "string",
+      "required": false,
+      "description": "End date (YYYY-MM-DD)"
+    },
+    "regex": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Use regex search"
+    },
+    "context": {
+      "type": "integer",
+      "required": false,
+      "description": "Number of surrounding messages to show"
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "default": "json",
+      "description": "Import format: json, markdown, or text"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["matches", "conversation_id", "date", "role", "message"]
+  },
+  "examples": [
+    {
+      "intent": "查找之前關於 Redis 快取的討論",
+      "invocation": "chat-grep search \"Redis 快取\""
+    },
+    {
+      "intent": "搜尋對話紀錄中 assistant 提到的 API 設計",
+      "invocation": "chat-grep search \"API 設計\" --role assistant"
+    },
+    {
+      "intent": "用正則搜尋 handler 函式定義",
+      "invocation": "chat-grep search \"def \\w+_handler\" --regex"
+    }
+  ],
+  "error_codes": {
+    "1": "No conversation database found",
+    "2": "Invalid date format"
+  },
+  "tags": ["chat", "search", "history", "grep", "sqlite"]
+}

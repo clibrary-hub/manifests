@@ -1,0 +1,77 @@
+{
+  "name": "diff-review",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Save file versions, compare them with colored diff or side-by-side view, and roll back to any version.",
+  "intent_triggers": [
+    "幫我比較兩個版本的差異",
+    "儲存目前的檔案版本",
+    "看一下這個檔案改了什麼",
+    "回滾到之前的版本",
+    "幫我做 diff 比對",
+    "save this file version for comparison",
+    "compare two versions side by side",
+    "show me the diff between versions",
+    "roll back to a previous version",
+    "list all saved versions of a file"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: save, compare, list, stats, restore",
+      "default": "save"
+    },
+    "file": {
+      "type": "string",
+      "required": true,
+      "description": "Target file path"
+    },
+    "tag": {
+      "type": "string",
+      "required": false,
+      "description": "Version tag name"
+    },
+    "note": {
+      "type": "string",
+      "required": false,
+      "description": "Optional note for the saved version"
+    },
+    "side_by_side": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show side-by-side diff"
+    },
+    "current": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Compare current file with last saved version"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["version_history", "diff_lines", "stats", "status"]
+  },
+  "examples": [
+    {
+      "intent": "儲存當前檔案為一個版本",
+      "invocation": "diff-review save src/main.py --tag v1-baseline"
+    },
+    {
+      "intent": "比較兩個版本的差異",
+      "invocation": "diff-review compare src/main.py v1-baseline v2-cached"
+    },
+    {
+      "intent": "回滾到指定版本",
+      "invocation": "diff-review restore src/main.py v1-baseline"
+    }
+  ],
+  "error_codes": {
+    "1": "File not found",
+    "2": "Version tag not found",
+    "3": "No versions exist for the file"
+  },
+  "tags": ["diff", "version-control", "review", "rollback", "devops"]
+}

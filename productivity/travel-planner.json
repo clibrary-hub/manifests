@@ -1,0 +1,73 @@
+{
+  "name": "travel-planner",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Generate travel itineraries from origin, destination, and days with weather forecast and attraction suggestions.",
+  "intent_triggers": [
+    "幫我規劃去台南的行程",
+    "排一個三天兩夜的旅遊計畫",
+    "推薦台北的美食景點",
+    "查一下花蓮的天氣並排行程",
+    "規劃親子旅遊路線",
+    "plan a 3-day trip to Taipei",
+    "generate a travel itinerary for me",
+    "suggest attractions in Tainan",
+    "create a food tour plan",
+    "幫我排一個台北到台中的两天行程"
+  ],
+  "input_schema": {
+    "destination": {
+      "type": "string",
+      "required": true,
+      "description": "Destination city"
+    },
+    "origin": {
+      "type": "string",
+      "required": false,
+      "default": "台北",
+      "description": "Origin city"
+    },
+    "days": {
+      "type": "integer",
+      "required": false,
+      "default": 2,
+      "description": "Number of travel days"
+    },
+    "style": {
+      "type": "enum",
+      "required": false,
+      "default": "food",
+      "description": "Trip style: food, sight, nature, or Chinese equivalents"
+    },
+    "date": {
+      "type": "string",
+      "required": false,
+      "description": "Start date in YYYY-MM-DD format"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "markdown",
+      "description": "Output format: markdown, json, or table"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["origin", "destination", "days", "start", "schedule", "weather", "activities"]
+  },
+  "examples": [
+    {
+      "intent": "規劃去台南的美食三天行程",
+      "invocation": "travel-planner plan 台南 --days 3 --style food"
+    },
+    {
+      "intent": "產出台北景點的 JSON 行程",
+      "invocation": "travel-planner plan 台北 --days 2 --style sight --output json --date 2026-05-01"
+    }
+  ],
+  "error_codes": {
+    "1": "Destination not supported",
+    "2": "Invalid date format"
+  },
+  "tags": ["travel", "itinerary", "weather", "taiwan", "planning"]
+}

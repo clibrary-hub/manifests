@@ -1,0 +1,66 @@
+{
+  "name": "style-snap",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Analyze project code to extract naming conventions, formatting style, and import patterns, then generate an Agent-ready style guide.",
+  "intent_triggers": [
+    "分析這個專案的程式碼風格",
+    "生成一份風格指南給 Agent 用",
+    "檢查這個檔案是否符合專案風格",
+    "看一下團隊的命名慣例是什麼",
+    "幫我抓出程式碼風格不一致的地方",
+    "analyze the coding style of this project",
+    "generate a style guide for my team",
+    "check if this file follows project conventions",
+    "extract naming conventions from the codebase",
+    "幫我產出這個 repo 的 coding style guide"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: analyze or check",
+      "default": "analyze"
+    },
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Project directory or file path to analyze"
+    },
+    "lang": {
+      "type": "string",
+      "required": false,
+      "description": "Programming language to analyze (e.g., python, javascript)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for the style guide"
+    },
+    "report": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Generate deviation report (check command)"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["style_guide", "naming_conventions", "formatting_rules", "deviations"]
+  },
+  "examples": [
+    {
+      "intent": "分析專案程式碼風格並生成指南",
+      "invocation": "style-snap analyze src/ --lang python -o style_guide.md"
+    },
+    {
+      "intent": "檢查檔案是否符合專案風格",
+      "invocation": "style-snap check agent_output.py --report"
+    }
+  ],
+  "error_codes": {
+    "1": "Target path does not exist",
+    "2": "Unsupported language"
+  },
+  "tags": ["style", "lint", "convention", "code-quality", "guide"]
+}

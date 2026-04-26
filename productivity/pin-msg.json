@@ -1,0 +1,81 @@
+{
+  "name": "pin-msg",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Pin and manage critical messages from conversations, auto-injecting them as reminders in new agent sessions.",
+  "intent_triggers": [
+    "釘選這則重要訊息",
+    "幫我記住這個程式碼規範",
+    "列出所有釘選的提醒",
+    "生成對話開頭的提示前言",
+    "取消釘選第 3 則訊息",
+    "pin this important message",
+    "generate a preamble from pinned items",
+    "list all pinned constraints",
+    "manage conversation reminders",
+    "把這條 rule pin 起來並設為 high priority"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: pin, import, list, generate-preamble, unpin",
+      "default": "pin"
+    },
+    "message": {
+      "type": "string",
+      "required": false,
+      "description": "Message content to pin"
+    },
+    "category": {
+      "type": "string",
+      "required": false,
+      "description": "Category label for the pinned message"
+    },
+    "priority": {
+      "type": "enum",
+      "required": false,
+      "description": "Priority level: high, medium, low"
+    },
+    "project": {
+      "type": "string",
+      "required": false,
+      "description": "Project name for project-scoped pins"
+    },
+    "clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Copy generated preamble to clipboard"
+    },
+    "file": {
+      "type": "string",
+      "required": false,
+      "description": "File to import pinned messages from"
+    },
+    "id": {
+      "type": "integer",
+      "required": false,
+      "description": "Pin ID to unpin"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["preamble", "pinned_list", "project"]
+  },
+  "examples": [
+    {
+      "intent": "釘選一則高優先級的程式碼規範",
+      "invocation": "pin-msg pin \"所有 API endpoint 必須加上 rate limiting\" --priority high --category \"程式碼規範\""
+    },
+    {
+      "intent": "生成提示前言並複製到剪貼簿",
+      "invocation": "pin-msg generate-preamble --clipboard"
+    }
+  ],
+  "error_codes": {
+    "1": "Pin ID not found",
+    "2": "Import file not found"
+  },
+  "tags": ["pin", "reminder", "conversation", "agent-context"]
+}

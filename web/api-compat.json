@@ -1,0 +1,79 @@
+{
+  "name": "api-compat",
+  "version": "1.0.0",
+  "category": "web",
+  "description": "Detect breaking API changes between versions and find all affected call sites with migration guides.",
+  "intent_triggers": [
+    "檢查這次修改有沒有 breaking change",
+    "比較兩個版本的 API 差異",
+    "找出所有受影響的呼叫端",
+    "生成遷移指南文件",
+    "掃描整個專案的相容性問題",
+    "check for breaking API changes",
+    "compare API snapshots before and after",
+    "find all affected call sites",
+    "generate a migration guide",
+    "幫我分析 HEAD~1 到 HEAD 的介面變更"
+  ],
+  "input_schema": {
+    "action": {
+      "type": "enum",
+      "required": true,
+      "description": "Action: check, impact, migration-guide",
+      "default": null
+    },
+    "before": {
+      "type": "string",
+      "required": false,
+      "description": "Path to previous API module file",
+      "default": null
+    },
+    "after": {
+      "type": "string",
+      "required": false,
+      "description": "Path to new API module file",
+      "default": null
+    },
+    "ref": {
+      "type": "string",
+      "required": false,
+      "description": "Git reference to compare (e.g., HEAD~1)",
+      "default": null
+    },
+    "all": {
+      "type": "boolean",
+      "required": false,
+      "description": "Scan entire project for breaking changes",
+      "default": false
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for migration guide",
+      "default": null
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["breaking_changes", "affected_call_sites", "severity", "migration_guide"]
+  },
+  "examples": [
+    {
+      "intent": "比較修改前後的介面",
+      "invocation": "api-compat check --before old_module.py --after new_module.py"
+    },
+    {
+      "intent": "列出受影響的呼叫端",
+      "invocation": "api-compat impact src/models/user.py"
+    },
+    {
+      "intent": "Generate migration guide from Git diff",
+      "invocation": "api-compat migration-guide --ref HEAD~1 -o migration.md"
+    }
+  ],
+  "error_codes": {
+    "1": "AST parsing failed",
+    "2": "No API changes detected"
+  },
+  "tags": ["api", "compatibility", "breaking-change", "migration", "web"]
+}

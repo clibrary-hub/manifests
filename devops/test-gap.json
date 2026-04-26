@@ -1,0 +1,78 @@
+{
+  "name": "test-gap",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Analyze coverage reports to find untested functions and branches, then generate test skeleton recommendations.",
+  "intent_triggers": [
+    "分析測試覆蓋率缺口",
+    "找出哪些函式還沒被測到",
+    "幫我生成測試骨架",
+    "檢查 Agent 修改的檔案測試夠不夠",
+    "找出風險最高的未測函式",
+    "analyze my test coverage gaps",
+    "find untested functions in my code",
+    "generate test skeletons for missing coverage",
+    "which functions have zero coverage",
+    "幫我跑測試並分析 coverage report"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: analyze, run, suggest, summary, risky",
+      "default": "analyze"
+    },
+    "path": {
+      "type": "string",
+      "required": false,
+      "description": "Coverage report file or source path"
+    },
+    "changed": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Only analyze files modified by the Agent"
+    },
+    "cmd": {
+      "type": "string",
+      "required": false,
+      "description": "Test command to run before analysis (run command)"
+    },
+    "framework": {
+      "type": "enum",
+      "required": false,
+      "default": "pytest",
+      "description": "Test framework: pytest, unittest, jest"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for generated tests"
+    },
+    "top": {
+      "type": "integer",
+      "required": false,
+      "default": 10,
+      "description": "Number of top risky functions to show (risky command)"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["function", "file", "coverage_percent", "risk_score", "test_skeleton"]
+  },
+  "examples": [
+    {
+      "intent": "分析覆蓋率報告找出缺口",
+      "invocation": "test-gap analyze coverage.xml"
+    },
+    {
+      "intent": "為未測函式生成測試骨架",
+      "invocation": "test-gap suggest src/models/user.py --framework pytest -o tests/test_user.py"
+    }
+  ],
+  "error_codes": {
+    "1": "Coverage report not found",
+    "2": "No untested functions detected"
+  },
+  "tags": ["testing", "coverage", "pytest", "quality", "ci"]
+}

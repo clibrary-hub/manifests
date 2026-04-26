@@ -1,0 +1,80 @@
+{
+  "name": "decision-log",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Record and track technical decisions from agent conversations with reasons, categories, and lifecycle management.",
+  "intent_triggers": [
+    "記錄這次選用 Zustand 的決策",
+    "幫我查詢之前的技術決策",
+    "列出所有架構相關的決策",
+    "從對話紀錄自動提取決策",
+    "標記這個決策已經過期",
+    "record the decision to use PostgreSQL",
+    "search past technical decisions by keyword",
+    "export decisions as markdown for the agent",
+    "list all architecture decisions",
+    "deprecate an outdated decision with reason",
+    "extract decisions from conversation.json",
+    "幫我追蹤專案的技術決策歷史"
+  ],
+  "input_schema": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Decision title or summary"
+    },
+    "reason": {
+      "type": "string",
+      "required": false,
+      "description": "Reason for the decision"
+    },
+    "category": {
+      "type": "string",
+      "required": false,
+      "description": "Decision category (e.g., 架構, 套件選擇)"
+    },
+    "source": {
+      "type": "string",
+      "required": false,
+      "description": "Conversation file path for auto-extraction"
+    },
+    "keyword": {
+      "type": "string",
+      "required": false,
+      "description": "Search keyword"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for export"
+    },
+    "id": {
+      "type": "integer",
+      "required": false,
+      "description": "Decision ID to deprecate"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["decisions", "category", "status", "timestamp", "reason"]
+  },
+  "examples": [
+    {
+      "intent": "手動記錄一個技術決策",
+      "invocation": "decision-log add \"使用 Zustand 而非 Redux\" --reason \"專案規模小，Redux 太重\""
+    },
+    {
+      "intent": "從對話紀錄自動提取決策",
+      "invocation": "decision-log extract conversation.json"
+    },
+    {
+      "intent": "依關鍵字搜尋決策",
+      "invocation": "decision-log search \"資料庫\""
+    }
+  ],
+  "error_codes": {
+    "1": "Decision database not initialized",
+    "2": "Decision ID not found"
+  },
+  "tags": ["decision", "log", "tracking", "context", "productivity"]
+}

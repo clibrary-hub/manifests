@@ -1,0 +1,83 @@
+{
+  "name": "code-extract",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Automatically extract code blocks from agent conversation logs, classify by language, and save them as individual files.",
+  "intent_triggers": [
+    "從對話紀錄提取所有程式碼",
+    "幫我把 Agent 對話裡的程式碼存成檔案",
+    "自動偵測 code fence 語言並分類",
+    "組裝分散的程式碼片段成完整檔案",
+    "從剪貼簿提取程式碼",
+    "extract code snippets from the chat log",
+    "save all fenced code blocks to files",
+    "auto-detect language and name the extracted files",
+    "assemble scattered code pieces into a project",
+    "pull code from clipboard into snippets folder",
+    "generate individual files from markdown code blocks",
+    "幫我處理這份對話紀錄裡的程式碼"
+  ],
+  "input_schema": {
+    "source": {
+      "type": "string",
+      "required": true,
+      "description": "Conversation file path or clipboard indicator"
+    },
+    "output": {
+      "type": "string",
+      "required": true,
+      "description": "Output directory for extracted files"
+    },
+    "lang": {
+      "type": "array",
+      "required": false,
+      "description": "Filter by language(s) to extract"
+    },
+    "auto_name": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Auto infer file names from code content"
+    },
+    "prefix": {
+      "type": "string",
+      "required": false,
+      "description": "File name prefix for extracted snippets"
+    },
+    "clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Read from clipboard instead of file"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview assembly result without writing"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["extracted_files", "language", "line_count", "output_dir"]
+  },
+  "examples": [
+    {
+      "intent": "從對話檔提取所有程式碼到 snippets 目錄",
+      "invocation": "code-extract extract conversation.md -o ./snippets/"
+    },
+    {
+      "intent": "僅提取 Python 與 TypeScript 程式碼",
+      "invocation": "code-extract extract conversation.md --lang python --lang typescript -o ./snippets/"
+    },
+    {
+      "intent": "將分散片段組裝成完整專案",
+      "invocation": "code-extract assemble conversation.md -o ./project/"
+    }
+  ],
+  "error_codes": {
+    "1": "Source file not found",
+    "2": "No code blocks detected"
+  },
+  "tags": ["extract", "code", "conversation", "snippet", "devops"]
+}

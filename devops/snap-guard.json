@@ -1,0 +1,66 @@
+{
+  "name": "snap-guard",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Create pre-edit snapshots of working directories, with one-click diff or rollback to protect uncommitted changes.",
+  "intent_triggers": [
+    "幫我建立一個程式碼快照",
+    "備份一下現在的工作目錄",
+    "我想回滾到之前的快照",
+    "比較快照和現在的差異",
+    "自動監控並在修改前備份",
+    "take a snapshot before editing",
+    "rollback to a previous snapshot",
+    "diff current code against a snapshot",
+    "auto-backup when agent starts editing",
+    "清理過期的快照只保留最近 5 個"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: snap, list, show, diff, restore, clean, auto-watch, guard",
+      "default": "snap"
+    },
+    "paths": {
+      "type": "array",
+      "required": false,
+      "description": "File paths to snapshot (snap command)"
+    },
+    "tag": {
+      "type": "string",
+      "required": false,
+      "description": "Tag label for the snapshot"
+    },
+    "keep": {
+      "type": "integer",
+      "required": false,
+      "default": 5,
+      "description": "Number of recent snapshots to keep (clean command)"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "required": false,
+      "description": "Snapshot ID for show/diff/restore commands"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["snapshot_id", "tag", "file_count", "size", "diff"]
+  },
+  "examples": [
+    {
+      "intent": "在 Agent 修改前建立快照",
+      "invocation": "snap-guard snap --tag \"Agent 修改前\""
+    },
+    {
+      "intent": "回滾到之前的快照",
+      "invocation": "snap-guard restore snap-20260424-140000"
+    }
+  ],
+  "error_codes": {
+    "1": "Snapshot ID not found",
+    "2": "Target path does not exist"
+  },
+  "tags": ["snapshot", "backup", "rollback", "diff", "guard"]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "zip",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Compress files and directories into ZIP archives with optional password protection and exclusion patterns.",
+  "intent_triggers": [
+    "把這個目錄壓縮成 zip",
+    "幫我打包這些檔案",
+    "建立一個加密的壓縮檔",
+    "把專案打包排除 node_modules",
+    "解壓縮這個 zip 檔案",
+    "compress this folder into a zip",
+    "create a password-protected archive",
+    "zip these files excluding logs",
+    "pack the project for distribution",
+    "幫我把 dist 目錄壓成 zip 並加密"
+  ],
+  "input_schema": {
+    "input": {
+      "type": "string",
+      "required": true,
+      "description": "File or directory path to compress"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output ZIP archive path"
+    },
+    "level": {
+      "type": "integer",
+      "required": false,
+      "default": 6,
+      "description": "Compression level 0-9"
+    },
+    "password": {
+      "type": "string",
+      "required": false,
+      "description": "Password for encrypted archive"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Patterns to exclude from archive"
+    },
+    "command": {
+      "type": "enum",
+      "required": false,
+      "default": "compress",
+      "description": "Operation: compress or extract"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["archive_path", "file_count", "total_size", "compression_ratio"]
+  },
+  "examples": [
+    {
+      "intent": "壓縮目錄成 zip 檔",
+      "invocation": "zip compress ./project/ -o project.zip --exclude node_modules,*.log"
+    },
+    {
+      "intent": "建立加密壓縮檔",
+      "invocation": "zip compress ./docs/ -o backup.zip --password mysecret"
+    }
+  ],
+  "error_codes": {
+    "1": "Input path does not exist",
+    "2": "Archive creation failed"
+  },
+  "tags": ["zip", "compression", "archive", "packaging", "backup"]
+}

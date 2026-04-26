@@ -1,0 +1,81 @@
+{
+  "name": "schema-brief",
+  "version": "1.0.0",
+  "category": "data",
+  "description": "Extract database schemas or migration files and generate concise structural summaries with ER diagrams in Mermaid format.",
+  "intent_triggers": [
+    "幫我摘要這個資料庫的 schema",
+    "產出這份 schema 的 ER 圖",
+    "把資料庫的表結構整理成精簡文件",
+    "我想知道這些表之間的關聯",
+    "從 Prisma schema 生成結構摘要",
+    "summarize this database schema",
+    "generate an ER diagram from my DB",
+    "extract table structures and relationships",
+    "create a compact schema brief for my postgres DB",
+    "幫我 parse SQL 遷移檔並產出 Mermaid ER 圖"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: connect, parse"
+    },
+    "source": {
+      "type": "string",
+      "required": true,
+      "description": "Database URL (connect) or file/directory path (parse)"
+    },
+    "tables": {
+      "type": "array",
+      "required": false,
+      "description": "Specific table names to include (connect)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for the schema brief"
+    },
+    "er_diagram": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include Mermaid ER diagram"
+    },
+    "sample_data": {
+      "type": "integer",
+      "required": false,
+      "description": "Include N sample rows per table"
+    },
+    "compact": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Compact mode: table names + PK + FK only"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["tables", "columns", "constraints", "foreign_keys", "er_diagram", "sample_data"]
+  },
+  "examples": [
+    {
+      "intent": "連接 PostgreSQL 並生成 schema 摘要",
+      "invocation": "schema-brief connect \"postgresql://user:pass@localhost/mydb\" -o schema.md"
+    },
+    {
+      "intent": "Parse Prisma schema and include ER diagram",
+      "invocation": "schema-brief parse prisma/schema.prisma --er-diagram --compact -o schema.md"
+    },
+    {
+      "intent": "Extract specific tables with sample data",
+      "invocation": "schema-brief connect \"sqlite:///data.db\" --tables users orders --sample-data 3"
+    }
+  ],
+  "error_codes": {
+    "1": "Database connection failed",
+    "2": "Source file or directory not found",
+    "3": "SQLAlchemy or driver not installed"
+  },
+  "tags": ["database", "schema", "sql", "er-diagram", "mermaid", "data"]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "agent-notify",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Wrap commands and send notifications via desktop, LINE, or email on completion or failure.",
+  "intent_triggers": [
+    "跑完這個指令後通知我",
+    "設定 LINE 通知 token",
+    "失敗的時候發桌面通知",
+    "幫我包裝這個測試指令並通知結果",
+    "發一封 Email 通知任務完成",
+    "notify me when the build finishes",
+    "wrap this command and send a notification",
+    "set up LINE notify token",
+    "send me a desktop alert on failure",
+    "用 LINE 通知我長任務跑完了"
+  ],
+  "input_schema": {
+    "action": {
+      "type": "enum",
+      "required": true,
+      "description": "Action: wrap, send, config",
+      "default": null
+    },
+    "command": {
+      "type": "string",
+      "required": false,
+      "description": "Command to wrap and execute",
+      "default": null
+    },
+    "via": {
+      "type": "enum",
+      "required": false,
+      "description": "Notification channel: desktop, line, email",
+      "default": null
+    },
+    "on_fail": {
+      "type": "boolean",
+      "required": false,
+      "description": "Only notify on failure",
+      "default": false
+    },
+    "message": {
+      "type": "string",
+      "required": false,
+      "description": "Manual notification message",
+      "default": null
+    },
+    "attach": {
+      "type": "string",
+      "required": false,
+      "description": "File path to attach to notification",
+      "default": null
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["task_name", "duration", "exit_code", "summary"]
+  },
+  "examples": [
+    {
+      "intent": "包裝 pytest 並在完成時通知",
+      "invocation": "agent-notify wrap -- uv run pytest"
+    },
+    {
+      "intent": "僅在失敗時發送桌面通知",
+      "invocation": "agent-notify wrap --on-fail -- ./deploy.sh"
+    },
+    {
+      "intent": "Send a manual LINE notification",
+      "invocation": "agent-notify send \"部署完成！\" --via line"
+    }
+  ],
+  "error_codes": {
+    "1": "Notification channel not configured",
+    "2": "Wrapped command failed"
+  },
+  "tags": ["notification", "alert", "line", "email", "productivity"]
+}

@@ -1,0 +1,90 @@
+{
+  "name": "watermark-remover",
+  "version": "1.0.0",
+  "category": "media",
+  "description": "Remove watermarks from images using inpainting, blur, or crop methods. Supports single and batch processing.",
+  "intent_triggers": [
+    "幫我去掉圖片上的浮水印",
+    "批次去除目錄裡所有圖片的浮水印",
+    "用修復功能移除圖片角落的標誌",
+    "預覽一下浮水印去除的區域",
+    "裁切掉圖片底部的浮水印",
+    "remove watermark from an image",
+    "batch remove watermarks from photos",
+    "clean up logo from image corner",
+    "preview the watermark removal area",
+    "幫我用 inpaint 處理這張圖的浮水印"
+  ],
+  "input_schema": {
+    "input_path": {
+      "type": "string",
+      "required": true,
+      "description": "Input image path or directory (batch mode)"
+    },
+    "region": {
+      "type": "string",
+      "required": true,
+      "description": "Watermark region: x,y,w,h or preset (top-left, top-right, bottom-left, bottom-right, center)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output path for single image mode"
+    },
+    "output_dir": {
+      "type": "string",
+      "required": false,
+      "description": "Output directory for batch mode"
+    },
+    "method": {
+      "type": "enum",
+      "required": false,
+      "default": "inpaint",
+      "description": "Removal method: inpaint, blur, or crop"
+    },
+    "batch": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Enable batch processing mode"
+    },
+    "format": {
+      "type": "string",
+      "required": false,
+      "default": "jpg,jpeg,png,bmp",
+      "description": "Image formats to process in batch mode, comma-separated"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview mode without modifying images"
+    },
+    "verbose": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Verbose output"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["output_path", "method", "region", "success_count", "fail_count"]
+  },
+  "examples": [
+    {
+      "intent": "去除單張圖片右下角的浮水印",
+      "invocation": "watermark-remover image.jpg --region bottom-right --method inpaint -o clean.jpg"
+    },
+    {
+      "intent": "批次去除目錄中所有圖片的浮水印",
+      "invocation": "watermark-remover ./images/ --batch --region 50,50,100,30 --output-dir ./clean/ --method blur"
+    }
+  ],
+  "error_codes": {
+    "1": "Input path does not exist",
+    "2": "Failed to read image file",
+    "3": "Invalid region format"
+  },
+  "tags": ["image", "watermark", "opencv", "inpaint", "batch-processing"]
+}

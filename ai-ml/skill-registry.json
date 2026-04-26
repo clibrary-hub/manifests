@@ -1,0 +1,56 @@
+{
+  "name": "skill-registry",
+  "version": "1.0.0",
+  "category": "ai-ml",
+  "description": "Auto-scan, categorize, and index all SKILL.md files, then recommend suitable skills based on user needs.",
+  "intent_triggers": [
+    "幫我推薦適合的 skill",
+    "掃描所有 SKILL.md",
+    "更新 skill 註冊表",
+    "列出所有可用的 skill",
+    "根據我的需求找個工具",
+    "recommend a skill for my task",
+    "scan and update the skill registry",
+    "list all available skills",
+    "find the best tool for text processing",
+    "幫我找一個處理圖片的 skill"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: update, recommend, or list",
+      "default": "list"
+    },
+    "text": {
+      "type": "string",
+      "required": false,
+      "description": "Task description for recommendation (recommend command)"
+    },
+    "llm": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Use LLM-assisted recommendation"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["skills", "categories", "recommended", "name", "directory", "description", "tags"]
+  },
+  "examples": [
+    {
+      "intent": "推薦處理圖片的 skill",
+      "invocation": "skill-registry recommend \"去背景並調整大小\""
+    },
+    {
+      "intent": "更新所有 skill 索引",
+      "invocation": "skill-registry update"
+    }
+  ],
+  "error_codes": {
+    "1": "No matching skill found",
+    "2": "Registry directory not accessible"
+  },
+  "tags": ["skill", "registry", "recommendation", "indexing"]
+}

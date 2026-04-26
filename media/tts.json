@@ -1,0 +1,108 @@
+{
+  "name": "tts",
+  "version": "1.0.0",
+  "category": "media",
+  "description": "Chinese text-to-speech synthesizer with four backend auto-fallback: edge-tts, gTTS, MeloTTS, and GPT-SoVITS.",
+  "intent_triggers": [
+    "把這段文字轉成語音",
+    "幫我朗讀這篇文章",
+    "用雲希的聲音念這段話",
+    "把這個 txt 檔轉成 mp3",
+    "用本地模型合成語音",
+    "convert text to speech",
+    "read this article aloud",
+    "synthesize speech from a file",
+    "use edge-tts to generate audio",
+    "幫我用 MeloTTS 生成這段中文語音"
+  ],
+  "input_schema": {
+    "text": {
+      "type": "string",
+      "required": false,
+      "description": "Text to synthesize"
+    },
+    "file": {
+      "type": "string",
+      "required": false,
+      "description": "Path to text file to read"
+    },
+    "voice": {
+      "type": "string",
+      "required": false,
+      "default": "Xiaoxiao",
+      "description": "Voice role for edge-tts (e.g., Xiaoxiao, Yunxi, HsiaoChen)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output audio file path"
+    },
+    "play": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Play audio immediately after synthesis"
+    },
+    "rate": {
+      "type": "string",
+      "required": false,
+      "default": "+0%",
+      "description": "Speech rate adjustment for edge-tts"
+    },
+    "lang": {
+      "type": "string",
+      "required": false,
+      "default": "zh-tw",
+      "description": "gTTS language code"
+    },
+    "melo_lang": {
+      "type": "string",
+      "required": false,
+      "default": "ZH",
+      "description": "MeloTTS language: ZH, EN, JP"
+    },
+    "backend": {
+      "type": "enum",
+      "required": false,
+      "default": "auto",
+      "description": "Backend: auto, edge, gtts, melo, gpt-sov"
+    },
+    "encoding": {
+      "type": "string",
+      "required": false,
+      "default": "utf-8",
+      "description": "Text file encoding"
+    },
+    "list_voices": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "List available voice roles"
+    },
+    "list_backends": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "List all backend statuses"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["audio_path", "backend_used", "duration", "file_size"]
+  },
+  "examples": [
+    {
+      "intent": "把一段文字轉成語音",
+      "invocation": "tts \"你好世界\" --voice Yunxi --play"
+    },
+    {
+      "intent": "把文章轉成 mp3 檔",
+      "invocation": "tts -f story.txt -o story.mp3 --backend edge"
+    }
+  ],
+  "error_codes": {
+    "1": "No TTS backend available",
+    "2": "Text file not found"
+  },
+  "tags": ["tts", "speech", "audio", "voice", "synthesis"]
+}

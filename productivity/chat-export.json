@@ -1,0 +1,79 @@
+{
+  "name": "chat-export",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Convert chat exports from ChatGPT, Claude, Gemini, and OpenClaw into a unified standard format.",
+  "intent_triggers": [
+    "把 ChatGPT 匯出檔轉成標準格式",
+    "自動偵測對話格式並轉換",
+    "批次處理整個匯出目錄",
+    "合併多個對話成一個文件",
+    "提取對話裡的所有程式碼片段",
+    "convert ChatGPT export to markdown",
+    "auto-detect and normalize chat format",
+    "batch process all exported conversations",
+    "merge multiple chats into one file",
+    "幫我統計這份匯出檔的對話資訊"
+  ],
+  "input_schema": {
+    "action": {
+      "type": "enum",
+      "required": true,
+      "description": "Action: convert, batch, merge, stats, extract-code",
+      "default": null
+    },
+    "input": {
+      "type": "string",
+      "required": false,
+      "description": "Input file or directory path",
+      "default": null
+    },
+    "from": {
+      "type": "enum",
+      "required": false,
+      "description": "Source platform: chatgpt, claude, gemini, openclaw",
+      "default": null
+    },
+    "auto_detect": {
+      "type": "boolean",
+      "required": false,
+      "description": "Auto-detect source platform format",
+      "default": false
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file or directory path",
+      "default": null
+    },
+    "to": {
+      "type": "enum",
+      "required": false,
+      "description": "Output format: json, markdown, html",
+      "default": "markdown"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["conversations", "metadata", "total_messages", "output_path"]
+  },
+  "examples": [
+    {
+      "intent": "把 ChatGPT 匯出轉成 Markdown",
+      "invocation": "chat-export convert chatgpt_export.json --from chatgpt -o output.md"
+    },
+    {
+      "intent": "自動偵測格式並轉換",
+      "invocation": "chat-export convert export.json --auto-detect"
+    },
+    {
+      "intent": "Batch convert an entire directory",
+      "invocation": "chat-export batch ./exports/ -o ./standardized/"
+    }
+  ],
+  "error_codes": {
+    "1": "Unsupported source format",
+    "2": "Auto-detection failed"
+  },
+  "tags": ["chat", "export", "convert", "chatgpt", "claude", "productivity"]
+}

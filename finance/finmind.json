@@ -1,0 +1,76 @@
+{
+  "name": "finmind",
+  "version": "1.0.0",
+  "category": "finance",
+  "description": "Fetch financial data and generate AI analysis summaries for stocks, with single-stock analysis and multi-stock comparison.",
+  "intent_triggers": [
+    "分析一下蘋果股票的財務數據",
+    "幫我比較幾檔股票的淨利率",
+    "查一下 TSLA 的本益比和 ROE",
+    "生成股票分析報告",
+    "看一下 MSFT 的財務指標",
+    "analyze Apple stock financials",
+    "compare net margins of AAPL and MSFT",
+    "fetch stock data and generate analysis",
+    "show me the P/E ratio for Tesla",
+    "幫我跑 finmind 分析 AAPL 並輸出 JSON"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: analyze, compare",
+      "default": "analyze"
+    },
+    "symbol": {
+      "type": "string",
+      "required": true,
+      "description": "Stock symbol (e.g. AAPL, MSFT, TSLA)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path"
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "default": "table",
+      "description": "Output format: table, json, or text"
+    },
+    "symbols": {
+      "type": "array",
+      "required": false,
+      "description": "List of stock symbols for comparison"
+    },
+    "metric": {
+      "type": "enum",
+      "required": false,
+      "default": "net_margin",
+      "description": "Comparison metric: net_margin, roe, pe_ratio, or debt_ratio"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["symbol", "name", "sector", "price", "metrics", "analysis"]
+  },
+  "examples": [
+    {
+      "intent": "分析單一股票的財務數據",
+      "invocation": "finmind analyze AAPL"
+    },
+    {
+      "intent": "分析並輸出 JSON 報告",
+      "invocation": "finmind analyze MSFT -o report.json -f json"
+    },
+    {
+      "intent": "比較多檔股票的 ROE",
+      "invocation": "finmind compare AAPL MSFT TSLA -m roe"
+    }
+  ],
+  "error_codes": {
+    "1": "Stock symbol not found or unsupported",
+    "2": "Failed to fetch financial data"
+  },
+  "tags": ["finance", "stock", "analysis", "investment", "metrics"]
+}

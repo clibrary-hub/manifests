@@ -1,0 +1,71 @@
+{
+  "name": "project-briefer",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Auto-detect project configs, README, and directory structure to generate a standardized project brief for Agent context.",
+  "intent_triggers": [
+    "幫我生成專案摘要",
+    "產出一份專案背景說明",
+    "我要這個專案的技術棧資訊",
+    "能不能快速整理一下這個 repo 的結構",
+    "給我一份可以直接貼給 AI 的專案介紹",
+    "generate a project brief",
+    "summarize this codebase for me",
+    "what is the tech stack of this project",
+    "create a project overview markdown",
+    "幫我 scan 一下這個專案有哪些依賴和框架"
+  ],
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path to scan"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "default": "stdout",
+      "description": "Output file path for the brief"
+    },
+    "detail": {
+      "type": "enum",
+      "required": false,
+      "default": "full",
+      "description": "Detail level: full or compact (< 500 tokens)"
+    },
+    "git_log": {
+      "type": "integer",
+      "required": false,
+      "description": "Include recent N Git commits"
+    },
+    "template": {
+      "type": "string",
+      "required": false,
+      "description": "Custom template file path"
+    },
+    "update": {
+      "type": "string",
+      "required": false,
+      "description": "Update an existing brief file"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["project_name", "tech_stack", "description", "directory_structure", "recent_activity"]
+  },
+  "examples": [
+    {
+      "intent": "掃描當前專案並生成摘要",
+      "invocation": "project-briefer ."
+    },
+    {
+      "intent": "Generate a compact brief with recent git activity",
+      "invocation": "project-briefer . --detail compact --git-log 10 -o brief.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found or inaccessible",
+    "2": "Template file not found"
+  },
+  "tags": ["project", "brief", "summary", "tech-stack", "git"]
+}

@@ -1,0 +1,84 @@
+{
+  "name": "dep-audit",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "Scan project dependencies, cross-check with actual imports, detect unused or missing packages, and clean them up.",
+  "intent_triggers": [
+    "幫我審計專案的依賴",
+    "找出沒用到的套件",
+    "掃描未使用的 dependency",
+    "清理專案裡多餘的套件",
+    "檢查 package.json 有哪些沒在用的",
+    "audit my project dependencies",
+    "find unused packages in my repo",
+    "scan for missing imports in requirements",
+    "clean up bloated dependencies",
+    "幫我跑一下 dep-audit 看看有沒有問題"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: audit, unused, missing, clean, report",
+      "default": "audit"
+    },
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Project path to scan"
+    },
+    "type": {
+      "type": "enum",
+      "required": false,
+      "default": "python",
+      "description": "Project type: python or node"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview mode without actual cleanup"
+    },
+    "keep": {
+      "type": "array",
+      "required": false,
+      "description": "List of dependencies to keep during cleanup"
+    },
+    "licenses": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include license information in report"
+    },
+    "vulnerabilities": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Include vulnerability information in report"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["package", "version", "status", "description", "missing_deps"]
+  },
+  "examples": [
+    {
+      "intent": "審計 Python 專案依賴使用情況",
+      "invocation": "dep-audit audit ."
+    },
+    {
+      "intent": "列出 Node.js 專案未使用的依賴",
+      "invocation": "dep-audit unused . --type node"
+    },
+    {
+      "intent": "自動移除未使用的依賴（預覽）",
+      "invocation": "dep-audit clean . --dry-run"
+    }
+  ],
+  "error_codes": {
+    "1": "Project path not found or invalid",
+    "2": "Dependency file not found (pyproject.toml / requirements.txt / package.json)",
+    "3": "Failed to remove dependency"
+  },
+  "tags": ["dependency", "security", "cleanup", "audit", "python", "nodejs"]
+}

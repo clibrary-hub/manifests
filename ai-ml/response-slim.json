@@ -1,0 +1,72 @@
+{
+  "name": "response-slim",
+  "version": "1.0.0",
+  "category": "ai-ml",
+  "description": "Extract core content from verbose AI responses—code blocks, steps, and key conclusions—while removing filler and disclaimers.",
+  "intent_triggers": [
+    "幫我把這段回覆瘦身",
+    "提取 AI 回覆裡的程式碼和重點",
+    "去掉這些廢話和寒暄",
+    "只保留步驟和結論",
+    "幫我精簡這份 agent 回覆",
+    "slim down this verbose response",
+    "extract code and key points",
+    "remove filler from this AI reply",
+    "keep only steps and conclusions",
+    "幫我從剪貼簿的內容裡抓出核心結論"
+  ],
+  "input_schema": {
+    "input": {
+      "type": "string",
+      "required": true,
+      "description": "Input file path, '-' for stdin, or omitted with --clipboard"
+    },
+    "clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Read input from clipboard"
+    },
+    "mode": {
+      "type": "enum",
+      "required": false,
+      "default": "all",
+      "description": "Extraction mode: code, steps, conclusion, or all"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum output token limit"
+    },
+    "to_clipboard": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Copy output to clipboard"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["slimmed_content", "extracted_code", "steps", "conclusions"]
+  },
+  "examples": [
+    {
+      "intent": "從剪貼簿瘦身並輸出到檔案",
+      "invocation": "response-slim slim --clipboard --mode code -o slimmed.md"
+    },
+    {
+      "intent": "Extract steps from a file with token limit",
+      "invocation": "response-slim slim response.md --mode steps --max-tokens 500 --to-clipboard"
+    }
+  ],
+  "error_codes": {
+    "1": "Input file not found or clipboard empty",
+    "2": "Unsupported input format"
+  },
+  "tags": ["ai-response", "slim", "extract", "code", "summary"]
+}

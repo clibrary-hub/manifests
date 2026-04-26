@@ -1,0 +1,73 @@
+{
+  "name": "type-fill",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan code for missing type annotations, infer types from context, and auto-fill or generate stub files.",
+  "intent_triggers": [
+    "幫程式碼補上型別註解",
+    "檢查哪些函式缺少型別",
+    "生成 .pyi stub 檔案",
+    "看一下這個專案的型別覆蓋率",
+    "自動推斷並補全型別",
+    "add type annotations to my code",
+    "check type coverage of the project",
+    "generate stub files for a module",
+    "infer missing types automatically",
+    "幫我檢查這個檔案有多少函式沒有型別"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: scan, coverage, fill, or stub",
+      "default": "scan"
+    },
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "File or directory path to analyze"
+    },
+    "params_only": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Only scan function parameters (scan command)"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview mode without modifying files (fill command)"
+    },
+    "returns_only": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Only fill return types (fill command)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output path for stub file (stub command)"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["file", "function", "coverage_percent", "suggested_type", "stub_content"]
+  },
+  "examples": [
+    {
+      "intent": "掃描專案缺少型別的位置",
+      "invocation": "type-fill scan src/ --params-only"
+    },
+    {
+      "intent": "自動補全型別並預覽",
+      "invocation": "type-fill fill src/main.py --dry-run"
+    }
+  ],
+  "error_codes": {
+    "1": "Target path does not exist",
+    "2": "Type inference failed"
+  },
+  "tags": ["typing", "type-annotation", "python", "stub", "static-analysis"]
+}

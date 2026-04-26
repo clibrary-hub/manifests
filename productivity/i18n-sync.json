@@ -1,0 +1,71 @@
+{
+  "name": "i18n-sync",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Detect missing translation keys across multi-language files, sync them, and generate coverage reports.",
+  "intent_triggers": [
+    "同步翻譯檔案",
+    "找出缺少的翻譯 key",
+    "檢查多語言檔案差異",
+    "生成翻譯覆蓋率報告",
+    "幫我補齊 ja.json 缺少的 key",
+    "sync translation files",
+    "find missing i18n keys",
+    "check translation coverage",
+    "detect unused translation keys",
+    "scan i18n 差異並輸出報告"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: scan, missing, sync, coverage, unused, hardcoded, clean, sort",
+      "default": "scan"
+    },
+    "locales_dir": {
+      "type": "string",
+      "required": true,
+      "description": "Directory containing translation files"
+    },
+    "base": {
+      "type": "string",
+      "required": false,
+      "default": "en.json",
+      "description": "Base language file for comparison"
+    },
+    "source": {
+      "type": "string",
+      "required": false,
+      "description": "Source code directory to scan for hardcoded strings or unused keys"
+    },
+    "placeholder": {
+      "type": "string",
+      "required": false,
+      "description": "Placeholder value for missing keys: 'base' or custom string like '[TODO] {value}'"
+    },
+    "lang": {
+      "type": "string",
+      "required": false,
+      "description": "Target language for hardcoded string detection"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["coverage_table", "missing_keys", "extra_keys", "completion_rate"]
+  },
+  "examples": [
+    {
+      "intent": "檢查 locales 目錄中各語言檔案缺少哪些翻譯 key",
+      "invocation": "i18n-sync scan ./locales/ --base en.json"
+    },
+    {
+      "intent": "同步缺少的翻譯 key 並以英文值作為佔位符",
+      "invocation": "i18n-sync sync ./locales/ --base en.json --placeholder base"
+    }
+  ],
+  "error_codes": {
+    "1": "Locales directory not found",
+    "2": "Base language file not found"
+  },
+  "tags": ["i18n", "translation", "localization", "sync"]
+}

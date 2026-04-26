@@ -1,0 +1,70 @@
+{
+  "name": "pre-check",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Define and run pre-condition checks to verify environment readiness before agent tasks.",
+  "intent_triggers": [
+    "檢查環境前置條件",
+    "確認 Node 版本是否正確",
+    "驗證資料庫連線是否正常",
+    "幫我跑一遍 pre-check",
+    "初始化檢查設定檔",
+    "run environment pre-checks",
+    "verify database and redis are running",
+    "check node version and env variables",
+    "validate project prerequisites",
+    "確認環境就緒並檢查必要服務"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: run, list, add, init",
+      "default": "run"
+    },
+    "config": {
+      "type": "string",
+      "required": false,
+      "description": "Path to pre-check configuration file"
+    },
+    "group": {
+      "type": "string",
+      "required": false,
+      "description": "Run only checks in the specified group"
+    },
+    "name": {
+      "type": "string",
+      "required": false,
+      "description": "Name of the check to add"
+    },
+    "cmd": {
+      "type": "string",
+      "required": false,
+      "description": "Command to run for the check"
+    },
+    "expect": {
+      "type": "string",
+      "required": false,
+      "description": "Expected output substring or exit code"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["check_results", "pass_count", "fail_count", "fix_suggestions"]
+  },
+  "examples": [
+    {
+      "intent": "執行專案預設的前置條件檢查",
+      "invocation": "pre-check run"
+    },
+    {
+      "intent": "僅執行 build 群組的檢查",
+      "invocation": "pre-check run --group build"
+    }
+  ],
+  "error_codes": {
+    "1": "Configuration file not found",
+    "2": "One or more checks failed"
+  },
+  "tags": ["pre-check", "environment", "validation", "devops"]
+}

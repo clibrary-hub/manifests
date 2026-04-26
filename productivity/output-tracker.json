@@ -1,0 +1,76 @@
+{
+  "name": "output-tracker",
+  "version": "1.0.0",
+  "category": "productivity",
+  "description": "Monitor file creations and modifications during agent execution and output a structured change report.",
+  "intent_triggers": [
+    "追蹤 Agent 產生的檔案變更",
+    "監控目錄中的檔案修改",
+    "列出 Agent 執行期間改了哪些東西",
+    "建立檔案變更快照",
+    "比對前後快照差異",
+    "track file changes during agent run",
+    "monitor directory for modifications",
+    "generate a change report of agent outputs",
+    "compare file snapshots before and after",
+    "watch 這個專案目錄並輸出變更報告"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: watch, report, snapshot, diff",
+      "default": "watch"
+    },
+    "paths": {
+      "type": "array",
+      "required": false,
+      "description": "Directories to monitor"
+    },
+    "all": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Watch all common locations"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory patterns to exclude, e.g., node_modules, .git"
+    },
+    "since": {
+      "type": "string",
+      "required": false,
+      "description": "Time range for report, e.g., '2 hours ago'"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output report file path"
+    },
+    "name": {
+      "type": "string",
+      "required": false,
+      "description": "Snapshot name for snapshot/diff commands"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["changes", "created_count", "modified_count", "deleted_count"]
+  },
+  "examples": [
+    {
+      "intent": "追蹤當前目錄的檔案變更",
+      "invocation": "output-tracker watch . --exclude node_modules --exclude .git"
+    },
+    {
+      "intent": "比對 Agent 執行前後的快照差異",
+      "invocation": "output-tracker diff before"
+    }
+  ],
+  "error_codes": {
+    "1": "No tracking data found",
+    "2": "Snapshot not found"
+  },
+  "tags": ["file-tracking", "monitoring", "agent-output", "snapshot"]
+}

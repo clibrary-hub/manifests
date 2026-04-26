@@ -1,0 +1,82 @@
+{
+  "name": "merge-pilot",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Detect and intelligently resolve merge conflicts from multiple agent outputs on the same files.",
+  "intent_triggers": [
+    "解決多 Agent 產出的合併衝突",
+    "比較兩份修改後的檔案差異",
+    "自動合併不衝突的修改",
+    "偵測目錄中的衝突檔案",
+    "三方合併原始檔與兩份修改",
+    "resolve merge conflicts between agents",
+    "detect conflicting changes in files",
+    "three-way merge base and two variants",
+    "auto-merge non-conflicting changes",
+    "scan agent outputs for merge conflicts"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: detect, scan, merge, resolve, summary",
+      "default": "detect"
+    },
+    "base": {
+      "type": "string",
+      "required": false,
+      "description": "Original base file path"
+    },
+    "theirs": {
+      "type": "string",
+      "required": false,
+      "description": "First modified file path (agent 1 output)"
+    },
+    "ours": {
+      "type": "string",
+      "required": false,
+      "description": "Second modified file path (agent 2 output)"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for merged result"
+    },
+    "mark_conflicts": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Mark conflict sections with git-style markers instead of auto-resolving"
+    },
+    "interactive": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Interactive mode: choose resolution for each conflict"
+    },
+    "target_dir": {
+      "type": "string",
+      "required": false,
+      "description": "Directory to scan for conflicts"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["auto_merged_count", "conflict_count", "conflict_details", "status"]
+  },
+  "examples": [
+    {
+      "intent": "三方合併兩份 Agent 產出的修改",
+      "invocation": "merge-pilot merge --base original.py --theirs agent1.py --ours agent2.py -o merged.py"
+    },
+    {
+      "intent": "掃描目錄中的所有衝突檔案",
+      "invocation": "merge-pilot scan ./agent_outputs/"
+    }
+  ],
+  "error_codes": {
+    "1": "Base file not found",
+    "2": "Merge conflict cannot be auto-resolved"
+  },
+  "tags": ["merge", "conflict-resolution", "git", "agent"]
+}

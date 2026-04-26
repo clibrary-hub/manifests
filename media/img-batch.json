@@ -1,0 +1,104 @@
+{
+  "name": "img-batch",
+  "version": "1.0.0",
+  "category": "media",
+  "description": "Batch process images with resize, format conversion, compression, rotation, flip, and rename.",
+  "intent_triggers": [
+    "批次壓縮圖片",
+    "把圖片轉成 webp",
+    "縮放目錄裡所有照片",
+    "幫我旋轉並重新命名圖片",
+    "批次處理圖片格式",
+    "batch resize images",
+    "convert images to webp",
+    "compress all photos in a folder",
+    "rotate and flip images in bulk",
+    "批量壓縮圖片並輸出為 jpg"
+  ],
+  "input_schema": {
+    "input_dir": {
+      "type": "string",
+      "required": true,
+      "description": "Input directory containing images"
+    },
+    "output_dir": {
+      "type": "string",
+      "required": false,
+      "description": "Output directory (default: input_dir/processed)"
+    },
+    "resize": {
+      "type": "string",
+      "required": false,
+      "description": "Resize format: 800x600, 800 (width only), or 50% (percentage)"
+    },
+    "quality": {
+      "type": "integer",
+      "required": false,
+      "default": 85,
+      "description": "Output quality for JPG/WebP (1-100)"
+    },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "description": "Output format: jpg, png, webp. Keep original if not specified"
+    },
+    "rotate": {
+      "type": "integer",
+      "required": false,
+      "description": "Rotation angle: 90, 180, 270"
+    },
+    "flip": {
+      "type": "enum",
+      "required": false,
+      "description": "Flip direction: horizontal or vertical"
+    },
+    "rename": {
+      "type": "string",
+      "required": false,
+      "description": "Rename pattern: ### = 3-digit index, {name} = original name"
+    },
+    "recursive": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Recursively process subdirectories"
+    },
+    "input_format": {
+      "type": "string",
+      "required": false,
+      "default": "jpg,jpeg,png,bmp,tiff,webp",
+      "description": "Comma-separated list of input formats to process"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview mode: show plan without executing"
+    },
+    "verbose": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Verbose output"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["success_count", "fail_count", "total_files", "output_dir"]
+  },
+  "examples": [
+    {
+      "intent": "將圖片目錄中的照片縮放為 800px 寬並轉成 webp",
+      "invocation": "img-batch ./images/ --resize 800 --format webp --quality 85"
+    },
+    {
+      "intent": "批次旋轉圖片並重新命名",
+      "invocation": "img-batch ./photos/ --rotate 90 --rename \"vacation_###\" --output-dir ./optimized/"
+    }
+  ],
+  "error_codes": {
+    "1": "Input directory does not exist",
+    "2": "Invalid resize format"
+  },
+  "tags": ["image", "batch", "resize", "convert", "compression"]
+}

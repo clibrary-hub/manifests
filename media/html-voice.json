@@ -1,0 +1,78 @@
+{
+  "name": "html-voice",
+  "version": "1.0.0",
+  "category": "media",
+  "description": "Generate voice narration and audio files for each slide in Reveal.js HTML presentations, embedding notes and audio paths.",
+  "intent_triggers": [
+    "為 HTML 簡報生成語音介紹",
+    "把 Reveal.js 簡報加上語音",
+    "生成每一頁的語音檔",
+    "預覽第幾頁的語音文字",
+    "幫簡報加上自動播放語音",
+    "generate voice narration for my slides",
+    "add audio to a Reveal.js presentation",
+    "create voiceovers for each HTML slide",
+    "preview the voice text for slide 3",
+    "幫我產生 report.html 每一頁的語音和備註"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Sub-command: generate, preview",
+      "default": "generate"
+    },
+    "html_file": {
+      "type": "string",
+      "required": true,
+      "description": "Path to the HTML report or presentation"
+    },
+    "output_dir": {
+      "type": "string",
+      "required": false,
+      "description": "Output directory for generated audio and notes"
+    },
+    "embed": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Embed notes into the HTML output"
+    },
+    "voice": {
+      "type": "enum",
+      "required": false,
+      "default": "auto",
+      "description": "TTS backend: auto, edge, or gtts"
+    },
+    "slide": {
+      "type": "integer",
+      "required": false,
+      "default": 1,
+      "description": "Slide number to preview"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["slide_notes", "audio_files", "html_output", "slide_count"]
+  },
+  "examples": [
+    {
+      "intent": "為 HTML 報告生成所有頁面的語音",
+      "invocation": "html-voice generate report.html -o ./voice/"
+    },
+    {
+      "intent": "使用 edge-tts 生成語音",
+      "invocation": "html-voice generate report.html --voice edge"
+    },
+    {
+      "intent": "預覽第 5 頁的語音介紹文字",
+      "invocation": "html-voice preview report.html -s 5"
+    }
+  ],
+  "error_codes": {
+    "1": "HTML file not found",
+    "2": "No slides detected in HTML",
+    "3": "TTS backend not available"
+  },
+  "tags": ["tts", "voice", "html", "presentation", "revealjs", "audio", "media"]
+}

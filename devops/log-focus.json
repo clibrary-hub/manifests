@@ -1,0 +1,86 @@
+{
+  "name": "log-focus",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Extract key log lines related to issues, deduplicate noise, and present concise debug context.",
+  "intent_triggers": [
+    "從日誌中提取錯誤訊息",
+    "幫我分析 app.log 的問題",
+    "壓縮重複的 stack trace",
+    "過濾指定時間範圍的日誌",
+    "統計錯誤出現頻率",
+    "extract errors from logs",
+    "analyze log file for issues",
+    "deduplicate repeated error messages",
+    "filter logs by time range",
+    "幫我 extract 這個 log 檔的 ERROR 和 WARN"
+  ],
+  "input_schema": {
+    "command": {
+      "type": "enum",
+      "required": true,
+      "description": "Subcommand: extract, dedupe, compress, stats",
+      "default": "extract"
+    },
+    "log_files": {
+      "type": "array",
+      "required": true,
+      "description": "Log file paths to analyze"
+    },
+    "keyword": {
+      "type": "string",
+      "required": false,
+      "description": "Keyword to filter log lines"
+    },
+    "since": {
+      "type": "string",
+      "required": false,
+      "description": "Start time for filtering (e.g., '2026-04-24 14:00')"
+    },
+    "until": {
+      "type": "string",
+      "required": false,
+      "description": "End time for filtering"
+    },
+    "limit": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of output lines"
+    },
+    "context": {
+      "type": "integer",
+      "required": false,
+      "description": "Number of context lines before and after matched lines"
+    },
+    "merge": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Merge multiple log files for combined analysis"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for the report"
+    }
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": ["error_summary", "key_errors", "context_lines", "frequency_stats"]
+  },
+  "examples": [
+    {
+      "intent": "提取 app.log 中的錯誤與警告",
+      "invocation": "log-focus extract app.log"
+    },
+    {
+      "intent": "分析包含 NullPointerException 的日誌並輸出前後 5 行上下文",
+      "invocation": "log-focus extract app.log --keyword \"NullPointerException\" --context 5 -o debug_context.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Log file not found",
+    "2": "Invalid time format"
+  },
+  "tags": ["log", "debug", "error-analysis", "devops"]
+}

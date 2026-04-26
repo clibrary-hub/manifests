@@ -1,0 +1,89 @@
+{
+  "name": "clawcron",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Manage and sync agent scheduling rules with OpenClaw cron, supporting add, remove, enable, disable, and reporting.",
+  "intent_triggers": [
+    "添加一個每日執行的排程",
+    "幫我設定晚上九點的定時任務",
+    "列出所有排程規則",
+    "同步本地排程與 openclaw",
+    "生成排程執行報告",
+    "add a scheduled job for the agent",
+    "remove the direction-meeting cron rule",
+    "list all active schedules",
+    "sync local schedules with openclaw cron",
+    "generate a schedule execution report",
+    "enable the nightly backup task",
+    "停用這個排程並生成報告"
+  ],
+  "input_schema": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Schedule name"
+    },
+    "cron": {
+      "type": "string",
+      "required": true,
+      "description": "Cron expression (e.g., '0 21 * * *')"
+    },
+    "command": {
+      "type": "string",
+      "required": true,
+      "description": "Command or message to execute"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Schedule description"
+    },
+    "force": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Force removal without confirmation"
+    },
+    "show_disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show disabled rules"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Preview sync differences without applying"
+    },
+    "output": {
+      "type": "string",
+      "required": false,
+      "description": "Output file path for report"
+    }
+  },
+  "output_schema": {
+    "format": "json",
+    "fields": ["rules", "sync_status", "summary", "report_file"]
+  },
+  "examples": [
+    {
+      "intent": "添加每日方向會議排程",
+      "invocation": "clawcron add direction-meeting \"0 21 * * *\" \"發起今日方向建議會議\" --desc \"每日方向會議\""
+    },
+    {
+      "intent": "列出所有排程",
+      "invocation": "clawcron ls"
+    },
+    {
+      "intent": "同步本地與 openclaw 排程",
+      "invocation": "clawcron sync"
+    }
+  ],
+  "error_codes": {
+    "1": "Schedule rule already exists",
+    "2": "Schedule rule not found",
+    "3": "OpenClaw sync failed"
+  },
+  "tags": ["cron", "schedule", "automation", "openclaw", "devops"]
+}
