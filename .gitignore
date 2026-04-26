@@ -1,0 +1,8 @@
+CLAUDE.md
+.env
+__pycache__/
+*.py[cod]
+.venv/
+poc_results.json
+test_data.json
+poc/__pycache__/
