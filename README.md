@@ -134,13 +134,17 @@ manifests/
 
 ## Current Manifests
 
-| Category | Count | Tools |
-|----------|-------|-------|
-| `ai-ml` | 1 | whisper-transcribe |
-| `data` | 2 | sql-runner, csv-export |
-| `devops` | 1 | docker-cleanup |
-| `media` | 1 | video-to-gif |
-| **Total** | **5** | Growing — PRs welcome |
+| Category | Count | Examples |
+|----------|-------|---------|
+| `devops` | 35 | docker-cleanup, lint-guard, repo-map, sandbox-run… |
+| `productivity` | 15 | doc-to-md, i18n-sync, task-prioritizer, zip… |
+| `ai-ml` | 10 | whisper-transcribe, rag-forge, ocr-feed, token-meter… |
+| `media` | 5 | video-to-gif, tts, img-batch, html-voice… |
+| `data` | 3 | sql-runner, csv-export, schema-brief |
+| `web` | 3 | api-compat, api-slim, web-clean |
+| `security` | 2 | dep-audit, sec-scan |
+| `finance` | 1 | finmind |
+| **Total** | **69** | Growing — PRs welcome |
 
 ---
 
