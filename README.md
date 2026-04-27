@@ -185,7 +185,6 @@ python packages/manifest-validator/validator.py manifests/<category>/<your-tool>
 - [ ] `pip install clibrary` — local search CLI
 - [ ] Manifest validator CI on every PR
 - [ ] CLIbrary Brain API — intelligent routing as a service
-- [ ] LoRA-based adapter for sub-200ms routing
 
 ---
 
