@@ -2,11 +2,14 @@
 
 > A standardized manifest registry for agent-callable CLI tools.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Manifests](https://img.shields.io/badge/manifests-69-00e5a0)](#current-manifests)
+
 ---
 
 ## What is this?
 
-CLIbrary is an open standard for describing CLI tools in a way that AI agents can understand and invoke them automatically — without wasting tokens on documentation.
+CLIbrary is an open standard for describing CLI tools so that AI agents can discover and invoke them — without stuffing every tool's documentation into the prompt.
 
 Each manifest is a single JSON file that answers four questions:
 
@@ -21,27 +24,63 @@ Each manifest is a single JSON file that answers four questions:
 
 ## Why?
 
-Today, AI agents waste thousands of tokens figuring out which tool to use and how to call it. CLIbrary solves this by separating **discovery** (manifest) from **execution** (the tool itself). The agent reads the manifest once; after that, routing is instant.
+Today, when an agent has 100+ tools available, the LLM has to read every tool's description to pick one. That wastes thousands of tokens per call and accuracy collapses ("lost in the middle").
 
-**Validated accuracy: 93.6% routing precision on 1,380 test cases, zero fine-tuning.**
+CLIbrary separates **discovery** (manifest) from **execution** (the tool itself). A small embedding-based router reads the manifests once, then routes natural-language intents to the right CLI in ~36 ms with ~150 tokens.
+
+### Validated routing performance
+
+| Eval set | Size | Top-1 Acc | Top-3 Acc |
+|----------|------|-----------|-----------|
+| in_domain | 500 | 91% | 95% |
+| paraphrase (sample) | 50 | 90% | 92% |
+| adversarial | 204 | 84.8% | **100%** |
+
+Adversarial set was iteratively patched (3 rounds of `intent_triggers` improvement) — no model fine-tuning involved.
 
 ---
 
-## How it works
+## Use it
+
+The reference router is on PyPI:
+
+```bash
+pip install clibrary-hub
+clibrary-build-index --manifest-dir ./manifests
+```
+
+```python
+from clibrary_hub import CLIbrary
+
+router = CLIbrary()
+print(router.route("convert this MP4 to a GIF"))
+# {"action": "route", "cli": "video-to-gif", "params": {...}, "latency_ms": 36}
+```
+
+Source: [clibrary-hub/CLIbrary](https://github.com/clibrary-hub/CLIbrary)
+
+---
+
+## How routing works
 
 ```
 Agent: "Convert this MP4 to a GIF"
            ↓
-   Embed intent as vector
+   Embed intent (multilingual-e5-base, 768-d)
            ↓
-   Nearest-neighbor search across intent_triggers
+   FAISS cli_index → top-3 candidates
            ↓
-   Match: video-to-gif  (score: 0.97)
+   MaxSim re-rank over trigger_index
            ↓
-   Assemble tool call with correct params
+   Stage 2: example_index → best matching example
+           ↓
+   sim ≥ 0.85 → Path A (template fill, no LLM)
+   sim < 0.85 → Path B (LLM extracts params)
+           ↓
+   {"cli": "video-to-gif", "params": {...}}
 ```
 
-No LLM call needed for routing. Each manifest's `intent_triggers` act as the routing index.
+No LLM call needed for ~80% of queries. Each manifest's `intent_triggers` and `examples` act as the routing index.
 
 ---
 
@@ -51,7 +90,7 @@ No LLM call needed for routing. Each manifest's `intent_triggers` act as the rou
 manifests/
 ├── ai-ml/          # Model inference, embeddings, transcription
 ├── data/           # SQL, CSV, databases, ETL
-├── devops/         # Docker, git, CI/CD
+├── devops/         # Docker, git, CI/CD, code analysis
 ├── media/          # Video, image, audio processing
 ├── web/            # HTTP, scraping, APIs
 ├── security/       # Scanning, auditing, encryption
@@ -144,13 +183,13 @@ manifests/
 | `web` | 3 | api-compat, api-slim, web-clean |
 | `security` | 2 | dep-audit, sec-scan |
 | `finance` | 1 | finmind |
-| **Total** | **69** | Growing — PRs welcome |
+| **Total** | **69** | More being added — PRs welcome |
 
 ---
 
 ## Contributing
 
-We welcome contributions for any CLI tool that an AI agent might reasonably want to use.
+PRs are welcome for any CLI tool an AI agent might reasonably want to use.
 
 **Steps:**
 
@@ -158,43 +197,32 @@ We welcome contributions for any CLI tool that an AI agent might reasonably want
 # 1. Fork this repo
 
 # 2. Create your manifest
-cp manifests/data/sql-runner.json manifests/<category>/<your-tool>.json
+cp ai-ml/whisper-transcribe.json <category>/<your-tool>.json
 
-# 3. Validate
-python packages/manifest-validator/validator.py manifests/<category>/<your-tool>.json
+# 3. Edit and validate locally
+pip install clibrary-hub
+clibrary-build-index --manifest-dir .
 
 # 4. Open a PR
 ```
 
 **Rules:**
 
-- `intent_triggers` must have ≥ 5 entries
+- `intent_triggers` must have ≥ 5 entries (mixed languages encouraged)
 - `output_schema.format` must be `json`, `csv`, or `text`
 - At least 1 example with a real, runnable `invocation`
 - `error_codes` must define at least exit code `1`
-- CI will auto-validate your manifest on every PR
-
----
-
-## Roadmap
-
-- [x] Manifest schema v1.0 (frozen)
-- [x] Initial 5 manifests across 4 categories
-- [x] PoC: 93.6% routing accuracy with zero training
-- [ ] Expand to 50 manifests across all 10 categories
-- [ ] `pip install clibrary` — local search CLI
-- [ ] Manifest validator CI on every PR
-- [ ] CLIbrary Brain API — intelligent routing as a service
 
 ---
 
 ## License
 
-All manifests in this repository are licensed under **MIT**.  
+All manifests in this repository are licensed under **MIT**.
 Free to use, modify, and distribute — just keep the copyright notice.
-
-The CLIbrary Brain (routing engine) is proprietary software — see [clibrary.dev](https://clibrary.dev) for API access.
 
 ---
 
-*Built for the agentic era.*
+## Related
+
+- **Reference router** (Python package): [clibrary-hub/CLIbrary](https://github.com/clibrary-hub/CLIbrary) — `pip install clibrary-hub`
+- **Project site**: [clibrary.dev](https://clibrary.dev)
