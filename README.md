@@ -60,9 +60,8 @@ clibrary-build-index --manifest-dir ./manifests
 ```
 
 ```python
-from clibrary_hub import CLIbrary
+from clibrary_hub import router
 
-router = CLIbrary()
 print(router.route("convert this MP4 to a GIF"))
 # {"action": "route", "cli": "video-to-gif", "params": {...}, "latency_ms": 36}
 ```
