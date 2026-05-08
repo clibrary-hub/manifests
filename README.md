@@ -30,21 +30,33 @@ CLIbrary separates **discovery** (manifest) from **execution** (the tool itself)
 
 ### Validated routing performance
 
-| Eval set | Size | Top-1 Acc | Top-3 Acc |
-|----------|------|-----------|-----------|
-| in_domain | 500 | 91% | 95% |
-| paraphrase | 1,500 | 81.8% | 83.4% |
-| adversarial | 204 | 86.3% | **100%** |
+| Eval set | Strategy | N | Top-1 | Top-3 |
+|----------|----------|---|-------|-------|
+| in_domain | clibrary | 500 | 86.80% | 88.00% |
+| paraphrase | clibrary | 1,500 | 81.80% | 83.40% |
+| cross_domain | clibrary | 328 | 68.90% | — |
+| adversarial | clibrary_top3 (post R3) | 204 | 86.27% | **100%** |
 
 Adversarial set was iteratively patched (3 rounds of `intent_triggers` improvement) — no model fine-tuning involved.
 
-### Model size stops mattering (paraphrase, N=1,500)
+### Model size stops mattering
 
-| Model | CLI Acc | Top-3 Acc | Top-3 Pick | Params Acc | E2E Acc |
-|-------|---------|-----------|------------|------------|---------|
-| qwen2.5:3b | 81.80% | 83.40% | 98.08% | 69.00% | 61.27% |
+**paraphrase, N=1,500**
+
+| Model | CLI Acc | Top-3 | Pick | Params | E2E |
+|-------|---------|-------|------|--------|-----|
+| qwen2.5:3b  | 81.80% | 83.40% | 98.08% | 69.00% | 61.27% |
 | qwen2.5:14b | 81.67% | 83.27% | 98.08% | 68.87% | 61.20% |
 | **Δ** | +0.13pp | +0.13pp | ±0 | +0.13pp | +0.07pp |
+
+**in_domain, N=500** — even sharper, because ~98.6% of queries hit Path A (template fill, no LLM):
+
+| Model | CLI Acc | Top-3 | A-path hit |
+|-------|---------|-------|------------|
+| qwen2.5:3b  | 86.80% | 88.00% | 98.64% |
+| qwen2.5:14b | 86.80% | 88.00% | 98.64% |
+
+Both models are **identical to four decimal places** — when the router skips the LLM 98.6% of the time, model size literally cannot matter.
 
 Once retrieval is handled by the router, scaling the LLM 4.7× gives essentially zero accuracy gain. Compute spent on a bigger model is wasted — invest it in better `intent_triggers`. Full breakdown: [clibrary.dev/benchmark.html](https://clibrary.dev/benchmark.html).
 
