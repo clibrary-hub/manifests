@@ -1,0 +1,88 @@
+{
+  "name": "scene-flip",
+  "version": "0.1.0",
+  "description": "場景切換器",
+  "category": "V",
+  "number": 422,
+  "pain_point": "家庭場景一鍵切換",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "requests",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我要回家了，幫我切換到回家模式",
+    "一鍵切換電影院場景，關燈調暗",
+    "切換到睡眠模式，把所有燈都關掉",
+    "幫我設定早晨起床的智慧家居場景",
+    "現在切換到工作模式",
+    "出門前啟動離家模式",
+    "把客廳切換到派對場景"
+  ],
+  "examples": [
+    {
+      "query": "切換到電影模式：客廳燈調暗到 20%，電視開啟",
+      "params": {
+        "scene_name": "電影模式",
+        "actions": [
+          {
+            "device": "客廳燈",
+            "brightness": 20
+          },
+          {
+            "device": "電視",
+            "power": "on"
+          }
+        ]
+      }
+    },
+    {
+      "query": "建立早晨場景：7點自動開窗簾、開咖啡機、燈光漸亮",
+      "params": {
+        "scene_name": "早晨喚醒",
+        "trigger_time": "07:00",
+        "actions": [
+          "開窗簾",
+          "開咖啡機",
+          "燈光漸亮"
+        ]
+      }
+    },
+    {
+      "query": "立即執行離家模式",
+      "params": {
+        "scene_name": "離家模式",
+        "execute_now": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "scene_name": {
+        "type": "string",
+        "description": "場景名稱，如離家模式、電影模式"
+      },
+      "execute_now": {
+        "type": "boolean",
+        "description": "是否立即執行場景"
+      },
+      "trigger_time": {
+        "type": "string",
+        "description": "定時觸發時間，格式 HH:MM"
+      },
+      "actions": {
+        "type": "array",
+        "description": "場景包含的動作清單"
+      }
+    },
+    "required": [
+      "scene_name"
+    ]
+  },
+  "license": "MIT"
+}

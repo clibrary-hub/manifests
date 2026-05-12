@@ -1,0 +1,96 @@
+{
+  "name": "light-schedule",
+  "version": "0.1.0",
+  "description": "燈光排程器",
+  "category": "V",
+  "number": 423,
+  "pain_point": "智慧燈泡排程",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "schedule",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "設定客廳燈晚上 11 點自動關閉",
+    "幫我排程燈光，早上 7 點自動開燈",
+    "每天晚上 10 點把臥室燈調暗",
+    "設定智慧燈泡的日落自動開燈排程",
+    "建立週末和平日不同的燈光時間表",
+    "出門後 30 分鐘自動關閉所有燈",
+    "燈光色溫早晚自動調整"
+  ],
+  "examples": [
+    {
+      "query": "設定客廳燈每天 23:00 關燈，07:00 開燈",
+      "params": {
+        "device": "客廳燈",
+        "on_time": "07:00",
+        "off_time": "23:00",
+        "repeat": "daily"
+      }
+    },
+    {
+      "query": "週一到週五上班時間（9:00-18:00）關閉所有燈，下班自動開",
+      "params": {
+        "schedule_type": "weekday",
+        "off_start": "09:00",
+        "on_time": "18:00",
+        "devices": [
+          "全部"
+        ]
+      }
+    },
+    {
+      "query": "設定臥室燈 22:00 開始每小時調暗 10%，直到全關",
+      "params": {
+        "device": "臥室燈",
+        "start_time": "22:00",
+        "dim_step": 10,
+        "dim_interval_minutes": 60
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "device": {
+        "type": "string"
+      },
+      "devices": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "dim_interval_minutes": {
+        "type": "integer"
+      },
+      "dim_step": {
+        "type": "integer"
+      },
+      "off_start": {
+        "type": "string"
+      },
+      "off_time": {
+        "type": "string"
+      },
+      "on_time": {
+        "type": "string"
+      },
+      "repeat": {
+        "type": "string"
+      },
+      "schedule_type": {
+        "type": "string"
+      },
+      "start_time": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

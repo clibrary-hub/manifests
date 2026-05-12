@@ -1,0 +1,83 @@
+{
+  "name": "shot-blur",
+  "version": "0.1.0",
+  "description": "敏感區塊模糊",
+  "category": "L",
+  "number": 229,
+  "pain_point": "截圖批次模糊敏感資訊",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把截圖中的個人資訊模糊掉",
+    "截圖裡有信用卡號，幫我打馬賽克",
+    "批次模糊多張截圖的敏感區域",
+    "隱私保護截圖工具，自動遮蔽機敏內容",
+    "幫我把圖片中的電話號碼和地址模糊",
+    "截圖脫敏處理，模糊指定區域",
+    "資料外洩防護，模糊截圖敏感資訊"
+  ],
+  "examples": [
+    {
+      "query": "把 receipt.png 中座標 (50,100,200,130) 的區域模糊",
+      "params": {
+        "action": "run",
+        "input_file": "receipt.png",
+        "region": "50,100,200,130",
+        "blur_strength": 15
+      }
+    },
+    {
+      "query": "批次模糊 screenshots/ 目錄下所有截圖的右上角（可能有姓名）",
+      "params": {
+        "action": "run",
+        "input_dir": "screenshots/",
+        "region_preset": "top_right"
+      }
+    },
+    {
+      "query": "將 id_card.png 的生日和身分證號欄位打馬賽克",
+      "params": {
+        "action": "run",
+        "input_file": "id_card.png",
+        "regions_file": "sensitive_regions.json"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "blur_strength": {
+        "type": "integer"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "region": {
+        "type": "string"
+      },
+      "region_preset": {
+        "type": "string"
+      },
+      "regions_file": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

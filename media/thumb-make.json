@@ -1,0 +1,87 @@
+{
+  "name": "thumb-make",
+  "version": "0.1.0",
+  "description": "縮圖產生器",
+  "category": "L",
+  "number": 231,
+  "pain_point": "縮圖批次產生",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "批次產生縮圖，統一 150x150 大小",
+    "幫我為一批圖片產生縮圖預覽",
+    "縮圖產生工具，用於網站商品列表",
+    "把高解析度照片批次縮成小圖",
+    "生成圖庫縮圖，維持比例",
+    "產品圖片生成縮圖版本",
+    "批次調整圖片大小到縮圖規格"
+  ],
+  "examples": [
+    {
+      "query": "為 product_images/ 所有圖片產生 200x200 縮圖",
+      "params": {
+        "action": "generate",
+        "input_dir": "product_images/",
+        "width": 200,
+        "height": 200,
+        "output_dir": "thumbnails/"
+      }
+    },
+    {
+      "query": "把 gallery/ 目錄的圖片生成 thumbnail，最長邊 300px",
+      "params": {
+        "action": "generate",
+        "input_dir": "gallery/",
+        "max_size": 300
+      }
+    },
+    {
+      "query": "為 cover.jpg 產生 4 種尺寸的縮圖：64, 128, 256, 512",
+      "params": {
+        "action": "generate",
+        "input_file": "cover.jpg",
+        "sizes": "64,128,256,512"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "height": {
+        "type": "integer"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "max_size": {
+        "type": "integer"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "sizes": {
+        "type": "string"
+      },
+      "width": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

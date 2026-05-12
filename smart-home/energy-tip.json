@@ -1,0 +1,91 @@
+{
+  "name": "energy-tip",
+  "version": "0.1.0",
+  "description": "節能建議器",
+  "category": "V",
+  "number": 440,
+  "pain_point": "家用節能建議",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "怎麼省電？給我一些節能建議",
+    "根據我的用電習慣提供節能建議",
+    "家裡哪裡最耗電，怎麼改善？",
+    "夏天怎麼用冷氣最省電？",
+    "幫我分析電費帳單，找出節能空間",
+    "智慧家居怎麼設定才最節能？",
+    "這個月電費好貴，有什麼方法可以降低？"
+  ],
+  "examples": [
+    {
+      "query": "分析本月用電數據，給出前 3 項具體節能建議",
+      "params": {
+        "month": "2024-01",
+        "top_suggestions": 3,
+        "usage_data_file": "electricity.json"
+      }
+    },
+    {
+      "query": "根據家中有冷氣、熱水器、電鍋的情況，提供節能方案",
+      "params": {
+        "appliances": [
+          "冷氣",
+          "熱水器",
+          "電鍋"
+        ],
+        "household_size": 3
+      }
+    },
+    {
+      "query": "計算如果關閉待機電器，每月可以省多少電費",
+      "params": {
+        "standby_devices": [
+          "電視",
+          "音響",
+          "機上盒"
+        ],
+        "electricity_rate": 3.5
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "appliances": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "electricity_rate": {
+        "type": "number"
+      },
+      "household_size": {
+        "type": "integer"
+      },
+      "month": {
+        "type": "string"
+      },
+      "standby_devices": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "top_suggestions": {
+        "type": "integer"
+      },
+      "usage_data_file": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

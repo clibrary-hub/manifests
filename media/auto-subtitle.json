@@ -1,0 +1,78 @@
+{
+  "name": "auto-subtitle",
+  "version": "0.1.0",
+  "description": "自動字幕產生器",
+  "category": "L",
+  "number": 224,
+  "pain_point": "字幕產生與時間軸對齊",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "whisper",
+    "ffmpeg-python",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "自動幫影片產生字幕",
+    "用 AI 把影片語音轉成字幕檔",
+    "生成 SRT 字幕，自動對齊時間軸",
+    "影片轉字幕工具，支援中文和英文",
+    "我想讓影片有自動產生的字幕",
+    "錄音轉字幕並自動對好時間",
+    "用 Whisper 生成影片字幕"
+  ],
+  "examples": [
+    {
+      "query": "幫 webinar.mp4 自動產生中文字幕",
+      "params": {
+        "action": "run",
+        "input_file": "webinar.mp4",
+        "language": "zh"
+      }
+    },
+    {
+      "query": "將 speech.wav 轉成英文 SRT 字幕檔",
+      "params": {
+        "action": "run",
+        "input_file": "speech.wav",
+        "language": "en",
+        "output_format": "srt"
+      }
+    },
+    {
+      "query": "批次為 lectures/ 目錄下所有影片產生字幕",
+      "params": {
+        "action": "run",
+        "input_dir": "lectures/",
+        "language": "zh"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "language"
+    ]
+  },
+  "license": "MIT"
+}

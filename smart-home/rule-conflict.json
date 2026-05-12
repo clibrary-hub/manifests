@@ -1,0 +1,76 @@
+{
+  "name": "rule-conflict",
+  "version": "0.1.0",
+  "description": "規則衝突器",
+  "category": "V",
+  "number": 438,
+  "pain_point": "自動化規則衝突檢查",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "pydantic"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我的智慧家居規則有衝突嗎？",
+    "幫我檢查自動化規則有沒有互相矛盾",
+    "這兩條規則會不會互相打架？",
+    "新增規則前先確認不會和現有規則衝突",
+    "分析自動化腳本的衝突問題",
+    "為什麼冷氣一直切換，是規則衝突嗎？",
+    "檢查 Home Assistant 的自動化規則衝突"
+  ],
+  "examples": [
+    {
+      "query": "檢查 rules.json 中所有自動化規則的時間和條件衝突",
+      "params": {
+        "rules_file": "rules.json",
+        "check_type": "all"
+      }
+    },
+    {
+      "query": "新增規則「22:00關燈」，確認不與現有規則衝突",
+      "params": {
+        "new_rule": {
+          "time": "22:00",
+          "action": "lights_off"
+        },
+        "check_conflict": true
+      }
+    },
+    {
+      "query": "找出所有觸發條件相同但動作相反的規則組合",
+      "params": {
+        "conflict_type": "opposite_action",
+        "show_details": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "check_conflict": {
+        "type": "boolean"
+      },
+      "check_type": {
+        "type": "string"
+      },
+      "conflict_type": {
+        "type": "string"
+      },
+      "new_rule": {
+        "type": "object"
+      },
+      "rules_file": {
+        "type": "string"
+      },
+      "show_details": {
+        "type": "boolean"
+      }
+    }
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "print-queue",
+  "version": "0.1.0",
+  "description": "列印佇列器",
+  "category": "V",
+  "number": 429,
+  "pain_point": "印表機任務管理",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "subprocess"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "查看印表機目前的列印佇列",
+    "有幾個列印任務在等待中？",
+    "取消這個卡住的列印任務",
+    "我的文件印出來了嗎？",
+    "管理印表機的列印排程",
+    "印表機佇列卡住了，幫我清理",
+    "查詢列印任務的進度和狀態"
+  ],
+  "examples": [
+    {
+      "query": "查看 HP LaserJet 的目前列印佇列狀態",
+      "params": {
+        "printer_name": "HP LaserJet",
+        "show_queue": true
+      }
+    },
+    {
+      "query": "取消 job_id 為 42 的列印任務",
+      "params": {
+        "job_id": 42,
+        "action": "cancel"
+      }
+    },
+    {
+      "query": "清空辦公室印表機所有等待中的列印任務",
+      "params": {
+        "printer_name": "辦公室印表機",
+        "action": "clear_all"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "job_id": {
+        "type": "integer"
+      },
+      "printer_name": {
+        "type": "string"
+      },
+      "show_queue": {
+        "type": "boolean"
+      }
+    }
+  },
+  "license": "MIT"
+}

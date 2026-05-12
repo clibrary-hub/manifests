@@ -1,0 +1,84 @@
+{
+  "name": "hvac-rule",
+  "version": "0.1.0",
+  "description": "空調規則器",
+  "category": "V",
+  "number": 424,
+  "pain_point": "溫度與冷氣聯動",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "paho-mqtt",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "設定室溫超過 28 度自動開冷氣",
+    "幫我建立空調自動控制規則",
+    "冬天室溫低於 18 度自動開暖氣",
+    "空調和溫濕度感測器聯動設定",
+    "設定睡眠模式：溫度維持在 26 度",
+    "離家後自動關閉空調，回家前 30 分鐘開啟",
+    "建立空調節能排程，下班前才開"
+  ],
+  "examples": [
+    {
+      "query": "設定規則：溫度超過 28°C 時自動將冷氣調到 26°C 冷氣模式",
+      "params": {
+        "trigger_temp": 28,
+        "target_temp": 26,
+        "mode": "cool",
+        "device": "客廳冷氣"
+      }
+    },
+    {
+      "query": "每天早上 7:30 自動開冷氣，設定 25 度送風模式",
+      "params": {
+        "schedule_time": "07:30",
+        "target_temp": 25,
+        "mode": "fan",
+        "repeat": "daily"
+      }
+    },
+    {
+      "query": "建立節能規則：濕度超過 75% 才開除濕機",
+      "params": {
+        "trigger_humidity": 75,
+        "device": "除濕機",
+        "mode": "dehumidify"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "device": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "repeat": {
+        "type": "string"
+      },
+      "schedule_time": {
+        "type": "string"
+      },
+      "target_temp": {
+        "type": "integer"
+      },
+      "trigger_humidity": {
+        "type": "integer"
+      },
+      "trigger_temp": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "mode"
+    ]
+  },
+  "license": "MIT"
+}

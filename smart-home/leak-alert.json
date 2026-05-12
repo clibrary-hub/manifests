@@ -1,0 +1,90 @@
+{
+  "name": "leak-alert",
+  "version": "0.1.0",
+  "description": "漏水告警器",
+  "category": "V",
+  "number": 433,
+  "pain_point": "漏水/瓦斯偵測整合",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "paho-mqtt",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "有沒有漏水偵測警報？",
+    "設定漏水感測器觸發時立即通知",
+    "瓦斯偵測器有沒有異常？",
+    "整合漏水和瓦斯感測器告警",
+    "廚房下方有漏水感測器，幫我設定警報",
+    "水管漏水偵測觸發了，查看紀錄",
+    "設定煙霧和瓦斯同時偵測的聯動告警"
+  ],
+  "examples": [
+    {
+      "query": "設定廚房漏水感測器觸發時傳送緊急通知",
+      "params": {
+        "sensor_location": "廚房",
+        "sensor_type": "water_leak",
+        "alert_level": "emergency",
+        "notify_method": "push"
+      }
+    },
+    {
+      "query": "查看過去 30 天所有漏水告警紀錄",
+      "params": {
+        "days": 30,
+        "sensor_type": "water_leak",
+        "show_all": true
+      }
+    },
+    {
+      "query": "設定瓦斯濃度超過 10% LEL 時發警報並關閉電磁閥",
+      "params": {
+        "sensor_type": "gas",
+        "threshold_percent": 10,
+        "action": "close_valve",
+        "notify": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "alert_level": {
+        "type": "string"
+      },
+      "days": {
+        "type": "integer"
+      },
+      "notify": {
+        "type": "boolean"
+      },
+      "notify_method": {
+        "type": "string"
+      },
+      "sensor_location": {
+        "type": "string"
+      },
+      "sensor_type": {
+        "type": "string"
+      },
+      "show_all": {
+        "type": "boolean"
+      },
+      "threshold_percent": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "sensor_type"
+    ]
+  },
+  "license": "MIT"
+}

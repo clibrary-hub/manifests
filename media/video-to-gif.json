@@ -1,88 +1,85 @@
 {
   "name": "video-to-gif",
-  "version": "1.0.0",
-  "category": "media",
-  "description": "Convert a video clip to an optimized GIF with configurable FPS, resolution, and loop count.",
-  "intent_triggers": [
-    "影片轉 GIF",
-    "把 mp4 變成 GIF",
-    "把這個影片轉成動圖",
-    "convert video to GIF",
-    "make a GIF from video",
-    "video to GIF",
-    "生成 GIF",
-    "錄影轉 GIF",
-    "create animated GIF from video",
-    "mp4 to gif",
-    "把影片做成表情包",
-    "截取影片片段轉 GIF",
-    "turn clip into GIF",
-    "export video as GIF",
-    "動畫 GIF 製作"
+  "version": "0.1.0",
+  "description": "影片轉 GIF",
+  "category": "L",
+  "number": 221,
+  "pain_point": "影片轉 GIF 步驟多",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "ffmpeg-python",
+    "click",
+    "rich"
   ],
-  "input_schema": {
-    "input": {
-      "type": "string",
-      "required": true,
-      "description": "Path to input video file (mp4, mov, avi, webm, mkv)"
-    },
-    "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output GIF path; defaults to <input_name>.gif"
-    },
-    "start": {
-      "type": "string",
-      "required": false,
-      "description": "Start time (e.g. 00:00:05 or 5)"
-    },
-    "duration": {
-      "type": "number",
-      "required": false,
-      "description": "Duration in seconds to capture"
-    },
-    "fps": {
-      "type": "integer",
-      "required": false,
-      "default": 15,
-      "description": "Frames per second (1–30)"
-    },
-    "width": {
-      "type": "integer",
-      "required": false,
-      "description": "Output width in pixels; height is auto-scaled"
-    },
-    "loop": {
-      "type": "integer",
-      "required": false,
-      "default": 0,
-      "description": "Loop count: 0 = infinite, 1 = play once"
-    }
-  },
-  "output_schema": {
-    "format": "json",
-    "fields": ["output_path", "file_size_bytes", "width", "height", "fps", "duration_seconds", "frame_count"]
-  },
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把影片片段轉成 GIF 動圖",
+    "幫我把 MP4 的某個片段輸出成 GIF",
+    "影片轉 GIF 工具，懶人一鍵操作",
+    "截取影片 10 到 20 秒轉成動圖",
+    "我要把說明影片轉成 GIF 放到文件裡",
+    "video 轉 gif 批次處理",
+    "把 demo 影片變成 GIF 方便分享"
+  ],
   "examples": [
     {
-      "intent": "把這個 mp4 的前 5 秒轉成 GIF",
-      "invocation": "video-to-gif --input clip.mp4 --duration 5 --fps 15 --width 480"
+      "query": "把 demo.mp4 的前 10 秒轉成 GIF，解析度 480p",
+      "params": {
+        "action": "run",
+        "input_file": "demo.mp4",
+        "start": "00:00:00",
+        "end": "00:00:10",
+        "width": 480
+      }
     },
     {
-      "intent": "convert a specific section of a video to GIF",
-      "invocation": "video-to-gif --input demo.mp4 --start 00:00:10 --duration 8 --output demo.gif"
+      "query": "將 tutorial.mp4 第 30 秒到 45 秒轉成 GIF",
+      "params": {
+        "action": "run",
+        "input_file": "tutorial.mp4",
+        "start": "00:00:30",
+        "end": "00:00:45"
+      }
     },
     {
-      "intent": "高品質 GIF 輸出",
-      "invocation": "video-to-gif --input interview.mov --fps 24 --width 640 --output highlight.gif"
+      "query": "批次把 clips/ 目錄下所有 MP4 轉成 GIF",
+      "params": {
+        "action": "run",
+        "input_dir": "clips/",
+        "output_dir": "gifs/"
+      }
     }
   ],
-  "error_codes": {
-    "E001": "Input file not found",
-    "E002": "Unsupported video format",
-    "E003": "ffmpeg not installed — run: brew install ffmpeg",
-    "E004": "Start time exceeds video duration",
-    "E005": "Output file size exceeds 50MB — reduce fps or width"
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "end": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "start": {
+        "type": "string"
+      },
+      "width": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "action"
+    ]
   },
-  "tags": ["gif", "video", "convert", "animation", "media", "ffmpeg", "mp4"]
+  "license": "MIT"
 }

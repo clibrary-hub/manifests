@@ -1,0 +1,80 @@
+{
+  "name": "audio-stt",
+  "version": "0.1.0",
+  "description": "語音轉文字",
+  "category": "L",
+  "number": 234,
+  "pain_point": "音訊轉文字",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "whisper",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我把錄音轉成文字逐字稿",
+    "語音轉文字工具，會議錄音轉文稿",
+    "用 AI 轉寫音訊為文字",
+    "把 podcast 錄音轉成文字稿",
+    "speech to text 轉換",
+    "會議記錄自動轉寫",
+    "把 MP3 轉成文字，帶時間戳"
+  ],
+  "examples": [
+    {
+      "query": "把 meeting.mp3 轉成中文文字稿",
+      "params": {
+        "action": "run",
+        "input_file": "meeting.mp3",
+        "language": "zh"
+      }
+    },
+    {
+      "query": "轉寫 lecture.wav 並加上時間戳記，輸出 TXT",
+      "params": {
+        "action": "run",
+        "input_file": "lecture.wav",
+        "timestamps": true,
+        "output_format": "txt"
+      }
+    },
+    {
+      "query": "批次轉寫 interviews/ 目錄下所有音檔為英文文字",
+      "params": {
+        "action": "run",
+        "input_dir": "interviews/",
+        "language": "en"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      },
+      "timestamps": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

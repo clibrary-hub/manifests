@@ -1,0 +1,79 @@
+{
+  "name": "mqtt-tap",
+  "version": "0.1.0",
+  "description": "MQTT 監聽器",
+  "category": "V",
+  "number": 439,
+  "pain_point": "IoT MQTT 訊息檢視",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "paho-mqtt",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我監聽 MQTT Broker 的訊息",
+    "查看指定 MQTT 主題的即時訊息",
+    "IoT 設備有沒有在發送 MQTT 訊息？",
+    "訂閱這個 MQTT Topic 並顯示訊息",
+    "偵錯 IoT 設備的 MQTT 通訊",
+    "記錄 MQTT 訊息流，找出異常",
+    "比較兩個 MQTT Topic 的訊息頻率"
+  ],
+  "examples": [
+    {
+      "query": "監聽 broker 192.168.1.100 的 home/# 所有主題訊息",
+      "params": {
+        "broker_host": "192.168.1.100",
+        "topic": "home/#",
+        "port": 1883
+      }
+    },
+    {
+      "query": "訂閱 home/bedroom/temperature 並記錄 5 分鐘的數值",
+      "params": {
+        "topic": "home/bedroom/temperature",
+        "duration_seconds": 300,
+        "save_log": true
+      }
+    },
+    {
+      "query": "過濾顯示 payload 包含 'error' 的 MQTT 訊息",
+      "params": {
+        "topic": "#",
+        "filter_keyword": "error",
+        "broker_host": "localhost"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "broker_host": {
+        "type": "string"
+      },
+      "duration_seconds": {
+        "type": "integer"
+      },
+      "filter_keyword": {
+        "type": "string"
+      },
+      "port": {
+        "type": "integer"
+      },
+      "save_log": {
+        "type": "boolean"
+      },
+      "topic": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "topic"
+    ]
+  },
+  "license": "MIT"
+}

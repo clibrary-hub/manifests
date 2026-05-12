@@ -1,0 +1,89 @@
+{
+  "name": "live-clip",
+  "version": "0.1.0",
+  "description": "直播切片器",
+  "category": "L",
+  "number": 236,
+  "pain_point": "直播切片成短影音",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "ffmpeg-python",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把直播錄影切成短片段",
+    "擷取直播精彩片段製成短影音",
+    "直播切片工具，輸出多個短視頻",
+    "把長達 3 小時的直播切成 60 秒短影片",
+    "自動從直播錄影中切出精華",
+    "直播 VOD 切片工具",
+    "擷取直播中的特定時段並匯出"
+  ],
+  "examples": [
+    {
+      "query": "把 stream.mp4 切成每段 90 秒的短影片並匯出",
+      "params": {
+        "action": "export",
+        "input_file": "stream.mp4",
+        "segment_duration": 90,
+        "output_dir": "clips/"
+      }
+    },
+    {
+      "query": "從 live_recording.mp4 切出 1:30:00 到 1:32:00 的精彩片段",
+      "params": {
+        "action": "export",
+        "input_file": "live_recording.mp4",
+        "start": "01:30:00",
+        "end": "01:32:00",
+        "output_file": "highlight.mp4"
+      }
+    },
+    {
+      "query": "根據 timestamps.txt 的時間點切割 stream.mp4",
+      "params": {
+        "action": "export",
+        "input_file": "stream.mp4",
+        "timestamps_file": "timestamps.txt"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "end": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "output_file": {
+        "type": "string"
+      },
+      "segment_duration": {
+        "type": "integer"
+      },
+      "start": {
+        "type": "string"
+      },
+      "timestamps_file": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "input_file"
+    ]
+  },
+  "license": "MIT"
+}

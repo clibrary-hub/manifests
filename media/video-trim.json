@@ -1,0 +1,92 @@
+{
+  "name": "video-trim",
+  "version": "0.1.0",
+  "description": "批次剪輯器",
+  "category": "L",
+  "number": 223,
+  "pain_point": "多軌剪輯麻煩",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "ffmpeg-python",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "批次剪輯多支影片，去掉開頭結尾",
+    "裁剪影片的某個片段",
+    "批次對多軌影片做同樣的剪輯",
+    "影片剪輯工具，快速裁切時間段",
+    "把 vlog 的多個片段分別剪出來",
+    "自動化影片剪輯流程",
+    "剪掉影片開頭 5 秒的空白",
+    "從影片中剪出指定時間段",
+    "mp4 截取指定起訖時間",
+    "影片時間區間剪輯",
+    "剪下影片的某一段",
+    "影片時間段擷取"
+  ],
+  "examples": [
+    {
+      "query": "把 lecture.mp4 從 10:30 到 25:00 的部分剪出來",
+      "params": {
+        "action": "run",
+        "input_file": "lecture.mp4",
+        "start": "10:30",
+        "end": "25:00",
+        "output_file": "lecture_clip.mp4"
+      }
+    },
+    {
+      "query": "批次剪輯 videos/ 目錄下所有影片，去掉前 3 秒",
+      "params": {
+        "action": "run",
+        "input_dir": "videos/",
+        "trim_start": 3
+      }
+    },
+    {
+      "query": "將 podcast.mp4 按照 chapters.txt 分割成多段",
+      "params": {
+        "action": "run",
+        "input_file": "podcast.mp4",
+        "chapters_file": "chapters.txt"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "chapters_file": {
+        "type": "string"
+      },
+      "end": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_file": {
+        "type": "string"
+      },
+      "start": {
+        "type": "string"
+      },
+      "trim_start": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

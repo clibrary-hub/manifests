@@ -1,0 +1,150 @@
+{
+  "name": "watermark-remove",
+  "version": "0.1.0",
+  "description": "圖片與影片去浮水印工具，支援 AI inpainting 修復與 ffmpeg 遮蔽兩種模式",
+  "category": "L",
+  "number": 242,
+  "pain_point": "圖片或影片有浮水印，需要手動框選再修復，步驟繁瑣",
+  "commercial": "✅",
+  "commercial_note": "底層使用 OpenCV（Apache 2.0）、iopaint（Apache 2.0）、ffmpeg（LGPL/GPL，動態連結可商用）。僅限處理自有內容或已獲授權內容，去除他人著作權浮水印可能違法。",
+  "language": "Python",
+  "dependencies": [
+    "opencv-python",
+    "iopaint",
+    "ffmpeg-python",
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我去掉圖片上的浮水印",
+    "影片右下角有 logo 想移除",
+    "批次移除一批圖片的浮水印",
+    "去掉截圖上的文字浮水印",
+    "remove watermark from image",
+    "影片左上角的台標或頻道 logo 去掉",
+    "去除照片上的日期時間戳",
+    "我的產品圖有浮水印，幫我修復",
+    "erase logo from video corner",
+    "影片去台標工具",
+    "remove text overlay from photo",
+    "圖片去字幕條",
+    "批次去浮水印自動化",
+    "inpaint watermark region",
+    "去掉圖片右下角的版權文字"
+  ],
+  "examples": [
+    {
+      "query": "把 photo.jpg 右下角的浮水印去掉，用 AI 修復",
+      "params": {
+        "action": "run",
+        "input_file": "photo.jpg",
+        "mode": "inpaint",
+        "region": "bottom-right",
+        "output_file": "photo_clean.jpg"
+      }
+    },
+    {
+      "query": "影片右下角固定位置有台標，幫我用 ffmpeg 遮蔽",
+      "params": {
+        "action": "run",
+        "input_file": "video.mp4",
+        "mode": "blur",
+        "region_x": 1720,
+        "region_y": 980,
+        "region_w": 180,
+        "region_h": 60,
+        "output_file": "video_clean.mp4"
+      }
+    },
+    {
+      "query": "批次去除 photos/ 目錄下所有圖片的浮水印",
+      "params": {
+        "action": "run",
+        "input_dir": "photos/",
+        "mode": "inpaint",
+        "region": "bottom-right",
+        "output_dir": "photos_clean/"
+      }
+    },
+    {
+      "query": "去掉照片上的日期時間戳（左下角）",
+      "params": {
+        "action": "run",
+        "input_file": "dsc_0001.jpg",
+        "mode": "inpaint",
+        "region": "bottom-left",
+        "output_file": "dsc_0001_clean.jpg"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "description": "固定為 run"
+      },
+      "input_file": {
+        "type": "string",
+        "description": "輸入檔案路徑（圖片：jpg/png/webp；影片：mp4/mov/mkv）"
+      },
+      "input_dir": {
+        "type": "string",
+        "description": "批次模式：輸入目錄路徑"
+      },
+      "mode": {
+        "type": "string",
+        "description": "去浮水印模式：inpaint（AI 修復，適合圖片）、blur（模糊遮蔽，適合影片）、fill（純色填充）"
+      },
+      "region": {
+        "type": "string",
+        "description": "預設區域快捷：top-left、top-right、bottom-left、bottom-right、top-center、bottom-center"
+      },
+      "region_x": {
+        "type": "integer",
+        "description": "自訂區域 X 座標（像素），與 region_y/w/h 搭配使用"
+      },
+      "region_y": {
+        "type": "integer",
+        "description": "自訂區域 Y 座標（像素）"
+      },
+      "region_w": {
+        "type": "integer",
+        "description": "自訂區域寬度（像素）"
+      },
+      "region_h": {
+        "type": "integer",
+        "description": "自訂區域高度（像素）"
+      },
+      "mask_file": {
+        "type": "string",
+        "description": "進階：自訂遮罩圖片路徑（白色區域 = 要移除的浮水印），優先於 region"
+      },
+      "fill_color": {
+        "type": "string",
+        "description": "mode 為 fill 時使用的填充色，例如 white、black、#FF0000"
+      },
+      "output_file": {
+        "type": "string",
+        "description": "輸出檔案路徑"
+      },
+      "output_dir": {
+        "type": "string",
+        "description": "批次模式：輸出目錄路徑"
+      }
+    },
+    "required": [
+      "action",
+      "mode"
+    ]
+  },
+  "modes": {
+    "inpaint": "使用 iopaint（LaMa 模型）AI 修復，效果最佳，適合靜態圖片，較慢",
+    "blur": "使用 ffmpeg 高斯模糊遮蔽，速度快，適合影片固定位置 logo",
+    "fill": "純色填充，速度最快，適合背景為純色的情況"
+  },
+  "license": "MIT"
+}

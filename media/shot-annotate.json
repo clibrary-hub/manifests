@@ -1,0 +1,91 @@
+{
+  "name": "shot-annotate",
+  "version": "0.1.0",
+  "description": "截圖標註器",
+  "category": "L",
+  "number": 228,
+  "pain_point": "截圖加註解",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "在截圖上加箭頭和文字說明",
+    "截圖標註工具，加紅框和備註",
+    "製作說明文件用的標註截圖",
+    "在圖片上畫圓圈或箭頭指出重點",
+    "幫我在 screenshot.png 加上說明文字",
+    "批次為截圖加上浮水印或標註",
+    "圖片標記工具，指出截圖中的重要位置"
+  ],
+  "examples": [
+    {
+      "query": "在 screenshot.png 的座標 (100,200) 加上紅色箭頭和文字「點這裡」",
+      "params": {
+        "action": "run",
+        "input_file": "screenshot.png",
+        "annotation_type": "arrow",
+        "position": "100,200",
+        "text": "點這裡",
+        "color": "red"
+      }
+    },
+    {
+      "query": "在 ui_mock.png 加上三個標號說明，輸出給客戶",
+      "params": {
+        "action": "run",
+        "input_file": "ui_mock.png",
+        "annotations_file": "annotations.json"
+      }
+    },
+    {
+      "query": "批次為 docs_screenshots/ 所有圖片加上公司 logo 浮水印",
+      "params": {
+        "action": "run",
+        "input_dir": "docs_screenshots/",
+        "watermark": "logo.png"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "annotation_type": {
+        "type": "string"
+      },
+      "annotations_file": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "position": {
+        "type": "string"
+      },
+      "text": {
+        "type": "string"
+      },
+      "watermark": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

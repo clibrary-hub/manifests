@@ -1,0 +1,78 @@
+{
+  "name": "lock-log",
+  "version": "0.1.0",
+  "description": "門鎖紀錄器",
+  "category": "V",
+  "number": 426,
+  "pain_point": "門鎖紀錄與通知",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "查詢今天門鎖開關的紀錄",
+    "幫我看誰在什麼時間開了大門",
+    "有沒有異常的門鎖事件？",
+    "孩子到家了嗎？看一下門鎖紀錄",
+    "昨晚幾點最後一次鎖門？",
+    "智慧門鎖存取記錄查詢",
+    "哪個用戶密碼或指紋觸發了開門？"
+  ],
+  "examples": [
+    {
+      "query": "查詢今天大門的完整開關紀錄",
+      "params": {
+        "device": "大門",
+        "date": "2024-01-27"
+      }
+    },
+    {
+      "query": "查看過去 7 天有沒有凌晨時段異常開門事件",
+      "params": {
+        "days": 7,
+        "time_range": "00:00-06:00",
+        "event_type": "unlock"
+      }
+    },
+    {
+      "query": "小明的指紋今天幾點進出家門？",
+      "params": {
+        "user": "小明",
+        "date": "2024-01-27",
+        "access_method": "fingerprint"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "access_method": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "days": {
+        "type": "integer"
+      },
+      "device": {
+        "type": "string"
+      },
+      "event_type": {
+        "type": "string"
+      },
+      "time_range": {
+        "type": "string"
+      },
+      "user": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,79 @@
+{
+  "name": "home-backup",
+  "version": "0.1.0",
+  "description": "家庭備份器",
+  "category": "V",
+  "number": 436,
+  "pain_point": "家庭備份排程",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "shutil",
+    "schedule",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "設定家裡電腦自動備份到 NAS",
+    "幫我排程每週備份重要文件",
+    "手機照片自動備份到家裡的 NAS",
+    "查看上次備份的時間和狀態",
+    "建立家庭資料備份排程",
+    "重要資料有在定期備份嗎？",
+    "設定每天凌晨自動備份桌面資料夾"
+  ],
+  "examples": [
+    {
+      "query": "設定每天凌晨 2 點備份 D:/Documents 到 NAS",
+      "params": {
+        "source_path": "D:/Documents",
+        "dest_path": "//nas/backup",
+        "schedule_time": "02:00",
+        "repeat": "daily"
+      }
+    },
+    {
+      "query": "查看最近 5 次備份的執行紀錄和成功率",
+      "params": {
+        "show_history": true,
+        "last_n": 5
+      }
+    },
+    {
+      "query": "立即執行一次完整備份，備份所有使用者資料夾",
+      "params": {
+        "source_path": "C:/Users",
+        "dest_path": "//nas/full-backup",
+        "execute_now": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "dest_path": {
+        "type": "string"
+      },
+      "execute_now": {
+        "type": "boolean"
+      },
+      "last_n": {
+        "type": "integer"
+      },
+      "repeat": {
+        "type": "string"
+      },
+      "schedule_time": {
+        "type": "string"
+      },
+      "show_history": {
+        "type": "boolean"
+      },
+      "source_path": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

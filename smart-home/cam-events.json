@@ -1,0 +1,72 @@
+{
+  "name": "cam-events",
+  "version": "0.1.0",
+  "description": "安防事件摘要",
+  "category": "V",
+  "number": 425,
+  "pain_point": "安防攝影機事件摘要",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "今天監視攝影機拍到了什麼？",
+    "幫我摘要昨晚的安防事件紀錄",
+    "門口攝影機今天有幾次移動偵測？",
+    "有沒有可疑的安防事件要注意？",
+    "整理今天所有攝影機觸發的警報",
+    "這段影像紀錄發生了什麼事？",
+    "查看過去 24 小時的安防事件摘要"
+  ],
+  "examples": [
+    {
+      "query": "摘要今天門口攝影機的所有動作偵測事件",
+      "params": {
+        "camera_id": "front_door",
+        "date": "2024-01-27",
+        "event_type": "motion"
+      }
+    },
+    {
+      "query": "分析昨晚 11 點到今天 6 點的安防事件紀錄",
+      "params": {
+        "start_time": "2024-01-26 23:00",
+        "end_time": "2024-01-27 06:00",
+        "camera_id": "all"
+      }
+    },
+    {
+      "query": "找出今天有人臉識別的安防事件",
+      "params": {
+        "date": "2024-01-27",
+        "event_type": "face_detection"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "camera_id": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "end_time": {
+        "type": "string"
+      },
+      "event_type": {
+        "type": "string"
+      },
+      "start_time": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,73 @@
+{
+  "name": "solar-track",
+  "version": "0.1.0",
+  "description": "太陽能追蹤器",
+  "category": "V",
+  "number": 428,
+  "pain_point": "太陽能板產量追蹤",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "requests",
+    "sqlite3",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "今天太陽能板發了多少電？",
+    "這個月太陽能產量怎麼樣？",
+    "追蹤太陽能板的每日發電量",
+    "比較晴天和陰天的太陽能效率",
+    "太陽能板今天的發電效率正常嗎？",
+    "今年到目前太陽能省了多少電費？",
+    "查詢太陽能逆變器的運作狀態"
+  ],
+  "examples": [
+    {
+      "query": "查詢今天太陽能板的累計發電量和效率",
+      "params": {
+        "date": "2024-01-27",
+        "panel_id": "rooftop_panel_1"
+      }
+    },
+    {
+      "query": "統計本月每日發電量趨勢，計算總電費節省",
+      "params": {
+        "month": "2024-01",
+        "electricity_rate": 3.5
+      }
+    },
+    {
+      "query": "比較過去 30 天的平均日發電量",
+      "params": {
+        "days": 30,
+        "compare_weather": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "compare_weather": {
+        "type": "boolean"
+      },
+      "date": {
+        "type": "string"
+      },
+      "days": {
+        "type": "integer"
+      },
+      "electricity_rate": {
+        "type": "number"
+      },
+      "month": {
+        "type": "string"
+      },
+      "panel_id": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

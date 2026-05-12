@@ -1,0 +1,75 @@
+{
+  "name": "exif-clean",
+  "version": "0.1.0",
+  "description": "EXIF 清除器",
+  "category": "L",
+  "number": 239,
+  "pain_point": "EXIF 隱私清除",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "piexif",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "清除圖片的 EXIF 隱私資訊",
+    "上傳照片前先清除 GPS 位置資訊",
+    "批次清除一批圖片的 metadata",
+    "圖片去除隱私 EXIF 資料工具",
+    "我要分享照片但不想洩漏拍攝地點",
+    "清除相片的拍攝時間和設備資訊",
+    "EXIF 資料隱私保護批次工具"
+  ],
+  "examples": [
+    {
+      "query": "清除 photo.jpg 的所有 EXIF 資訊",
+      "params": {
+        "action": "run",
+        "input_file": "photo.jpg"
+      }
+    },
+    {
+      "query": "批次清除 vacation_photos/ 所有照片的 GPS 位置資訊",
+      "params": {
+        "action": "run",
+        "input_dir": "vacation_photos/",
+        "remove_gps_only": true
+      }
+    },
+    {
+      "query": "清除 profile_pic.png 的 EXIF 並輸出到 clean/",
+      "params": {
+        "action": "run",
+        "input_file": "profile_pic.png",
+        "output_dir": "clean/"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "remove_gps_only": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

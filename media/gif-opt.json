@@ -1,0 +1,79 @@
+{
+  "name": "gif-opt",
+  "version": "0.1.0",
+  "description": "動圖最佳化器",
+  "category": "L",
+  "number": 240,
+  "pain_point": "動圖最佳化",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把 GIF 檔案最佳化縮小一點",
+    "GIF 動圖壓縮工具，保持流暢度",
+    "批次最佳化一批 GIF 動圖",
+    "GIF 太大了網頁載入慢，幫我壓縮",
+    "縮小 GIF 檔案大小但維持畫質",
+    "動圖最佳化，減少幀數或色彩",
+    "讓 GIF 更小更快載入"
+  ],
+  "examples": [
+    {
+      "query": "最佳化 animation.gif，目標縮小到 500KB 以內",
+      "params": {
+        "action": "run",
+        "input_file": "animation.gif",
+        "target_size_kb": 500
+      }
+    },
+    {
+      "query": "批次最佳化 gifs/ 目錄下所有 GIF，降低幀率到 15fps",
+      "params": {
+        "action": "run",
+        "input_dir": "gifs/",
+        "fps": 15
+      }
+    },
+    {
+      "query": "壓縮 loading.gif 並減少色彩深度到 128 色",
+      "params": {
+        "action": "run",
+        "input_file": "loading.gif",
+        "colors": 128
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "colors": {
+        "type": "integer"
+      },
+      "fps": {
+        "type": "integer"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "target_size_kb": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

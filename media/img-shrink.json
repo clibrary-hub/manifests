@@ -1,0 +1,83 @@
+{
+  "name": "img-shrink",
+  "version": "0.1.0",
+  "description": "圖片批壓器",
+  "category": "L",
+  "number": 226,
+  "pain_point": "圖片批次壓縮",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "批次壓縮圖片，縮小檔案大小",
+    "我有一堆 PNG 要壓縮，但不要太失真",
+    "圖片壓縮工具，批次處理資料夾",
+    "把照片縮小到 100KB 以內",
+    "壓縮網站用圖片",
+    "批次縮圖，維持長寬比",
+    "把一批 JPEG 圖片壓到指定大小"
+  ],
+  "examples": [
+    {
+      "query": "批次壓縮 photos/ 目錄下所有 JPG，目標每張不超過 200KB",
+      "params": {
+        "action": "run",
+        "input_dir": "photos/",
+        "max_size_kb": 200
+      }
+    },
+    {
+      "query": "把 banner.png 壓縮到 80% 品質並存到 output/",
+      "params": {
+        "action": "run",
+        "input_file": "banner.png",
+        "quality": 80,
+        "output_dir": "output/"
+      }
+    },
+    {
+      "query": "壓縮並調整 product_images/ 的圖片到最大寬度 1200px",
+      "params": {
+        "action": "run",
+        "input_dir": "product_images/",
+        "max_width": 1200
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "max_size_kb": {
+        "type": "integer"
+      },
+      "max_width": {
+        "type": "integer"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "quality": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

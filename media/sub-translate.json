@@ -1,0 +1,78 @@
+{
+  "name": "sub-translate",
+  "version": "0.1.0",
+  "description": "字幕翻譯器",
+  "category": "L",
+  "number": 225,
+  "pain_point": "字幕翻譯",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把英文字幕翻譯成中文",
+    "字幕翻譯工具，保留時間軸格式",
+    "幫我把 SRT 字幕翻譯成另一種語言",
+    "翻譯影片字幕並保持對齊",
+    "我要把日文字幕翻成繁體中文",
+    "批次翻譯多個字幕檔",
+    "字幕本地化工具"
+  ],
+  "examples": [
+    {
+      "query": "把 movie_en.srt 翻譯成繁體中文",
+      "params": {
+        "action": "run",
+        "input_file": "movie_en.srt",
+        "target_lang": "zh-TW"
+      }
+    },
+    {
+      "query": "將日文字幕 anime_jp.srt 翻成英文",
+      "params": {
+        "action": "run",
+        "input_file": "anime_jp.srt",
+        "source_lang": "ja",
+        "target_lang": "en"
+      }
+    },
+    {
+      "query": "批次翻譯 subtitles/ 目錄下所有英文 SRT 字幕成中文",
+      "params": {
+        "action": "run",
+        "input_dir": "subtitles/",
+        "target_lang": "zh-TW"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "source_lang": {
+        "type": "string"
+      },
+      "target_lang": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "target_lang"
+    ]
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,83 @@
+{
+  "name": "video-compress",
+  "version": "0.1.0",
+  "description": "智慧壓縮器",
+  "category": "L",
+  "number": 222,
+  "pain_point": "影片壓縮品質難拿捏",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "ffmpeg-python",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把影片壓縮到 100MB 以下但保持畫質",
+    "影片太大了，幫我壓縮一下",
+    "智慧壓縮影片，自動平衡品質與檔案大小",
+    "上傳影片前先壓縮，不要太失真",
+    "批次壓縮一批 MP4 影片",
+    "把 4K 影片壓成 1080p",
+    "影片檔案太肥，縮小它"
+  ],
+  "examples": [
+    {
+      "query": "把 interview.mp4 壓縮到 50MB 以內",
+      "params": {
+        "action": "run",
+        "input_file": "interview.mp4",
+        "target_size_mb": 50
+      }
+    },
+    {
+      "query": "將 wedding.mp4 以 CRF 23 壓縮並保持 1080p",
+      "params": {
+        "action": "run",
+        "input_file": "wedding.mp4",
+        "crf": 23,
+        "resolution": "1080p"
+      }
+    },
+    {
+      "query": "批次壓縮 recordings/ 下的所有影片，輸出到 compressed/",
+      "params": {
+        "action": "run",
+        "input_dir": "recordings/",
+        "output_dir": "compressed/"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "crf": {
+        "type": "integer"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "resolution": {
+        "type": "string"
+      },
+      "target_size_mb": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,77 @@
+{
+  "name": "home-traffic",
+  "version": "0.1.0",
+  "description": "家用流量分析",
+  "category": "V",
+  "number": 435,
+  "pain_point": "路由器流量分析",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "scapy",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "誰在家裡佔用最多網路頻寬？",
+    "幫我分析家用路由器的流量",
+    "哪台裝置的網路用量最高？",
+    "查看今天的網路流量使用情況",
+    "有沒有不明裝置在用我的 WiFi？",
+    "小孩的裝置今天用了多少網路？",
+    "家裡網速慢，幫我看哪個裝置在吃頻寬"
+  ],
+  "examples": [
+    {
+      "query": "分析今天各裝置的流量使用排名",
+      "params": {
+        "date": "2024-01-27",
+        "sort_by": "traffic",
+        "top_n": 10
+      }
+    },
+    {
+      "query": "查看 192.168.1.105 這台裝置過去 7 天的流量趨勢",
+      "params": {
+        "device_ip": "192.168.1.105",
+        "days": 7
+      }
+    },
+    {
+      "query": "掃描目前連接到路由器的所有裝置清單",
+      "params": {
+        "router_ip": "192.168.1.1",
+        "scan_devices": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "date": {
+        "type": "string"
+      },
+      "days": {
+        "type": "integer"
+      },
+      "device_ip": {
+        "type": "string"
+      },
+      "router_ip": {
+        "type": "string"
+      },
+      "scan_devices": {
+        "type": "boolean"
+      },
+      "sort_by": {
+        "type": "string"
+      },
+      "top_n": {
+        "type": "integer"
+      }
+    }
+  },
+  "license": "MIT"
+}

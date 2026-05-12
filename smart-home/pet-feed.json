@@ -1,0 +1,85 @@
+{
+  "name": "pet-feed",
+  "version": "0.1.0",
+  "description": "餵食排程器",
+  "category": "V",
+  "number": 430,
+  "pain_point": "寵物餵食器排程",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "schedule",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "設定寵物自動餵食排程",
+    "幫我設定早晚各一次的餵貓時間",
+    "智慧餵食器幾點要出飼料？",
+    "建立狗狗的餵食時間表",
+    "查看今天的寵物餵食記錄",
+    "我出差了，設定自動餵食排程",
+    "調整貓咪餵食的份量和時間"
+  ],
+  "examples": [
+    {
+      "query": "設定每天早上 7:00 和下午 6:00 各餵貓咪 50g 飼料",
+      "params": {
+        "pet_name": "貓咪",
+        "feed_times": [
+          "07:00",
+          "18:00"
+        ],
+        "amount_grams": 50
+      }
+    },
+    {
+      "query": "查詢今天的餵食執行記錄，有沒有漏餵",
+      "params": {
+        "date": "2024-01-27",
+        "check_missed": true
+      }
+    },
+    {
+      "query": "幫小黑（狗）設定週末加餵一次，下午 3 點 30g",
+      "params": {
+        "pet_name": "小黑",
+        "extra_feed_time": "15:00",
+        "amount_grams": 30,
+        "repeat": "weekend"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "amount_grams": {
+        "type": "integer"
+      },
+      "check_missed": {
+        "type": "boolean"
+      },
+      "date": {
+        "type": "string"
+      },
+      "extra_feed_time": {
+        "type": "string"
+      },
+      "feed_times": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "pet_name": {
+        "type": "string"
+      },
+      "repeat": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

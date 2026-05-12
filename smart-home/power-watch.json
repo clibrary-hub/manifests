@@ -1,0 +1,86 @@
+{
+  "name": "power-watch",
+  "version": "0.1.0",
+  "description": "用電監測器",
+  "category": "V",
+  "number": 427,
+  "pain_point": "用電量監測",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "paho-mqtt",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "今天哪個電器最耗電？",
+    "幫我找出家中的用電大戶",
+    "這個月用了多少度電？",
+    "冷氣和熱水器哪個比較耗電？",
+    "幫我監測家裡的用電量",
+    "今日即時用電量是多少？",
+    "設定用電量超標時發通知",
+    "電力用量監控",
+    "追蹤用電量並設定輸出格式",
+    "家庭或伺服器的電力監測",
+    "用電監測器指定輸出",
+    "電費和用電量追蹤"
+  ],
+  "examples": [
+    {
+      "query": "查詢今天各房間的用電量分布",
+      "params": {
+        "date": "2024-01-27",
+        "group_by": "room"
+      }
+    },
+    {
+      "query": "列出本月用電量最高的前 5 台電器",
+      "params": {
+        "month": "2024-01",
+        "top_n": 5,
+        "sort_by": "consumption"
+      }
+    },
+    {
+      "query": "設定警報：當小時用電量超過 3 度時通知我",
+      "params": {
+        "threshold_kwh": 3,
+        "period": "hourly",
+        "notify": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "date": {
+        "type": "string"
+      },
+      "group_by": {
+        "type": "string"
+      },
+      "month": {
+        "type": "string"
+      },
+      "notify": {
+        "type": "boolean"
+      },
+      "period": {
+        "type": "string"
+      },
+      "sort_by": {
+        "type": "string"
+      },
+      "threshold_kwh": {
+        "type": "integer"
+      },
+      "top_n": {
+        "type": "integer"
+      }
+    }
+  },
+  "license": "MIT"
+}

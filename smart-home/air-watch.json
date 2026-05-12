@@ -1,0 +1,97 @@
+{
+  "name": "air-watch",
+  "version": "0.1.0",
+  "description": "空氣告警器",
+  "category": "V",
+  "number": 431,
+  "pain_point": "室內空氣品質告警",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "paho-mqtt",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "室內空氣品質怎麼樣？",
+    "CO2 濃度超標了嗎？",
+    "設定 PM2.5 超標時發出警報",
+    "查看目前室內空氣品質數值",
+    "空氣清淨機什麼時候該開？",
+    "幫我監控客廳的甲醛濃度",
+    "今天室內空氣品質最差是幾點？"
+  ],
+  "examples": [
+    {
+      "query": "查詢客廳目前的 CO2、PM2.5 和溫濕度數值",
+      "params": {
+        "room": "客廳",
+        "metrics": [
+          "co2",
+          "pm25",
+          "temperature",
+          "humidity"
+        ]
+      }
+    },
+    {
+      "query": "設定 CO2 超過 1000 ppm 時自動開窗並通知我",
+      "params": {
+        "metric": "co2",
+        "threshold": 1000,
+        "unit": "ppm",
+        "action": "open_window",
+        "notify": true
+      }
+    },
+    {
+      "query": "查看過去 24 小時空氣品質最差的時間段",
+      "params": {
+        "hours": 24,
+        "find_worst": true,
+        "metrics": [
+          "pm25",
+          "co2"
+        ]
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "find_worst": {
+        "type": "boolean"
+      },
+      "hours": {
+        "type": "integer"
+      },
+      "metric": {
+        "type": "string"
+      },
+      "metrics": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "notify": {
+        "type": "boolean"
+      },
+      "room": {
+        "type": "string"
+      },
+      "threshold": {
+        "type": "integer"
+      },
+      "unit": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

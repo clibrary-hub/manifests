@@ -1,0 +1,80 @@
+{
+  "name": "video-summary",
+  "version": "0.1.0",
+  "description": "影片摘要器",
+  "category": "L",
+  "number": 237,
+  "pain_point": "影片摘要",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "whisper",
+    "anthropic",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我摘要這支影片的內容",
+    "把影片內容轉成文字摘要",
+    "用 AI 總結這段會議錄影",
+    "長影片摘要工具，快速了解重點",
+    "不想看完整影片，給我一份摘要",
+    "影片字幕自動產生並摘要",
+    "把課程影片的重點整理成筆記"
+  ],
+  "examples": [
+    {
+      "query": "幫我摘要 lecture.mp4 的主要重點，用中文輸出",
+      "params": {
+        "action": "run",
+        "input_file": "lecture.mp4",
+        "output_lang": "zh",
+        "summary_length": "medium"
+      }
+    },
+    {
+      "query": "把 meeting_recording.mp4 的內容轉成會議紀要",
+      "params": {
+        "action": "run",
+        "input_file": "meeting_recording.mp4",
+        "output_format": "meeting_notes"
+      }
+    },
+    {
+      "query": "批次摘要 webinars/ 目錄下所有影片",
+      "params": {
+        "action": "run",
+        "input_dir": "webinars/",
+        "output_lang": "zh"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      },
+      "output_lang": {
+        "type": "string"
+      },
+      "summary_length": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

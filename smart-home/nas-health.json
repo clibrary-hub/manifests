@@ -1,0 +1,80 @@
+{
+  "name": "nas-health",
+  "version": "0.1.0",
+  "description": "NAS 健康檢查",
+  "category": "V",
+  "number": 434,
+  "pain_point": "NAS 健康檢查",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "requests",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "查看 NAS 的磁碟空間使用情況",
+    "NAS 溫度和風扇運轉正常嗎？",
+    "NAS 服務有沒有中斷？",
+    "Synology 或 QNAP 的系統報告",
+    "NAS 硬碟有沒有壞軌或異常？",
+    "RAID 陣列狀態是否健康？",
+    "幫我檢查 NAS 的健康狀態",
+    "NAS 硬碟 SMART 健康檢查",
+    "檢查 NAS 硬碟是否有異常",
+    "SMART 資料判斷硬碟壽命",
+    "NAS 備份慢的硬碟診斷",
+    "硬碟健康狀態監控"
+  ],
+  "examples": [
+    {
+      "query": "檢查 Synology NAS 的所有硬碟 SMART 狀態",
+      "params": {
+        "nas_host": "192.168.1.200",
+        "nas_type": "synology",
+        "check_type": "smart"
+      }
+    },
+    {
+      "query": "查看 NAS 各磁碟區的使用率和剩餘空間",
+      "params": {
+        "nas_host": "nas.local",
+        "check_type": "storage",
+        "show_volumes": true
+      }
+    },
+    {
+      "query": "NAS 系統健康全面檢查：CPU、記憶體、溫度、RAID",
+      "params": {
+        "nas_host": "192.168.1.200",
+        "full_check": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "check_type": {
+        "type": "string"
+      },
+      "full_check": {
+        "type": "boolean"
+      },
+      "nas_host": {
+        "type": "string"
+      },
+      "nas_type": {
+        "type": "string"
+      },
+      "show_volumes": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "nas_host"
+    ]
+  },
+  "license": "MIT"
+}

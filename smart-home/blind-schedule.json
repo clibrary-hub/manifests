@@ -1,0 +1,86 @@
+{
+  "name": "blind-schedule",
+  "version": "0.1.0",
+  "description": "窗簾排程器",
+  "category": "V",
+  "number": 432,
+  "pain_point": "智慧窗簾排程",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "schedule",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "設定窗簾早上自動打開",
+    "幫我建立智慧窗簾的日出日落排程",
+    "每天早上 7 點自動拉開臥室窗簾",
+    "午休時把窗簾關到 50% 遮光",
+    "根據陽光強度自動調節窗簾開度",
+    "設定週末窗簾晚一點才開",
+    "查看窗簾目前的排程設定"
+  ],
+  "examples": [
+    {
+      "query": "設定臥室窗簾每天 07:00 全開，22:00 全關",
+      "params": {
+        "device": "臥室窗簾",
+        "open_time": "07:00",
+        "close_time": "22:00",
+        "open_percent": 100
+      }
+    },
+    {
+      "query": "建立日光節約排程：日出時開窗簾，日落後關閉",
+      "params": {
+        "schedule_type": "sunrise_sunset",
+        "location": "台北",
+        "device": "客廳窗簾"
+      }
+    },
+    {
+      "query": "週末窗簾改為 09:00 才開，比平日晚 2 小時",
+      "params": {
+        "device": "全部窗簾",
+        "weekend_open_time": "09:00",
+        "weekday_open_time": "07:00"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "close_time": {
+        "type": "string"
+      },
+      "device": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string"
+      },
+      "open_percent": {
+        "type": "integer"
+      },
+      "open_time": {
+        "type": "string"
+      },
+      "schedule_type": {
+        "type": "string"
+      },
+      "weekday_open_time": {
+        "type": "string"
+      },
+      "weekend_open_time": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "device"
+    ]
+  },
+  "license": "MIT"
+}

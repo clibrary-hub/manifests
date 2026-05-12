@@ -1,0 +1,88 @@
+{
+  "name": "video-recode",
+  "version": "0.1.0",
+  "description": "影片重編碼",
+  "category": "L",
+  "number": 232,
+  "pain_point": "影片 H.265 轉 H.264",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "ffmpeg-python",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把影片從 H.265 轉成 H.264",
+    "重新編碼影片，改變編碼格式",
+    "影片重編碼工具，改成相容性更好的格式",
+    "把 HEVC 影片轉成 H264",
+    "批次重編碼影片，確保可以在舊設備播放",
+    "影片格式不相容，重新編碼一下",
+    "轉換影片 codec 為 H264 或 VP9"
+  ],
+  "examples": [
+    {
+      "query": "把 movie.hevc 重編碼為 H.264 並輸出 movie_h264.mp4",
+      "params": {
+        "action": "run",
+        "input_file": "movie.hevc",
+        "codec": "h264",
+        "output_file": "movie_h264.mp4"
+      }
+    },
+    {
+      "query": "批次將 videos/ 目錄下所有 H.265 影片重編碼為 H.264",
+      "params": {
+        "action": "run",
+        "input_dir": "videos/",
+        "source_codec": "h265",
+        "target_codec": "h264"
+      }
+    },
+    {
+      "query": "重編碼 recording.mp4 為 VP9，品質設定 CRF 30",
+      "params": {
+        "action": "run",
+        "input_file": "recording.mp4",
+        "codec": "vp9",
+        "crf": 30
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "codec": {
+        "type": "string"
+      },
+      "crf": {
+        "type": "integer"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_file": {
+        "type": "string"
+      },
+      "source_codec": {
+        "type": "string"
+      },
+      "target_codec": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

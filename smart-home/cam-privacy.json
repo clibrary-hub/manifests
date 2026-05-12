@@ -1,0 +1,87 @@
+{
+  "name": "cam-privacy",
+  "version": "0.1.0",
+  "description": "隱私模式器",
+  "category": "V",
+  "number": 437,
+  "pain_point": "智慧鏡頭隱私模式",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "requests",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我在家，把攝影機切換到隱私模式",
+    "回到家了，關閉室內監視鏡頭",
+    "設定人到家時自動關閉室內攝影機",
+    "離家後自動啟用所有攝影機",
+    "幫我管理攝影機的隱私模式切換",
+    "有客人來訪，先把室內鏡頭關掉",
+    "查看哪些攝影機目前是開啟狀態"
+  ],
+  "examples": [
+    {
+      "query": "立即將客廳和臥室攝影機切換到隱私模式",
+      "params": {
+        "cameras": [
+          "客廳",
+          "臥室"
+        ],
+        "mode": "privacy",
+        "execute_now": true
+      }
+    },
+    {
+      "query": "設定規則：手機連上家裡 WiFi 時自動關閉室內攝影機",
+      "params": {
+        "trigger": "wifi_connected",
+        "wifi_ssid": "MyHome",
+        "action": "privacy_mode"
+      }
+    },
+    {
+      "query": "查看所有智慧攝影機的目前隱私狀態",
+      "params": {
+        "show_all": true,
+        "show_status": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "cameras": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "execute_now": {
+        "type": "boolean"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "show_all": {
+        "type": "boolean"
+      },
+      "show_status": {
+        "type": "boolean"
+      },
+      "trigger": {
+        "type": "string"
+      },
+      "wifi_ssid": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,85 @@
+{
+  "name": "text-tts",
+  "version": "0.1.0",
+  "description": "文字轉語音",
+  "category": "L",
+  "number": 235,
+  "pain_point": "文字轉語音",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "edge-tts",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把文字轉成語音音檔",
+    "TTS 工具，讓電腦朗讀文件",
+    "把文章轉成有聲書格式",
+    "text to speech 轉換工具",
+    "幫我把這段文字合成語音",
+    "產生繁體中文語音音訊",
+    "把說明文件轉成可聆聽的音訊"
+  ],
+  "examples": [
+    {
+      "query": "把 article.txt 轉成繁體中文語音 MP3",
+      "params": {
+        "action": "run",
+        "input_file": "article.txt",
+        "language": "zh-TW",
+        "output_format": "mp3"
+      }
+    },
+    {
+      "query": "朗讀「歡迎使用本系統」並輸出 WAV 檔",
+      "params": {
+        "action": "run",
+        "text": "歡迎使用本系統",
+        "language": "zh-TW",
+        "output_file": "welcome.wav"
+      }
+    },
+    {
+      "query": "批次把 scripts/ 目錄下所有 TXT 轉成英文語音",
+      "params": {
+        "action": "run",
+        "input_dir": "scripts/",
+        "language": "en-US"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "output_file": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      },
+      "text": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "language"
+    ]
+  },
+  "license": "MIT"
+}

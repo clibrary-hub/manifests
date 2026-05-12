@@ -1,0 +1,77 @@
+{
+  "name": "img-ocr",
+  "version": "0.1.0",
+  "description": "圖片 OCR 器",
+  "category": "L",
+  "number": 238,
+  "pain_point": "圖片 OCR 多語言",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "pytesseract",
+    "Pillow",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把圖片中的文字辨識出來",
+    "OCR 工具，辨識圖片裡的文字",
+    "掃描圖片並輸出文字內容",
+    "多語言 OCR，支援中文辨識",
+    "把截圖中的文字提取出來",
+    "圖片轉文字，批次處理資料夾",
+    "辨識發票或單據上的文字"
+  ],
+  "examples": [
+    {
+      "query": "辨識 receipt.jpg 中的所有文字並輸出 TXT",
+      "params": {
+        "action": "run",
+        "input_file": "receipt.jpg",
+        "language": "chi_tra",
+        "output_format": "txt"
+      }
+    },
+    {
+      "query": "批次 OCR docs/ 目錄下所有 PNG 圖片",
+      "params": {
+        "action": "run",
+        "input_dir": "docs/",
+        "language": "eng"
+      }
+    },
+    {
+      "query": "辨識 id_card.png 並輸出結構化 JSON",
+      "params": {
+        "action": "run",
+        "input_file": "id_card.png",
+        "output_format": "json"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

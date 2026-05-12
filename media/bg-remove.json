@@ -1,0 +1,79 @@
+{
+  "name": "bg-remove",
+  "version": "0.1.0",
+  "description": "背景移除器",
+  "category": "L",
+  "number": 227,
+  "pain_point": "圖片去背",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "rembg",
+    "Pillow",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我去除圖片背景",
+    "產品圖去背輸出透明 PNG",
+    "批次去背一批照片",
+    "把人像背景移除",
+    "圖片去背工具，自動 AI 去背",
+    "我需要白底換透明背景",
+    "去除商品圖背景，保留主體"
+  ],
+  "examples": [
+    {
+      "query": "把 product.jpg 去背並輸出 PNG",
+      "params": {
+        "action": "export",
+        "input_file": "product.jpg",
+        "output_file": "product_nobg.png"
+      }
+    },
+    {
+      "query": "批次去背 portraits/ 目錄下所有圖片",
+      "params": {
+        "action": "export",
+        "input_dir": "portraits/",
+        "output_dir": "portraits_nobg/"
+      }
+    },
+    {
+      "query": "去除 team_photo.png 的背景並加上白色底",
+      "params": {
+        "action": "export",
+        "input_file": "team_photo.png",
+        "background_color": "white"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "background_color": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "output_file": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,82 @@
+{
+  "name": "img-transcode",
+  "version": "0.1.0",
+  "description": "圖片格式轉換",
+  "category": "L",
+  "number": 230,
+  "pain_point": "圖片格式批轉",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "Pillow",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "把 PNG 批次轉成 JPG",
+    "圖片格式轉換工具，支援多種格式",
+    "將 HEIC 圖片轉成常見格式",
+    "批次把 WebP 轉成 PNG",
+    "圖片格式統一轉換",
+    "把一批 BMP 轉成 JPEG",
+    "轉換圖片格式，保持畫質"
+  ],
+  "examples": [
+    {
+      "query": "批次把 images/ 目錄下所有 PNG 轉成 JPEG",
+      "params": {
+        "action": "run",
+        "input_dir": "images/",
+        "source_format": "png",
+        "target_format": "jpeg"
+      }
+    },
+    {
+      "query": "將 photo.heic 轉換成 jpg",
+      "params": {
+        "action": "run",
+        "input_file": "photo.heic",
+        "target_format": "jpg"
+      }
+    },
+    {
+      "query": "把 webp/ 目錄下所有 WebP 圖片轉成 PNG，輸出到 png/",
+      "params": {
+        "action": "run",
+        "input_dir": "webp/",
+        "target_format": "png",
+        "output_dir": "png/"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "source_format": {
+        "type": "string"
+      },
+      "target_format": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "target_format"
+    ]
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,81 @@
+{
+  "name": "iot-bridge",
+  "version": "0.1.0",
+  "description": "IoT 橋接器",
+  "category": "V",
+  "number": 421,
+  "pain_point": "多生態系裝置整合",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "paho-mqtt",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我整合小米和 Google Home 的裝置",
+    "不同品牌的智慧家電可以互通嗎？",
+    "我要讓米家和 Homekit 裝置一起運作",
+    "建立 IoT 裝置橋接，讓不同生態系互連",
+    "Matter 協定橋接不同廠牌的智慧設備",
+    "怎麼讓 Zigbee 裝置和 Z-Wave 裝置溝通？",
+    "整合多個 IoT 平台的裝置到統一介面"
+  ],
+  "examples": [
+    {
+      "query": "橋接小米智慧燈泡到 Google Home 生態系",
+      "params": {
+        "source_platform": "xiaomi",
+        "target_platform": "google_home",
+        "device_type": "light"
+      }
+    },
+    {
+      "query": "設定 MQTT broker 橋接 Zigbee 和 WiFi 裝置",
+      "params": {
+        "protocol": "mqtt",
+        "broker_host": "192.168.1.100",
+        "source_protocol": "zigbee",
+        "target_protocol": "wifi"
+      }
+    },
+    {
+      "query": "列出目前已橋接成功的所有跨平台裝置",
+      "params": {
+        "show_connected": true
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "broker_host": {
+        "type": "string"
+      },
+      "device_type": {
+        "type": "string"
+      },
+      "protocol": {
+        "type": "string"
+      },
+      "show_connected": {
+        "type": "boolean"
+      },
+      "source_platform": {
+        "type": "string"
+      },
+      "source_protocol": {
+        "type": "string"
+      },
+      "target_platform": {
+        "type": "string"
+      },
+      "target_protocol": {
+        "type": "string"
+      }
+    }
+  },
+  "license": "MIT"
+}

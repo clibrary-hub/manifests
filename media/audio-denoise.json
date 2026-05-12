@@ -1,0 +1,79 @@
+{
+  "name": "audio-denoise",
+  "version": "0.1.0",
+  "description": "音訊降噪器",
+  "category": "L",
+  "number": 233,
+  "pain_point": "音訊降噪",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "noisereduce",
+    "soundfile",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我去除錄音中的背景噪音",
+    "音訊降噪工具，讓聲音更清晰",
+    "podcast 錄音有雜音，幫我清除",
+    "去掉背景環境音，保留人聲",
+    "批次為多個音訊檔降噪",
+    "錄音品質不好有噪音，需要降噪處理",
+    "清除音訊中的白噪音和風聲"
+  ],
+  "examples": [
+    {
+      "query": "對 podcast_raw.wav 進行降噪處理",
+      "params": {
+        "action": "run",
+        "input_file": "podcast_raw.wav",
+        "output_file": "podcast_clean.wav"
+      }
+    },
+    {
+      "query": "批次降噪 recordings/ 目錄下所有 WAV 檔案",
+      "params": {
+        "action": "run",
+        "input_dir": "recordings/",
+        "output_dir": "clean_recordings/"
+      }
+    },
+    {
+      "query": "使用強力降噪清除 interview.mp3 的背景噪音",
+      "params": {
+        "action": "run",
+        "input_file": "interview.mp3",
+        "strength": "high"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      },
+      "output_file": {
+        "type": "string"
+      },
+      "strength": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}
