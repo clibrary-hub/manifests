@@ -1,75 +1,97 @@
 {
-  "name": "sysprompt-git",
+  "name": "repo-map",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Version control for system prompts with change tracking, effect scoring, and A/B testing support.",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我管理 System Prompt 的版本",
-    "比較兩個版本的 Prompt 差異",
-    "回滾到之前的 System Prompt",
-    "記錄這次修改的效果評分",
-    "幫我做 Prompt 的 A/B 測試",
-    "version control my system prompt",
-    "compare two versions of a prompt",
-    "checkout an older prompt version",
-    "rate the effectiveness of a prompt version",
-    "匯出兩個 Prompt 版本做並行測試"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: commit, log, diff, checkout, list, rate, ranking, ab-export, ab-record",
-      "default": "list"
+      "description": "Target project directory path"
     },
-    "file": {
-      "type": "string",
-      "required": false,
-      "description": "System prompt file path"
-    },
-    "message": {
-      "type": "string",
-      "required": false,
-      "description": "Commit message (commit command)"
-    },
-    "version": {
-      "type": "string",
-      "required": false,
-      "description": "Version identifier for checkout/rate/diff"
-    },
-    "score": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "description": "Effectiveness score 1-10 (rate command)"
+      "description": "Maximum directory depth to scan"
     },
-    "note": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Note about the version or A/B result"
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
+      "type": "enum",
       "required": false,
-      "description": "Output directory for A/B export"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["version", "timestamp", "score", "message", "diff"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "儲存當前 System Prompt 版本",
-      "invocation": "sysprompt-git commit system_prompt.md -m \"加入繁體中文規則\""
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "比較兩個版本的差異",
-      "invocation": "sysprompt-git diff system_prompt.md v3 v5"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Prompt file not found",
-    "2": "Version does not exist"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["prompt", "version-control", "git-like", "ab-test"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

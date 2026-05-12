@@ -1,83 +1,97 @@
 {
-  "name": "video-compress",
-  "version": "0.1.0",
-  "description": "智慧壓縮器",
-  "category": "L",
-  "number": 222,
-  "pain_point": "影片壓縮品質難拿捏",
-  "commercial": "✅",
-  "language": "Python",
-  "dependencies": [
-    "ffmpeg-python",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把影片壓縮到 100MB 以下但保持畫質",
-    "影片太大了，幫我壓縮一下",
-    "智慧壓縮影片，自動平衡品質與檔案大小",
-    "上傳影片前先壓縮，不要太失真",
-    "批次壓縮一批 MP4 影片",
-    "把 4K 影片壓成 1080p",
-    "影片檔案太肥，縮小它"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "把 interview.mp4 壓縮到 50MB 以內",
-      "params": {
-        "action": "run",
-        "input_file": "interview.mp4",
-        "target_size_mb": 50
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "將 wedding.mp4 以 CRF 23 壓縮並保持 1080p",
-      "params": {
-        "action": "run",
-        "input_file": "wedding.mp4",
-        "crf": 23,
-        "resolution": "1080p"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "批次壓縮 recordings/ 下的所有影片，輸出到 compressed/",
-      "params": {
-        "action": "run",
-        "input_dir": "recordings/",
-        "output_dir": "compressed/"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "action": {
-        "type": "string"
-      },
-      "crf": {
-        "type": "integer"
-      },
-      "input_dir": {
-        "type": "string"
-      },
-      "input_file": {
-        "type": "string"
-      },
-      "output_dir": {
-        "type": "string"
-      },
-      "resolution": {
-        "type": "string"
-      },
-      "target_size_mb": {
-        "type": "integer"
-      }
-    },
-    "required": [
-      "action"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

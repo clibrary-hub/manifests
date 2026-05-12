@@ -1,104 +1,97 @@
 {
-  "name": "img-batch",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "media",
-  "description": "Batch process images with resize, format conversion, compression, rotation, flip, and rename.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "批次壓縮圖片",
-    "把圖片轉成 webp",
-    "縮放目錄裡所有照片",
-    "幫我旋轉並重新命名圖片",
-    "批次處理圖片格式",
-    "batch resize images",
-    "convert images to webp",
-    "compress all photos in a folder",
-    "rotate and flip images in bulk",
-    "批量壓縮圖片並輸出為 jpg"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "input_dir": {
+    "path": {
       "type": "string",
       "required": true,
-      "description": "Input directory containing images"
+      "description": "Target project directory path"
     },
-    "output_dir": {
-      "type": "string",
-      "required": false,
-      "description": "Output directory (default: input_dir/processed)"
-    },
-    "resize": {
-      "type": "string",
-      "required": false,
-      "description": "Resize format: 800x600, 800 (width only), or 50% (percentage)"
-    },
-    "quality": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "default": 85,
-      "description": "Output quality for JPG/WebP (1-100)"
+      "description": "Maximum directory depth to scan"
     },
-    "format": {
-      "type": "enum",
-      "required": false,
-      "description": "Output format: jpg, png, webp. Keep original if not specified"
-    },
-    "rotate": {
-      "type": "integer",
-      "required": false,
-      "description": "Rotation angle: 90, 180, 270"
-    },
-    "flip": {
-      "type": "enum",
-      "required": false,
-      "description": "Flip direction: horizontal or vertical"
-    },
-    "rename": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Rename pattern: ### = 3-digit index, {name} = original name"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "recursive": {
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Recursively process subdirectories"
+      "description": "Respect .gitignore rules"
     },
-    "input_format": {
-      "type": "string",
-      "required": false,
-      "default": "jpg,jpeg,png,bmp,tiff,webp",
-      "description": "Comma-separated list of input formats to process"
-    },
-    "dry_run": {
+    "annotate": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Preview mode: show plan without executing"
+      "description": "Infer and annotate file purposes"
     },
-    "verbose": {
+    "stats": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Verbose output"
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["success_count", "fail_count", "total_files", "output_dir"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "將圖片目錄中的照片縮放為 800px 寬並轉成 webp",
-      "invocation": "img-batch ./images/ --resize 800 --format webp --quality 85"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "批次旋轉圖片並重新命名",
-      "invocation": "img-batch ./photos/ --rotate 90 --rename \"vacation_###\" --output-dir ./optimized/"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Input directory does not exist",
-    "2": "Invalid resize format"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["image", "batch", "resize", "convert", "compression"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

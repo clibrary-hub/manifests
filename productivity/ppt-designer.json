@@ -1,68 +1,97 @@
 {
-  "name": "ppt-designer",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Generate well-designed PowerPoint presentations from markdown or JSON input files.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "從 Markdown 產生 PPT",
-    "幫我做一份簡報",
-    "生成設計感的簡報檔案",
-    "把報告內容轉成投影片",
-    "產生 demo 簡報範例",
-    "generate a PowerPoint from markdown",
-    "create a designed presentation",
-    "build slides from a report file",
-    "produce a dark-themed PPT",
-    "用 JSON 資料自動生成 pptx"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "input": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
+    },
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Input file path (md or json)"
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
-      "required": false,
-      "default": "report.pptx",
-      "description": "Output PowerPoint file path"
-    },
-    "theme": {
       "type": "enum",
       "required": false,
-      "default": "dark",
-      "description": "Presentation theme: dark or light"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "demo": {
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Generate a demo report (CLI tools overview)"
+      "description": "Respect .gitignore rules"
     },
-    "list_themes": {
+    "annotate": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "List available themes"
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["output_file", "slide_count"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "從 Markdown 檔案生成深色主題簡報",
-      "invocation": "ppt-designer input.md -o report.pptx --theme dark"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "產生示範簡報",
-      "invocation": "ppt-designer --demo -o demo_report.pptx"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Input file not found",
-    "2": "python-pptx dependency missing"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["ppt", "presentation", "powerpoint", "markdown"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

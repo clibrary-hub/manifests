@@ -52,7 +52,12 @@
   },
   "output_schema": {
     "format": "json",
-    "fields": ["text", "segments", "language", "duration_seconds"]
+    "fields": [
+      "text",
+      "segments",
+      "language",
+      "duration_seconds"
+    ]
   },
   "examples": [
     {
@@ -74,5 +79,14 @@
     "E003": "Model download failed — check internet connection",
     "E004": "Transcription failed — file may be corrupted or silent"
   },
-  "tags": ["whisper", "transcription", "speech-to-text", "audio", "subtitles", "nlp", "openai"]
+  "tags": [
+    "whisper",
+    "transcription",
+    "speech-to-text",
+    "audio",
+    "subtitles",
+    "nlp",
+    "openai"
+  ],
+  "status": "spec"
 }

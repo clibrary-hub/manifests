@@ -1,86 +1,87 @@
 {
-  "name": "log-focus",
+  "name": "docker-cleanup",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Extract key log lines related to issues, deduplicate noise, and present concise debug context.",
+  "description": "Remove stopped containers, dangling images, unused volumes, and build cache to reclaim Docker disk space.",
   "intent_triggers": [
-    "從日誌中提取錯誤訊息",
-    "幫我分析 app.log 的問題",
-    "壓縮重複的 stack trace",
-    "過濾指定時間範圍的日誌",
-    "統計錯誤出現頻率",
-    "extract errors from logs",
-    "analyze log file for issues",
-    "deduplicate repeated error messages",
-    "filter logs by time range",
-    "幫我 extract 這個 log 檔的 ERROR 和 WARN"
+    "皜? Docker",
+    "?芣?瘝??Docker 摰孵",
+    "Docker 蝤?蝛粹?銝?",
+    "docker cleanup",
+    "remove unused docker resources",
+    "clean up docker images and containers",
+    "prune docker",
+    "? Docker 蝤?",
+    "?芣??? Docker image",
+    "docker disk space full",
+    "皜 docker build cache",
+    "remove dangling images",
+    "Docker ?皜?",
+    "free up docker storage",
+    "docker system prune"
   ],
   "input_schema": {
-    "command": {
+    "target": {
       "type": "enum",
-      "required": true,
-      "description": "Subcommand: extract, dedupe, compress, stats",
-      "default": "extract"
-    },
-    "log_files": {
-      "type": "array",
-      "required": true,
-      "description": "Log file paths to analyze"
-    },
-    "keyword": {
-      "type": "string",
       "required": false,
-      "description": "Keyword to filter log lines"
+      "default": "all",
+      "description": "What to clean: all, containers, images, volumes, cache"
     },
-    "since": {
-      "type": "string",
-      "required": false,
-      "description": "Start time for filtering (e.g., '2026-04-24 14:00')"
-    },
-    "until": {
-      "type": "string",
-      "required": false,
-      "description": "End time for filtering"
-    },
-    "limit": {
-      "type": "integer",
-      "required": false,
-      "description": "Maximum number of output lines"
-    },
-    "context": {
-      "type": "integer",
-      "required": false,
-      "description": "Number of context lines before and after matched lines"
-    },
-    "merge": {
+    "force": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Merge multiple log files for combined analysis"
+      "description": "Skip confirmation prompt"
     },
-    "output": {
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show what would be removed without actually removing"
+    },
+    "older_than": {
       "type": "string",
       "required": false,
-      "description": "Output file path for the report"
+      "description": "Only remove resources older than this duration (e.g. 24h, 7d)"
     }
   },
   "output_schema": {
-    "format": "text",
-    "fields": ["error_summary", "key_errors", "context_lines", "frequency_stats"]
+    "format": "json",
+    "fields": [
+      "removed_containers",
+      "removed_images",
+      "removed_volumes",
+      "reclaimed_bytes"
+    ]
   },
   "examples": [
     {
-      "intent": "提取 app.log 中的錯誤與警告",
-      "invocation": "log-focus extract app.log"
+      "intent": "皜?????函? Docker 鞈?",
+      "invocation": "docker-cleanup --target all --force"
     },
     {
-      "intent": "分析包含 NullPointerException 的日誌並輸出前後 5 行上下文",
-      "invocation": "log-focus extract app.log --keyword \"NullPointerException\" --context 5 -o debug_context.md"
+      "intent": "dry run to see what would be deleted",
+      "invocation": "docker-cleanup --dry-run"
+    },
+    {
+      "intent": "?芸??7 憭拙???image",
+      "invocation": "docker-cleanup --target images --older-than 7d --force"
     }
   ],
   "error_codes": {
-    "1": "Log file not found",
-    "2": "Invalid time format"
+    "E001": "Docker daemon not running",
+    "E002": "Insufficient permissions ??try running with sudo",
+    "E003": "Cannot remove image in use by running container"
   },
-  "tags": ["log", "debug", "error-analysis", "devops"]
+  "tags": [
+    "docker",
+    "cleanup",
+    "devops",
+    "containers",
+    "images",
+    "disk-space",
+    "maintenance"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/Q321-docker-cleanup"
 }

@@ -1,86 +1,87 @@
 {
-  "name": "refactor-verify",
+  "name": "docker-cleanup",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Verify refactoring equivalence by auto-generating test cases, fuzzing with Hypothesis, and comparing outputs between old and new code.",
+  "description": "Remove stopped containers, dangling images, unused volumes, and build cache to reclaim Docker disk space.",
   "intent_triggers": [
-    "幫我驗證重構後的程式碼是否等價",
-    "這段重構有沒有改壞東西",
-    "對這兩個版本的函式做模糊測試",
-    "幫我生成行為快照並驗證",
-    "比較舊版和新版的輸出是否一致",
-    "verify my refactoring didn't break anything",
-    "compare two functions for behavioral equivalence",
-    "run fuzz tests on refactored code",
-    "generate a snapshot before refactoring",
-    "幫我檢查這個重構在邊界值上表現是否相同"
+    "皜? Docker",
+    "?芣?瘝??Docker 摰孵",
+    "Docker 蝤?蝛粹?銝?",
+    "docker cleanup",
+    "remove unused docker resources",
+    "clean up docker images and containers",
+    "prune docker",
+    "? Docker 蝤?",
+    "?芣??? Docker image",
+    "docker disk space full",
+    "皜 docker build cache",
+    "remove dangling images",
+    "Docker ?皜?",
+    "free up docker storage",
+    "docker system prune"
   ],
   "input_schema": {
-    "command": {
+    "target": {
       "type": "enum",
-      "required": true,
-      "description": "Subcommand: compare, fuzz, test, snapshot, verify, report"
+      "required": false,
+      "default": "all",
+      "description": "What to clean: all, containers, images, volumes, cache"
     },
-    "old_file": {
+    "force": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Skip confirmation prompt"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show what would be removed without actually removing"
+    },
+    "older_than": {
       "type": "string",
       "required": false,
-      "description": "Path to the original code file"
-    },
-    "new_file": {
-      "type": "string",
-      "required": false,
-      "description": "Path to the refactored code file"
-    },
-    "function": {
-      "type": "string",
-      "required": false,
-      "description": "Target function name to compare"
-    },
-    "rounds": {
-      "type": "integer",
-      "required": false,
-      "default": 100,
-      "description": "Number of fuzz test rounds"
-    },
-    "test_file": {
-      "type": "string",
-      "required": false,
-      "description": "Existing test file path to run"
-    },
-    "functions": {
-      "type": "string",
-      "required": false,
-      "description": "Functions to snapshot: 'all' or comma-separated names"
-    },
-    "snapshot": {
-      "type": "string",
-      "required": false,
-      "description": "Snapshot file path for verify command"
-    },
-    "output": {
-      "type": "string",
-      "required": false,
-      "description": "Report output file path"
+      "description": "Only remove resources older than this duration (e.g. 24h, 7d)"
     }
   },
   "output_schema": {
-    "format": "text",
-    "fields": ["equivalent_count", "diff_count", "error_count", "diff_details", "test_cases"]
+    "format": "json",
+    "fields": [
+      "removed_containers",
+      "removed_images",
+      "removed_volumes",
+      "reclaimed_bytes"
+    ]
   },
   "examples": [
     {
-      "intent": "比較兩個版本的函式是否等價",
-      "invocation": "refactor-verify compare old_module.py new_module.py --function process_data"
+      "intent": "皜?????函? Docker 鞈?",
+      "invocation": "docker-cleanup --target all --force"
     },
     {
-      "intent": "Fuzz test refactored code with 1000 rounds",
-      "invocation": "refactor-verify fuzz old_module.py new_module.py --function calculate --rounds 1000"
+      "intent": "dry run to see what would be deleted",
+      "invocation": "docker-cleanup --dry-run"
+    },
+    {
+      "intent": "?芸??7 憭拙???image",
+      "invocation": "docker-cleanup --target images --older-than 7d --force"
     }
   ],
   "error_codes": {
-    "1": "Function not found in source file",
-    "2": "Behavioral differences detected",
-    "3": "Hypothesis or dependency missing"
+    "E001": "Docker daemon not running",
+    "E002": "Insufficient permissions ??try running with sudo",
+    "E003": "Cannot remove image in use by running container"
   },
-  "tags": ["refactoring", "testing", "hypothesis", "fuzzing", "equivalence"]
+  "tags": [
+    "docker",
+    "cleanup",
+    "devops",
+    "containers",
+    "images",
+    "disk-space",
+    "maintenance"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/Q321-docker-cleanup"
 }

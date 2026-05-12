@@ -1,73 +1,97 @@
 {
-  "name": "agent-workflow",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Orchestrate the full agent project lifecycle from task intake to report generation and memory archiving.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我規劃一個完整的開發工作流",
-    "按照標準流程執行這個專案",
-    "生成工作報告和簡報",
-    "把今天的進度寫入記憶檔案",
-    "分類存檔所有產出的文件",
-    "run the full agent project workflow",
-    "generate work reports and slides",
-    "archive project outputs by category",
-    "how do I track progress every two hours",
-    "幫我產出 PPT 和 HTML 簡報"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "phase": {
-      "type": "enum",
-      "required": false,
-      "description": "Workflow phase: intake, parse, allocate, develop, track, report, archive, memory",
-      "default": null
-    },
-    "project_name": {
+    "path": {
       "type": "string",
-      "required": false,
-      "description": "Project name in UPPER_SNAKE_CASE",
-      "default": null
+      "required": true,
+      "description": "Target project directory path"
     },
-    "budget_tokens": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "description": "Estimated token budget for the project",
-      "default": null
+      "description": "Maximum directory depth to scan"
     },
-    "output_dir": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Directory for generated reports",
-      "default": "reports/"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "theme": {
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
       "type": "enum",
       "required": false,
-      "description": "Presentation theme: dark or light",
-      "default": "dark"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["phase", "status", "report_paths", "memory_path"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "按照標準工作流開發 CLI 工具",
-      "invocation": "agent-workflow --phase develop --project-name CLI_TOOLS"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "生成專案報告和簡報",
-      "invocation": "agent-workflow --phase report --project-name CLI_TOOLS --output-dir reports/"
-    },
-    {
-      "intent": "Archive project outputs",
-      "invocation": "agent-workflow --phase archive --project-name CLI_TOOLS"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Project name format invalid",
-    "2": "Token budget exceeded"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["workflow", "project-management", "reporting", "agent", "productivity"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

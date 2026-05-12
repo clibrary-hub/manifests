@@ -1,88 +1,87 @@
 {
-  "name": "recent-changes",
+  "name": "docker-cleanup",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Detect recently modified files in a project with diff summaries, Git blame info, and unstaged change detection.",
+  "description": "Remove stopped containers, dangling images, unused volumes, and build cache to reclaim Docker disk space.",
   "intent_triggers": [
-    "最近有哪些檔案被改過",
-    "幫我看一下這個專案最近的變更",
-    "列出今天修改過的程式碼",
-    "我想知道這個檔案是誰改的、改了什麼",
-    "顯示未 commit 的修改內容",
-    "show me recent changes in this repo",
-    "what files were modified lately",
-    "list changes since yesterday",
-    "give me a diff summary of recent edits",
-    "幫我產出一份最近變更的 Markdown 報告"
+    "皜? Docker",
+    "?芣?瘝??Docker 摰孵",
+    "Docker 蝤?蝛粹?銝?",
+    "docker cleanup",
+    "remove unused docker resources",
+    "clean up docker images and containers",
+    "prune docker",
+    "? Docker 蝤?",
+    "?芣??? Docker image",
+    "docker disk space full",
+    "皜 docker build cache",
+    "remove dangling images",
+    "Docker ?皜?",
+    "free up docker storage",
+    "docker system prune"
   ],
   "input_schema": {
-    "path": {
-      "type": "string",
-      "required": true,
-      "description": "Target repository or directory path"
-    },
-    "since": {
-      "type": "string",
-      "required": false,
-      "default": "24 hours ago",
-      "description": "Time range expression (e.g., '3 hours ago', '2026-04-24')"
-    },
-    "limit": {
-      "type": "integer",
-      "required": false,
-      "description": "Maximum number of results to display"
-    },
-    "code_only": {
-      "type": "boolean",
-      "required": false,
-      "default": false,
-      "description": "Show only code files"
-    },
-    "sort": {
+    "target": {
       "type": "enum",
       "required": false,
-      "description": "Sort order: changes (by change volume) or time"
+      "default": "all",
+      "description": "What to clean: all, containers, images, volumes, cache"
     },
-    "exclude": {
-      "type": "array",
-      "required": false,
-      "description": "Patterns to exclude (e.g., '*.lock', 'dist/')"
-    },
-    "detail": {
+    "force": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Show per-file diff summary"
+      "description": "Skip confirmation prompt"
     },
-    "blame": {
+    "dry_run": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Show Git blame information"
+      "description": "Show what would be removed without actually removing"
     },
-    "output": {
+    "older_than": {
       "type": "string",
       "required": false,
-      "description": "Output file path (Markdown)"
+      "description": "Only remove resources older than this duration (e.g. 24h, 7d)"
     }
   },
   "output_schema": {
-    "format": "text",
-    "fields": ["file_path", "status", "plus_minus", "time", "summary", "author"]
+    "format": "json",
+    "fields": [
+      "removed_containers",
+      "removed_images",
+      "removed_volumes",
+      "reclaimed_bytes"
+    ]
   },
   "examples": [
     {
-      "intent": "列出最近 3 小時內的變更",
-      "invocation": "recent-changes . --since \"3 hours ago\" --detail"
+      "intent": "皜?????函? Docker 鞈?",
+      "invocation": "docker-cleanup --target all --force"
     },
     {
-      "intent": "Export recent changes to Markdown",
-      "invocation": "recent-changes . --since \"2026-04-24\" --code-only -o changes.md"
+      "intent": "dry run to see what would be deleted",
+      "invocation": "docker-cleanup --dry-run"
+    },
+    {
+      "intent": "?芸??7 憭拙???image",
+      "invocation": "docker-cleanup --target images --older-than 7d --force"
     }
   ],
   "error_codes": {
-    "1": "Target path is not a Git repository or directory",
-    "2": "Invalid time expression"
+    "E001": "Docker daemon not running",
+    "E002": "Insufficient permissions ??try running with sudo",
+    "E003": "Cannot remove image in use by running container"
   },
-  "tags": ["git", "diff", "changes", "blame", "devops"]
+  "tags": [
+    "docker",
+    "cleanup",
+    "devops",
+    "containers",
+    "images",
+    "disk-space",
+    "maintenance"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/Q321-docker-cleanup"
 }

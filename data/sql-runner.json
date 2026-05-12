@@ -46,7 +46,12 @@
   },
   "output_schema": {
     "format": "json",
-    "fields": ["rows", "row_count", "columns", "execution_time_ms"]
+    "fields": [
+      "rows",
+      "row_count",
+      "columns",
+      "execution_time_ms"
+    ]
   },
   "examples": [
     {
@@ -68,5 +73,13 @@
     "E003": "Only SELECT queries are allowed",
     "E004": "Query timeout (>30s)"
   },
-  "tags": ["sql", "database", "query", "postgresql", "mysql", "sqlite"]
+  "tags": [
+    "sql",
+    "database",
+    "query",
+    "postgresql",
+    "mysql",
+    "sqlite"
+  ],
+  "status": "spec"
 }

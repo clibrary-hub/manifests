@@ -1,84 +1,97 @@
 {
-  "name": "dep-audit",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "security",
-  "description": "Scan project dependencies, cross-check with actual imports, detect unused or missing packages, and clean them up.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我審計專案的依賴",
-    "找出沒用到的套件",
-    "掃描未使用的 dependency",
-    "清理專案裡多餘的套件",
-    "檢查 package.json 有哪些沒在用的",
-    "audit my project dependencies",
-    "find unused packages in my repo",
-    "scan for missing imports in requirements",
-    "clean up bloated dependencies",
-    "幫我跑一下 dep-audit 看看有沒有問題"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Sub-command: audit, unused, missing, clean, report",
-      "default": "audit"
-    },
     "path": {
       "type": "string",
       "required": true,
-      "description": "Project path to scan"
+      "description": "Target project directory path"
     },
-    "type": {
-      "type": "enum",
+    "depth": {
+      "type": "integer",
       "required": false,
-      "default": "python",
-      "description": "Project type: python or node"
+      "description": "Maximum directory depth to scan"
     },
-    "dry_run": {
-      "type": "boolean",
+    "ext": {
+      "type": "string",
       "required": false,
-      "default": false,
-      "description": "Preview mode without actual cleanup"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "keep": {
+    "exclude": {
       "type": "array",
       "required": false,
-      "description": "List of dependencies to keep during cleanup"
+      "description": "Directory names to exclude"
     },
-    "licenses": {
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Include license information in report"
+      "description": "Respect .gitignore rules"
     },
-    "vulnerabilities": {
+    "annotate": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Include vulnerability information in report"
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["package", "version", "status", "description", "missing_deps"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "審計 Python 專案依賴使用情況",
-      "invocation": "dep-audit audit ."
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "列出 Node.js 專案未使用的依賴",
-      "invocation": "dep-audit unused . --type node"
-    },
-    {
-      "intent": "自動移除未使用的依賴（預覽）",
-      "invocation": "dep-audit clean . --dry-run"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Project path not found or invalid",
-    "2": "Dependency file not found (pyproject.toml / requirements.txt / package.json)",
-    "3": "Failed to remove dependency"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["dependency", "security", "cleanup", "audit", "python", "nodejs"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

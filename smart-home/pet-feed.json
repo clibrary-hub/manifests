@@ -1,85 +1,97 @@
 {
-  "name": "pet-feed",
-  "version": "0.1.0",
-  "description": "餵食排程器",
-  "category": "V",
-  "number": 430,
-  "pain_point": "寵物餵食器排程",
-  "commercial": "⚠️",
-  "language": "Python",
-  "dependencies": [
-    "schedule",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "設定寵物自動餵食排程",
-    "幫我設定早晚各一次的餵貓時間",
-    "智慧餵食器幾點要出飼料？",
-    "建立狗狗的餵食時間表",
-    "查看今天的寵物餵食記錄",
-    "我出差了，設定自動餵食排程",
-    "調整貓咪餵食的份量和時間"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "設定每天早上 7:00 和下午 6:00 各餵貓咪 50g 飼料",
-      "params": {
-        "pet_name": "貓咪",
-        "feed_times": [
-          "07:00",
-          "18:00"
-        ],
-        "amount_grams": 50
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "查詢今天的餵食執行記錄，有沒有漏餵",
-      "params": {
-        "date": "2024-01-27",
-        "check_missed": true
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "幫小黑（狗）設定週末加餵一次，下午 3 點 30g",
-      "params": {
-        "pet_name": "小黑",
-        "extra_feed_time": "15:00",
-        "amount_grams": 30,
-        "repeat": "weekend"
-      }
-    }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "amount_grams": {
-        "type": "integer"
-      },
-      "check_missed": {
-        "type": "boolean"
-      },
-      "date": {
-        "type": "string"
-      },
-      "extra_feed_time": {
-        "type": "string"
-      },
-      "feed_times": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "pet_name": {
-        "type": "string"
-      },
-      "repeat": {
-        "type": "string"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
-  "license": "MIT"
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
+  },
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

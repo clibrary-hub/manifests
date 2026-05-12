@@ -1,156 +1,97 @@
 {
-  "name": "video-download",
-  "version": "0.1.0",
-  "description": "多平台影片下載器，支援 YouTube、TikTok、Facebook、Instagram、Twitter/X、Bilibili 等 1000+ 網站",
-  "category": "L",
-  "number": 241,
-  "pain_point": "各平台影片下載方式不同，需要切換多個工具",
-  "commercial": "✅",
-  "commercial_note": "底層使用 yt-dlp（Unlicense，公有領域），工具授權層面可商用。下載內容需確認為自有內容、已授權內容或公共領域，需符合各平台服務條款。",
-  "language": "Python",
-  "dependencies": [
-    "yt-dlp",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "下載 YouTube 影片到本地",
-    "幫我把這個 TikTok 影片存下來",
-    "下載 Instagram 的 Reels",
-    "把 Facebook 上的影片下載成 MP4",
-    "下載 Twitter/X 的影片",
-    "下載 Bilibili 影片",
-    "download video from YouTube",
-    "save TikTok video without watermark",
-    "download Instagram reel to local",
-    "批次下載 YouTube 播放清單",
-    "只下載音訊，我要 MP3 格式",
-    "下載影片最高畫質版本",
-    "download video from Facebook",
-    "幫我把這個網址的影片存成 1080p",
-    "抓取社群媒體影片",
-    "download playlist from YouTube"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "下載這部 YouTube 影片，要 1080p MP4",
-      "params": {
-        "action": "run",
-        "url": "https://www.youtube.com/watch?v=EXAMPLE",
-        "quality": "1080p",
-        "format": "mp4",
-        "output_dir": "./downloads"
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "下載 TikTok 影片，不要浮水印",
-      "params": {
-        "action": "run",
-        "url": "https://www.tiktok.com/@user/video/EXAMPLE",
-        "no_watermark": true,
-        "output_dir": "./downloads"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "只要音訊，幫我把 YouTube 影片轉成 MP3",
-      "params": {
-        "action": "run",
-        "url": "https://www.youtube.com/watch?v=EXAMPLE",
-        "audio_only": true,
-        "audio_format": "mp3",
-        "output_dir": "./music"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
     },
-    {
-      "query": "批次下載整個 YouTube 播放清單，最高畫質",
-      "params": {
-        "action": "run",
-        "url": "https://www.youtube.com/playlist?list=EXAMPLE",
-        "playlist": true,
-        "quality": "best",
-        "output_dir": "./playlist"
-      }
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
     },
-    {
-      "query": "下載 Instagram Reels 影片",
-      "params": {
-        "action": "run",
-        "url": "https://www.instagram.com/reel/EXAMPLE",
-        "output_dir": "./downloads"
-      }
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "action": {
-        "type": "string",
-        "description": "固定為 run"
-      },
-      "url": {
-        "type": "string",
-        "description": "影片網址，支援 YouTube、TikTok、Facebook、Instagram、Twitter/X、Bilibili 等 1000+ 平台"
-      },
-      "quality": {
-        "type": "string",
-        "description": "畫質選擇：best、1080p、720p、480p、360p，預設 best"
-      },
-      "format": {
-        "type": "string",
-        "description": "輸出格式：mp4、webm、mkv，預設 mp4"
-      },
-      "audio_only": {
-        "type": "boolean",
-        "description": "只下載音訊，預設 false"
-      },
-      "audio_format": {
-        "type": "string",
-        "description": "音訊格式：mp3、m4a、wav、flac，audio_only 為 true 時有效"
-      },
-      "no_watermark": {
-        "type": "boolean",
-        "description": "移除平台浮水印（TikTok 等支援的平台），預設 false"
-      },
-      "playlist": {
-        "type": "boolean",
-        "description": "下載整個播放清單，預設 false"
-      },
-      "subtitle": {
-        "type": "boolean",
-        "description": "同時下載字幕（若有），預設 false"
-      },
-      "subtitle_lang": {
-        "type": "string",
-        "description": "字幕語言代碼，例如 zh-TW、en，subtitle 為 true 時有效"
-      },
-      "output_dir": {
-        "type": "string",
-        "description": "輸出目錄，預設 ./downloads"
-      },
-      "filename": {
-        "type": "string",
-        "description": "自訂檔名（不含副檔名），預設使用影片標題"
-      }
-    },
-    "required": [
-      "action",
-      "url"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "supported_platforms": [
-    "YouTube",
-    "TikTok",
-    "Facebook",
-    "Instagram",
-    "Twitter/X",
-    "Bilibili",
-    "Vimeo",
-    "Dailymotion",
-    "Reddit",
-    "Twitch（VOD）",
-    "其他 1000+ 網站（yt-dlp 支援清單）"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
   ],
-  "license": "MIT"
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

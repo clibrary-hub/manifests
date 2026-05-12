@@ -55,7 +55,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["prompt_text", "clipboard_status", "template_list", "export_path"]
+    "fields": [
+      "prompt_text",
+      "clipboard_status",
+      "template_list",
+      "export_path"
+    ]
   },
   "examples": [
     {
@@ -71,5 +76,13 @@
     "1": "Prompt not found",
     "2": "Invalid variable format"
   },
-  "tags": ["prompt", "template", "llm", "jinja2", "clipboard"]
+  "tags": [
+    "prompt",
+    "template",
+    "llm",
+    "jinja2",
+    "clipboard"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/B23-prompt-vault"
 }

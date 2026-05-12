@@ -55,7 +55,13 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["duplicates", "groups", "similarity", "suggestions", "duplication_rate"]
+    "fields": [
+      "duplicates",
+      "groups",
+      "similarity",
+      "suggestions",
+      "duplication_rate"
+    ]
   },
   "examples": [
     {
@@ -75,5 +81,13 @@
     "1": "Path not found",
     "2": "No duplicates detected"
   },
-  "tags": ["deduplication", "refactor", "code-quality", "scan", "devops"]
+  "tags": [
+    "deduplication",
+    "refactor",
+    "code-quality",
+    "scan",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/C49-code-dedupe"
 }

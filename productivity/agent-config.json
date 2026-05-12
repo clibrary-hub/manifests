@@ -1,85 +1,97 @@
 {
-  "name": "agent-config",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Export, import, and sync agent configuration across environments with conflict detection.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "匯出 Agent 設定",
-    "把設定打包到另一台電腦",
-    "同步我的 agent 配置",
-    "幫我備份所有規則和 prompt",
-    "設定要怎麼遷移到新環境",
-    "export agent settings",
-    "migrate my agent config to a new machine",
-    "backup all agent rules and prompts",
-    "how do I sync configs across devices",
-    "幫我 import 這個 config.zip 到目前環境"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "action": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Action to perform: export, import, or sync",
-      "default": null
+      "description": "Target project directory path"
+    },
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output path for export (file or directory)",
-      "default": "my_config.zip"
-    },
-    "include": {
-      "type": "string",
-      "required": false,
-      "description": "Comma-separated list of config items to include",
-      "default": null
-    },
-    "format": {
       "type": "enum",
       "required": false,
-      "description": "Export format: zip or directory",
-      "default": "zip"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "dry_run": {
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
-      "description": "Preview import without applying changes",
-      "default": false
+      "default": false,
+      "description": "Respect .gitignore rules"
     },
-    "merge": {
+    "annotate": {
       "type": "boolean",
       "required": false,
-      "description": "Merge with existing configs instead of overwriting",
-      "default": false
+      "default": false,
+      "description": "Infer and annotate file purposes"
     },
-    "target": {
-      "type": "string",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "description": "Sync target directory",
-      "default": null
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["exported_items", "file_count", "total_size", "status"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "匯出當前環境的所有 Agent 設定",
-      "invocation": "agent-config export -o my_config.zip"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "預覽匯入內容",
-      "invocation": "agent-config import my_config.zip --dry-run"
-    },
-    {
-      "intent": "Sync config to Dropbox",
-      "invocation": "agent-config sync --target ~/Dropbox/agent-config/"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Source configuration not found",
-    "2": "Conflict detected during import"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["agent", "config", "backup", "sync", "migration"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

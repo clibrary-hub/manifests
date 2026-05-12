@@ -1,76 +1,97 @@
 {
-  "name": "output-tracker",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Monitor file creations and modifications during agent execution and output a structured change report.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "追蹤 Agent 產生的檔案變更",
-    "監控目錄中的檔案修改",
-    "列出 Agent 執行期間改了哪些東西",
-    "建立檔案變更快照",
-    "比對前後快照差異",
-    "track file changes during agent run",
-    "monitor directory for modifications",
-    "generate a change report of agent outputs",
-    "compare file snapshots before and after",
-    "watch 這個專案目錄並輸出變更報告"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: watch, report, snapshot, diff",
-      "default": "watch"
+      "description": "Target project directory path"
     },
-    "paths": {
-      "type": "array",
+    "depth": {
+      "type": "integer",
       "required": false,
-      "description": "Directories to monitor"
+      "description": "Maximum directory depth to scan"
     },
-    "all": {
-      "type": "boolean",
+    "ext": {
+      "type": "string",
       "required": false,
-      "default": false,
-      "description": "Watch all common locations"
+      "description": "Filter by file extension (e.g., py)"
     },
     "exclude": {
       "type": "array",
       "required": false,
-      "description": "Directory patterns to exclude, e.g., node_modules, .git"
-    },
-    "since": {
-      "type": "string",
-      "required": false,
-      "description": "Time range for report, e.g., '2 hours ago'"
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
+      "type": "enum",
       "required": false,
-      "description": "Output report file path"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "name": {
-      "type": "string",
+    "respect_gitignore": {
+      "type": "boolean",
       "required": false,
-      "description": "Snapshot name for snapshot/diff commands"
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["changes", "created_count", "modified_count", "deleted_count"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "追蹤當前目錄的檔案變更",
-      "invocation": "output-tracker watch . --exclude node_modules --exclude .git"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "比對 Agent 執行前後的快照差異",
-      "invocation": "output-tracker diff before"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "No tracking data found",
-    "2": "Snapshot not found"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["file-tracking", "monitoring", "agent-output", "snapshot"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

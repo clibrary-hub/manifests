@@ -1,81 +1,87 @@
 {
-  "name": "env-sync",
+  "name": "docker-cleanup",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Manage and synchronize environment variables across multiple environments, detect missing keys, and validate formats.",
+  "description": "Remove stopped containers, dangling images, unused volumes, and build cache to reclaim Docker disk space.",
   "intent_triggers": [
-    "比對兩個 .env 檔的差異",
-    "同步 staging 和 production 的環境變數",
-    "找出 .env 裡缺少的 key",
-    "驗證環境變數格式是否正確",
-    "掃描程式碼裡用到的環境變數",
-    "compare two .env files",
-    "sync missing env keys from template",
-    "find missing environment variables",
-    "validate my .env configuration",
-    "幫我檢查 .env 跟 .env.example 有沒有對齊"
+    "皜? Docker",
+    "?芣?瘝??Docker 摰孵",
+    "Docker 蝤?蝛粹?銝?",
+    "docker cleanup",
+    "remove unused docker resources",
+    "clean up docker images and containers",
+    "prune docker",
+    "? Docker 蝤?",
+    "?芣??? Docker image",
+    "docker disk space full",
+    "皜 docker build cache",
+    "remove dangling images",
+    "Docker ?皜?",
+    "free up docker storage",
+    "docker system prune"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Sub-command: diff, missing, validate, audit, sync, matrix, scan, template",
-      "default": "diff"
-    },
-    "env": {
-      "type": "string",
-      "required": true,
-      "description": "Primary .env file path"
-    },
     "target": {
-      "type": "string",
+      "type": "enum",
       "required": false,
-      "description": "Secondary .env file for comparison"
+      "default": "all",
+      "description": "What to clean: all, containers, images, volumes, cache"
     },
-    "template": {
-      "type": "string",
-      "required": false,
-      "description": "Template .env file to compare against"
-    },
-    "from": {
-      "type": "string",
-      "required": false,
-      "description": "Source .env to sync keys from"
-    },
-    "check_format": {
+    "force": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Validate value formats (URL, email, key)"
+      "description": "Skip confirmation prompt"
     },
-    "output": {
+    "dry_run": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show what would be removed without actually removing"
+    },
+    "older_than": {
       "type": "string",
       "required": false,
-      "description": "Output file path for matrix report"
+      "description": "Only remove resources older than this duration (e.g. 24h, 7d)"
     }
   },
   "output_schema": {
-    "format": "text",
-    "fields": ["comparison_matrix", "missing_keys", "format_errors", "sensitive_vars"]
+    "format": "json",
+    "fields": [
+      "removed_containers",
+      "removed_images",
+      "removed_volumes",
+      "reclaimed_bytes"
+    ]
   },
   "examples": [
     {
-      "intent": "比對兩個環境變數檔案的差異",
-      "invocation": "env-sync diff .env .env.production"
+      "intent": "皜?????函? Docker 鞈?",
+      "invocation": "docker-cleanup --target all --force"
     },
     {
-      "intent": "從模板同步缺少的 key",
-      "invocation": "env-sync sync .env --from .env.example"
+      "intent": "dry run to see what would be deleted",
+      "invocation": "docker-cleanup --dry-run"
     },
     {
-      "intent": "掃描程式碼生成 .env.example",
-      "invocation": "env-sync scan src/ -o .env.example"
+      "intent": "?芸??7 憭拙???image",
+      "invocation": "docker-cleanup --target images --older-than 7d --force"
     }
   ],
   "error_codes": {
-    "1": "Env file not found",
-    "2": "Invalid env format",
-    "3": "Sensitive value detected in audit"
+    "E001": "Docker daemon not running",
+    "E002": "Insufficient permissions ??try running with sudo",
+    "E003": "Cannot remove image in use by running container"
   },
-  "tags": ["environment", "devops", "sync", "validation", "security", "dotenv"]
+  "tags": [
+    "docker",
+    "cleanup",
+    "devops",
+    "containers",
+    "images",
+    "disk-space",
+    "maintenance"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/Q321-docker-cleanup"
 }

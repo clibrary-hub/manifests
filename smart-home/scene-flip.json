@@ -1,88 +1,97 @@
 {
-  "name": "scene-flip",
-  "version": "0.1.0",
-  "description": "場景切換器",
-  "category": "V",
-  "number": 422,
-  "pain_point": "家庭場景一鍵切換",
-  "commercial": "⚠️",
-  "language": "Python",
-  "dependencies": [
-    "requests",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "我要回家了，幫我切換到回家模式",
-    "一鍵切換電影院場景，關燈調暗",
-    "切換到睡眠模式，把所有燈都關掉",
-    "幫我設定早晨起床的智慧家居場景",
-    "現在切換到工作模式",
-    "出門前啟動離家模式",
-    "把客廳切換到派對場景"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "切換到電影模式：客廳燈調暗到 20%，電視開啟",
-      "params": {
-        "scene_name": "電影模式",
-        "actions": [
-          {
-            "device": "客廳燈",
-            "brightness": 20
-          },
-          {
-            "device": "電視",
-            "power": "on"
-          }
-        ]
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "建立早晨場景：7點自動開窗簾、開咖啡機、燈光漸亮",
-      "params": {
-        "scene_name": "早晨喚醒",
-        "trigger_time": "07:00",
-        "actions": [
-          "開窗簾",
-          "開咖啡機",
-          "燈光漸亮"
-        ]
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "立即執行離家模式",
-      "params": {
-        "scene_name": "離家模式",
-        "execute_now": true
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "scene_name": {
-        "type": "string",
-        "description": "場景名稱，如離家模式、電影模式"
-      },
-      "execute_now": {
-        "type": "boolean",
-        "description": "是否立即執行場景"
-      },
-      "trigger_time": {
-        "type": "string",
-        "description": "定時觸發時間，格式 HH:MM"
-      },
-      "actions": {
-        "type": "array",
-        "description": "場景包含的動作清單"
-      }
-    },
-    "required": [
-      "scene_name"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

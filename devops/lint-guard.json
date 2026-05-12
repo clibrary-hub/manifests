@@ -1,72 +1,87 @@
 {
-  "name": "lint-guard",
+  "name": "docker-cleanup",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Auto-detect project linter and run lint with auto-fix on agent-generated code.",
+  "description": "Remove stopped containers, dangling images, unused volumes, and build cache to reclaim Docker disk space.",
   "intent_triggers": [
-    "自動修復 lint 錯誤",
-    "對程式碼執行 lint 檢查",
-    "幫我跑 ESLint 並自動修復",
-    "檢查 Agent 產出的程式碼品質",
-    "偵測專案使用的 linter",
-    "auto-fix lint errors",
-    "run linter on generated code",
-    "check code quality with ruff",
-    "detect project linter configuration",
-    "對修改過的檔案跑 lint fix"
+    "皜? Docker",
+    "?芣?瘝??Docker 摰孵",
+    "Docker 蝤?蝛粹?銝?",
+    "docker cleanup",
+    "remove unused docker resources",
+    "clean up docker images and containers",
+    "prune docker",
+    "? Docker 蝤?",
+    "?芣??? Docker image",
+    "docker disk space full",
+    "皜 docker build cache",
+    "remove dangling images",
+    "Docker ?皜?",
+    "free up docker storage",
+    "docker system prune"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Subcommand: fix, check, detect, setup",
-      "default": "fix"
-    },
     "target": {
-      "type": "string",
-      "required": false,
-      "description": "Target file or directory to lint"
-    },
-    "linter": {
       "type": "enum",
       "required": false,
-      "description": "Linter to use: ruff, eslint, pylint, biome"
+      "default": "all",
+      "description": "What to clean: all, containers, images, volumes, cache"
     },
-    "changed": {
+    "force": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Only lint files changed in git diff"
+      "description": "Skip confirmation prompt"
     },
-    "suggest": {
+    "dry_run": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Show fix suggestions in check mode"
+      "description": "Show what would be removed without actually removing"
     },
-    "output": {
+    "older_than": {
       "type": "string",
       "required": false,
-      "description": "Output report file path"
+      "description": "Only remove resources older than this duration (e.g. 24h, 7d)"
     }
   },
   "output_schema": {
-    "format": "text",
-    "fields": ["fixed_count", "remaining_issues", "report_file"]
+    "format": "json",
+    "fields": [
+      "removed_containers",
+      "removed_images",
+      "removed_volumes",
+      "reclaimed_bytes"
+    ]
   },
   "examples": [
     {
-      "intent": "對 src 目錄自動執行 lint 修復",
-      "invocation": "lint-guard fix src/"
+      "intent": "皜?????函? Docker 鞈?",
+      "invocation": "docker-cleanup --target all --force"
     },
     {
-      "intent": "僅檢查 Git  diff 中修改的檔案",
-      "invocation": "lint-guard fix --changed"
+      "intent": "dry run to see what would be deleted",
+      "invocation": "docker-cleanup --dry-run"
+    },
+    {
+      "intent": "?芸??7 憭拙???image",
+      "invocation": "docker-cleanup --target images --older-than 7d --force"
     }
   ],
   "error_codes": {
-    "1": "No linter detected in project",
-    "2": "Target file or directory not found"
+    "E001": "Docker daemon not running",
+    "E002": "Insufficient permissions ??try running with sudo",
+    "E003": "Cannot remove image in use by running container"
   },
-  "tags": ["lint", "code-quality", "auto-fix", "eslint", "ruff"]
+  "tags": [
+    "docker",
+    "cleanup",
+    "devops",
+    "containers",
+    "images",
+    "disk-space",
+    "maintenance"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/Q321-docker-cleanup"
 }

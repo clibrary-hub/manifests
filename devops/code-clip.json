@@ -46,7 +46,11 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["cleaned_code", "issues_fixed", "language"]
+    "fields": [
+      "cleaned_code",
+      "issues_fixed",
+      "language"
+    ]
   },
   "examples": [
     {
@@ -66,5 +70,13 @@
     "1": "Clipboard is empty or not accessible",
     "2": "Unsupported language specified"
   },
-  "tags": ["clipboard", "code", "format", "clean", "devops"]
+  "tags": [
+    "clipboard",
+    "code",
+    "format",
+    "clean",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A09-code-clip"
 }

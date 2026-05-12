@@ -52,7 +52,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["slimmed_content", "extracted_code", "steps", "conclusions"]
+    "fields": [
+      "slimmed_content",
+      "extracted_code",
+      "steps",
+      "conclusions"
+    ]
   },
   "examples": [
     {
@@ -68,5 +73,13 @@
     "1": "Input file not found or clipboard empty",
     "2": "Unsupported input format"
   },
-  "tags": ["ai-response", "slim", "extract", "code", "summary"]
+  "tags": [
+    "ai-response",
+    "slim",
+    "extract",
+    "code",
+    "summary"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/B27-response-slim"
 }

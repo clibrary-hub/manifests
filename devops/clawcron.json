@@ -64,7 +64,12 @@
   },
   "output_schema": {
     "format": "json",
-    "fields": ["rules", "sync_status", "summary", "report_file"]
+    "fields": [
+      "rules",
+      "sync_status",
+      "summary",
+      "report_file"
+    ]
   },
   "examples": [
     {
@@ -85,5 +90,12 @@
     "2": "Schedule rule not found",
     "3": "OpenClaw sync failed"
   },
-  "tags": ["cron", "schedule", "automation", "openclaw", "devops"]
+  "tags": [
+    "cron",
+    "schedule",
+    "automation",
+    "openclaw",
+    "devops"
+  ],
+  "status": "spec"
 }

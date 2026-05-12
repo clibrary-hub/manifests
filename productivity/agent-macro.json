@@ -1,91 +1,97 @@
 {
-  "name": "agent-macro",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Record and replay sequences of agent commands as reusable macros with variables.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "錄製一組常用指令",
-    "幫我建立一個部署巨集",
-    "執行剛剛錄好的 macro",
-    "把這五個步驟存成可以重複跑的流程",
-    "預覽這個巨集會做什麼",
-    "record a macro for daily deployment",
-    "run the lint-and-test macro",
-    "create a reusable command sequence",
-    "how do I replay yesterday's steps",
-    "幫我匯出這個 macro 成 YAML 檔"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "action": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Action: record, create, from-history, run, list, edit, delete, export, import",
-      "default": null
+      "description": "Target project directory path"
     },
-    "name": {
-      "type": "string",
-      "required": false,
-      "description": "Macro name",
-      "default": null
-    },
-    "steps": {
-      "type": "string",
-      "required": false,
-      "description": "Path to YAML steps file",
-      "default": null
-    },
-    "last": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "description": "Number of recent commands to include from history",
-      "default": null
+      "description": "Maximum directory depth to scan"
     },
-    "var": {
-      "type": "array",
-      "required": false,
-      "description": "Variable assignments in key=value format",
-      "default": null
-    },
-    "dry_run": {
-      "type": "boolean",
-      "required": false,
-      "description": "Preview macro without executing",
-      "default": false
-    },
-    "step_by_step": {
-      "type": "boolean",
-      "required": false,
-      "description": "Pause for confirmation at each step",
-      "default": false
-    },
-    "output": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Output path for export",
-      "default": null
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["macro_name", "steps_executed", "status", "output"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "錄製一個每日部署巨集",
-      "invocation": "agent-macro record --name \"每日部署\""
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "執行巨集並帶變數",
-      "invocation": "agent-macro run \"部署\" --var env=staging --var branch=main"
-    },
-    {
-      "intent": "Preview macro execution",
-      "invocation": "agent-macro run \"每日部署\" --dry-run"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Macro not found",
-    "2": "Step execution failed"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["macro", "automation", "workflow", "recording", "productivity"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

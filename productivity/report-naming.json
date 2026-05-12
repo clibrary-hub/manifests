@@ -1,79 +1,97 @@
 {
-  "name": "report-naming",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Validate, generate, and check report filenames against a unified naming convention ({PROJECT}_{TYPE}_{DATE}.{EXT}).",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我檢查這個檔案命名是否符合規範",
-    "生成一份報告的標準檔名",
-    "列出所有可用的報告類型碼",
-    "檢查這個目錄下有哪些檔案命名錯了",
-    "顯示報告命名的完整規則",
-    "validate this report filename",
-    "generate a standard report name",
-    "list all report type codes",
-    "check filenames in this directory",
-    "幫我產出 MEDIA_FETCH 專案的完整命名範例"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: validate, generate, list-types, rules, example, check-dir"
+      "description": "Target project directory path"
     },
-    "filename": {
-      "type": "string",
+    "depth": {
+      "type": "integer",
       "required": false,
-      "description": "Filename to validate (validate)"
-    },
-    "project": {
-      "type": "string",
-      "required": false,
-      "description": "Project name in uppercase (generate/example)"
-    },
-    "type": {
-      "type": "enum",
-      "required": false,
-      "description": "Type code: REPORT, GUIDE, WORK, SLIDES, PPT, SOURCE, ARCHIVE (generate)"
-    },
-    "date": {
-      "type": "string",
-      "required": false,
-      "description": "Date in YYYYMMDD (generate/example)"
+      "description": "Maximum directory depth to scan"
     },
     "ext": {
       "type": "string",
       "required": false,
-      "description": "File extension: md, html, pptx (generate)"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "directory": {
-      "type": "string",
+    "exclude": {
+      "type": "array",
       "required": false,
-      "description": "Directory path to check (check-dir)"
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["validation_result", "errors", "suggested_filename", "suggested_path", "valid_files", "invalid_files"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "驗證單一檔案命名是否符合規範",
-      "invocation": "report-naming validate \"CLI_TOOLS_REPORT_20260423.md\""
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "Generate a standard report filename",
-      "invocation": "report-naming generate CLI_TOOLS REPORT 20260423 md"
-    },
-    {
-      "intent": "檢查目錄下所有檔案的命名",
-      "invocation": "report-naming check-dir workspace/reports/"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Filename does not follow naming convention",
-    "2": "Unknown type code or invalid date format",
-    "3": "Directory not found"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["naming-convention", "report", "filename", "validation", "productivity"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

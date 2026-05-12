@@ -1,79 +1,97 @@
 {
-  "name": "api-compat",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "web",
-  "description": "Detect breaking API changes between versions and find all affected call sites with migration guides.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "檢查這次修改有沒有 breaking change",
-    "比較兩個版本的 API 差異",
-    "找出所有受影響的呼叫端",
-    "生成遷移指南文件",
-    "掃描整個專案的相容性問題",
-    "check for breaking API changes",
-    "compare API snapshots before and after",
-    "find all affected call sites",
-    "generate a migration guide",
-    "幫我分析 HEAD~1 到 HEAD 的介面變更"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "action": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Action: check, impact, migration-guide",
-      "default": null
+      "description": "Target project directory path"
     },
-    "before": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Path to previous API module file",
-      "default": null
+      "description": "Filter by file extension (e.g., py)"
     },
-    "after": {
-      "type": "string",
+    "exclude": {
+      "type": "array",
       "required": false,
-      "description": "Path to new API module file",
-      "default": null
-    },
-    "ref": {
-      "type": "string",
-      "required": false,
-      "description": "Git reference to compare (e.g., HEAD~1)",
-      "default": null
-    },
-    "all": {
-      "type": "boolean",
-      "required": false,
-      "description": "Scan entire project for breaking changes",
-      "default": false
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
+      "type": "enum",
       "required": false,
-      "description": "Output file path for migration guide",
-      "default": null
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["breaking_changes", "affected_call_sites", "severity", "migration_guide"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "比較修改前後的介面",
-      "invocation": "api-compat check --before old_module.py --after new_module.py"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "列出受影響的呼叫端",
-      "invocation": "api-compat impact src/models/user.py"
-    },
-    {
-      "intent": "Generate migration guide from Git diff",
-      "invocation": "api-compat migration-guide --ref HEAD~1 -o migration.md"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "AST parsing failed",
-    "2": "No API changes detected"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["api", "compatibility", "breaking-change", "migration", "web"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

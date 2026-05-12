@@ -1,89 +1,97 @@
 {
-  "name": "live-clip",
-  "version": "0.1.0",
-  "description": "直播切片器",
-  "category": "L",
-  "number": 236,
-  "pain_point": "直播切片成短影音",
-  "commercial": "✅",
-  "language": "Python",
-  "dependencies": [
-    "ffmpeg-python",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把直播錄影切成短片段",
-    "擷取直播精彩片段製成短影音",
-    "直播切片工具，輸出多個短視頻",
-    "把長達 3 小時的直播切成 60 秒短影片",
-    "自動從直播錄影中切出精華",
-    "直播 VOD 切片工具",
-    "擷取直播中的特定時段並匯出"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "把 stream.mp4 切成每段 90 秒的短影片並匯出",
-      "params": {
-        "action": "export",
-        "input_file": "stream.mp4",
-        "segment_duration": 90,
-        "output_dir": "clips/"
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "從 live_recording.mp4 切出 1:30:00 到 1:32:00 的精彩片段",
-      "params": {
-        "action": "export",
-        "input_file": "live_recording.mp4",
-        "start": "01:30:00",
-        "end": "01:32:00",
-        "output_file": "highlight.mp4"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "根據 timestamps.txt 的時間點切割 stream.mp4",
-      "params": {
-        "action": "export",
-        "input_file": "stream.mp4",
-        "timestamps_file": "timestamps.txt"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "action": {
-        "type": "string"
-      },
-      "end": {
-        "type": "string"
-      },
-      "input_file": {
-        "type": "string"
-      },
-      "output_dir": {
-        "type": "string"
-      },
-      "output_file": {
-        "type": "string"
-      },
-      "segment_duration": {
-        "type": "integer"
-      },
-      "start": {
-        "type": "string"
-      },
-      "timestamps_file": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "action",
-      "input_file"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

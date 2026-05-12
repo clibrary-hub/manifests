@@ -1,90 +1,97 @@
 {
-  "name": "web-clean",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "web",
-  "description": "Extract main content from URLs, remove ads, nav bars, and footers, output clean Markdown or plain text.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我把這個網頁內容洗乾淨",
-    "提取文章主體去掉廣告",
-    "把網頁轉成乾淨的 Markdown",
-    "批次清洗 URL 清單的內容",
-    "從剪貼簿的 HTML 提取主要內容",
-    "clean this webpage content",
-    "extract article body from URL",
-    "convert webpage to clean markdown",
-    "batch clean a list of URLs",
-    "幫我爬取這個網站並去除雜訊"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: clean, batch, or crawl",
-      "default": "clean"
-    },
-    "url": {
-      "type": "string",
-      "required": false,
-      "description": "Target URL to clean (clean command)"
-    },
-    "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output file or directory path"
-    },
-    "format": {
-      "type": "enum",
-      "required": false,
-      "default": "markdown",
-      "description": "Output format: markdown or text"
-    },
-    "clipboard": {
-      "type": "boolean",
-      "required": false,
-      "default": false,
-      "description": "Read HTML from clipboard (clean command)"
+      "description": "Target project directory path"
     },
     "depth": {
       "type": "integer",
       "required": false,
-      "default": 1,
-      "description": "Crawl depth for recursive extraction (crawl command)"
+      "description": "Maximum directory depth to scan"
     },
-    "keep_images": {
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Preserve images in output"
+      "description": "Respect .gitignore rules"
     },
-    "keep_code": {
+    "annotate": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Preserve code blocks in output"
+      "description": "Infer and annotate file purposes"
     },
-    "max_tokens": {
-      "type": "integer",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "description": "Maximum token limit for output content"
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["title", "content", "url", "word_count", "output_path"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "清洗單一網頁為 Markdown",
-      "invocation": "web-clean clean https://example.com/article -o article.md"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "批次清洗 URL 清單",
-      "invocation": "web-clean batch urls.txt -o ./articles/"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "URL is unreachable",
-    "2": "Failed to extract main content"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["web", "scraping", "markdown", "content-extraction", "clean"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

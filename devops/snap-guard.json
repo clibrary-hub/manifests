@@ -1,66 +1,97 @@
 {
-  "name": "snap-guard",
+  "name": "repo-map",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Create pre-edit snapshots of working directories, with one-click diff or rollback to protect uncommitted changes.",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我建立一個程式碼快照",
-    "備份一下現在的工作目錄",
-    "我想回滾到之前的快照",
-    "比較快照和現在的差異",
-    "自動監控並在修改前備份",
-    "take a snapshot before editing",
-    "rollback to a previous snapshot",
-    "diff current code against a snapshot",
-    "auto-backup when agent starts editing",
-    "清理過期的快照只保留最近 5 個"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Subcommand: snap, list, show, diff, restore, clean, auto-watch, guard",
-      "default": "snap"
-    },
-    "paths": {
-      "type": "array",
-      "required": false,
-      "description": "File paths to snapshot (snap command)"
-    },
-    "tag": {
+    "path": {
       "type": "string",
-      "required": false,
-      "description": "Tag label for the snapshot"
+      "required": true,
+      "description": "Target project directory path"
     },
-    "keep": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "default": 5,
-      "description": "Number of recent snapshots to keep (clean command)"
+      "description": "Maximum directory depth to scan"
     },
-    "snapshot_id": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Snapshot ID for show/diff/restore commands"
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["snapshot_id", "tag", "file_count", "size", "diff"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "在 Agent 修改前建立快照",
-      "invocation": "snap-guard snap --tag \"Agent 修改前\""
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "回滾到之前的快照",
-      "invocation": "snap-guard restore snap-20260424-140000"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Snapshot ID not found",
-    "2": "Target path does not exist"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["snapshot", "backup", "rollback", "diff", "guard"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

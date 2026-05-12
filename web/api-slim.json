@@ -1,85 +1,97 @@
 {
-  "name": "api-slim",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "web",
-  "description": "Intelligently trim large API responses to fit context limits while preserving structure and schema.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把這個 API 回應裁減到 2000 tokens",
-    "從 URL 抓取並瘦身 JSON",
-    "只保留第一筆資料當範例",
-    "分析這個 API 回應的結構",
-    "推導這份資料的 JSON Schema",
-    "slim down this API response",
-    "fetch and trim JSON from a URL",
-    "keep only the first item as example",
-    "analyze the structure of this response",
-    "幫我把這個 50K tokens 的回應壓到 500"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "action": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Action: slim, fetch, analyze, schema",
-      "default": null
+      "description": "Target project directory path"
     },
-    "input": {
-      "type": "string",
-      "required": false,
-      "description": "Input file path, URL, or '-' for stdin",
-      "default": null
-    },
-    "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output file path",
-      "default": null
-    },
-    "max_tokens": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "description": "Maximum tokens for slimmed output",
-      "default": null
+      "description": "Maximum directory depth to scan"
     },
-    "strategy": {
-      "type": "enum",
-      "required": false,
-      "description": "Slimming strategy: first or schema",
-      "default": null
-    },
-    "fields": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Comma-separated fields to保留",
-      "default": null
+      "description": "Filter by file extension (e.g., py)"
     },
-    "flatten": {
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
-      "description": "Flatten nested objects",
-      "default": false
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
-    "format": "json",
-    "fields": ["slimmed_data", "original_tokens", "reduced_tokens", "schema"]
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "從檔案裁剪 API 回應",
-      "invocation": "api-slim slim response.json --max-tokens 2000"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "從 URL 抓取並裁剪",
-      "invocation": "api-slim fetch https://api.example.com/users -o slimmed.json"
-    },
-    {
-      "intent": "Analyze API response structure",
-      "invocation": "api-slim analyze response.json"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Invalid JSON input",
-    "2": "URL fetch failed"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["api", "json", "trim", "token-limit", "web"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

@@ -1,79 +1,97 @@
 {
-  "name": "agent-notify",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Wrap commands and send notifications via desktop, LINE, or email on completion or failure.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "跑完這個指令後通知我",
-    "設定 LINE 通知 token",
-    "失敗的時候發桌面通知",
-    "幫我包裝這個測試指令並通知結果",
-    "發一封 Email 通知任務完成",
-    "notify me when the build finishes",
-    "wrap this command and send a notification",
-    "set up LINE notify token",
-    "send me a desktop alert on failure",
-    "用 LINE 通知我長任務跑完了"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "action": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Action: wrap, send, config",
-      "default": null
+      "description": "Target project directory path"
     },
-    "command": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Command to wrap and execute",
-      "default": null
+      "description": "Filter by file extension (e.g., py)"
     },
-    "via": {
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
       "type": "enum",
       "required": false,
-      "description": "Notification channel: desktop, line, email",
-      "default": null
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "on_fail": {
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
-      "description": "Only notify on failure",
-      "default": false
+      "default": false,
+      "description": "Respect .gitignore rules"
     },
-    "message": {
-      "type": "string",
+    "annotate": {
+      "type": "boolean",
       "required": false,
-      "description": "Manual notification message",
-      "default": null
+      "default": false,
+      "description": "Infer and annotate file purposes"
     },
-    "attach": {
-      "type": "string",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "description": "File path to attach to notification",
-      "default": null
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["task_name", "duration", "exit_code", "summary"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "包裝 pytest 並在完成時通知",
-      "invocation": "agent-notify wrap -- uv run pytest"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "僅在失敗時發送桌面通知",
-      "invocation": "agent-notify wrap --on-fail -- ./deploy.sh"
-    },
-    {
-      "intent": "Send a manual LINE notification",
-      "invocation": "agent-notify send \"部署完成！\" --via line"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Notification channel not configured",
-    "2": "Wrapped command failed"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["notification", "alert", "line", "email", "productivity"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

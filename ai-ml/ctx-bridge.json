@@ -57,7 +57,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["compressed_context", "format", "token_count", "key_decisions"]
+    "fields": [
+      "compressed_context",
+      "format",
+      "token_count",
+      "key_decisions"
+    ]
   },
   "examples": [
     {
@@ -77,5 +82,13 @@
     "1": "Source conversation file not found",
     "2": "Unsupported agent format"
   },
-  "tags": ["context", "bridge", "convert", "compress", "ai-ml"]
+  "tags": [
+    "context",
+    "bridge",
+    "convert",
+    "compress",
+    "ai-ml"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/B26-ctx-bridge"
 }

@@ -1,73 +1,97 @@
 {
-  "name": "solar-track",
-  "version": "0.1.0",
-  "description": "太陽能追蹤器",
-  "category": "V",
-  "number": 428,
-  "pain_point": "太陽能板產量追蹤",
-  "commercial": "⚠️",
-  "language": "Python",
-  "dependencies": [
-    "requests",
-    "sqlite3",
-    "click"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "今天太陽能板發了多少電？",
-    "這個月太陽能產量怎麼樣？",
-    "追蹤太陽能板的每日發電量",
-    "比較晴天和陰天的太陽能效率",
-    "太陽能板今天的發電效率正常嗎？",
-    "今年到目前太陽能省了多少電費？",
-    "查詢太陽能逆變器的運作狀態"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "查詢今天太陽能板的累計發電量和效率",
-      "params": {
-        "date": "2024-01-27",
-        "panel_id": "rooftop_panel_1"
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "統計本月每日發電量趨勢，計算總電費節省",
-      "params": {
-        "month": "2024-01",
-        "electricity_rate": 3.5
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "比較過去 30 天的平均日發電量",
-      "params": {
-        "days": 30,
-        "compare_weather": true
-      }
-    }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "compare_weather": {
-        "type": "boolean"
-      },
-      "date": {
-        "type": "string"
-      },
-      "days": {
-        "type": "integer"
-      },
-      "electricity_rate": {
-        "type": "number"
-      },
-      "month": {
-        "type": "string"
-      },
-      "panel_id": {
-        "type": "string"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
-  "license": "MIT"
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
+  },
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

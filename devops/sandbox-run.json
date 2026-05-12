@@ -1,90 +1,97 @@
 {
-  "name": "sandbox-run",
+  "name": "repo-map",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Execute commands in a restricted sandbox with filesystem, network, and resource limits, plus risk assessment before running.",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "在沙箱裡執行這個指令",
-    "幫我評估這條命令有沒有風險",
-    "限制網路和檔案存取來跑這個腳本",
-    "我要安全地測試這個安裝命令",
-    "把 rm -rf 加到黑名單",
-    "run this command in a sandbox",
-    "assess the risk of this command",
-    "execute with restricted filesystem access",
-    "block dangerous commands like curl pipe bash",
-    "幫我設定沙箱的預設政策為 strict"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: exec, assess, assess-file, config, whitelist, blacklist"
+      "description": "Target project directory path"
     },
-    "cmd": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Command string to execute or assess (exec/assess)"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "allow_path": {
+    "exclude": {
       "type": "array",
       "required": false,
-      "description": "Allowed filesystem paths (exec)"
+      "description": "Directory names to exclude"
     },
-    "no_network": {
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Disable network access (exec)"
+      "description": "Respect .gitignore rules"
     },
-    "max_time": {
-      "type": "integer",
+    "annotate": {
+      "type": "boolean",
       "required": false,
-      "description": "Maximum execution time in seconds (exec)"
+      "default": false,
+      "description": "Infer and annotate file purposes"
     },
-    "max_memory": {
-      "type": "string",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "description": "Maximum memory limit (e.g., 1G) (exec)"
-    },
-    "file": {
-      "type": "string",
-      "required": false,
-      "description": "File path containing commands to assess (assess-file)"
-    },
-    "default_policy": {
-      "type": "enum",
-      "required": false,
-      "description": "Default sandbox policy: strict or relaxed (config)"
-    },
-    "entry": {
-      "type": "string",
-      "required": false,
-      "description": "Command pattern to add to whitelist or blacklist"
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["risk_level", "execution_time", "exit_code", "file_access", "network_access", "blocked_actions"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "在沙箱中執行指令並限制檔案存取",
-      "invocation": "sandbox-run exec \"python script.py\" --allow-path ./src --allow-path ./data --no-network"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "Assess command risk without executing",
-      "invocation": "sandbox-run assess \"rm -rf /tmp/old_backups\""
-    },
-    {
-      "intent": "加入黑名單",
-      "invocation": "sandbox-run blacklist add \"rm -rf\""
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Command blocked by blacklist",
-    "2": "Sandbox resource limit exceeded",
-    "3": "Risk assessment detected high danger"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["sandbox", "security", "command", "risk-assessment", "devops"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

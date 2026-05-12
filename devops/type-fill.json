@@ -1,73 +1,97 @@
 {
-  "name": "type-fill",
+  "name": "repo-map",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Scan code for missing type annotations, infer types from context, and auto-fill or generate stub files.",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫程式碼補上型別註解",
-    "檢查哪些函式缺少型別",
-    "生成 .pyi stub 檔案",
-    "看一下這個專案的型別覆蓋率",
-    "自動推斷並補全型別",
-    "add type annotations to my code",
-    "check type coverage of the project",
-    "generate stub files for a module",
-    "infer missing types automatically",
-    "幫我檢查這個檔案有多少函式沒有型別"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Subcommand: scan, coverage, fill, or stub",
-      "default": "scan"
-    },
     "path": {
       "type": "string",
       "required": true,
-      "description": "File or directory path to analyze"
+      "description": "Target project directory path"
     },
-    "params_only": {
-      "type": "boolean",
+    "depth": {
+      "type": "integer",
       "required": false,
-      "default": false,
-      "description": "Only scan function parameters (scan command)"
+      "description": "Maximum directory depth to scan"
     },
-    "dry_run": {
-      "type": "boolean",
-      "required": false,
-      "default": false,
-      "description": "Preview mode without modifying files (fill command)"
-    },
-    "returns_only": {
-      "type": "boolean",
-      "required": false,
-      "default": false,
-      "description": "Only fill return types (fill command)"
-    },
-    "output": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Output path for stub file (stub command)"
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["file", "function", "coverage_percent", "suggested_type", "stub_content"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "掃描專案缺少型別的位置",
-      "invocation": "type-fill scan src/ --params-only"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "自動補全型別並預覽",
-      "invocation": "type-fill fill src/main.py --dry-run"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Target path does not exist",
-    "2": "Type inference failed"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["typing", "type-annotation", "python", "stub", "static-analysis"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

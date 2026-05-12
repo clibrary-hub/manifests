@@ -1,85 +1,97 @@
 {
-  "name": "text-tts",
-  "version": "0.1.0",
-  "description": "文字轉語音",
-  "category": "L",
-  "number": 235,
-  "pain_point": "文字轉語音",
-  "commercial": "⚠️",
-  "language": "Python",
-  "dependencies": [
-    "edge-tts",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把文字轉成語音音檔",
-    "TTS 工具，讓電腦朗讀文件",
-    "把文章轉成有聲書格式",
-    "text to speech 轉換工具",
-    "幫我把這段文字合成語音",
-    "產生繁體中文語音音訊",
-    "把說明文件轉成可聆聽的音訊"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "把 article.txt 轉成繁體中文語音 MP3",
-      "params": {
-        "action": "run",
-        "input_file": "article.txt",
-        "language": "zh-TW",
-        "output_format": "mp3"
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "朗讀「歡迎使用本系統」並輸出 WAV 檔",
-      "params": {
-        "action": "run",
-        "text": "歡迎使用本系統",
-        "language": "zh-TW",
-        "output_file": "welcome.wav"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "批次把 scripts/ 目錄下所有 TXT 轉成英文語音",
-      "params": {
-        "action": "run",
-        "input_dir": "scripts/",
-        "language": "en-US"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "action": {
-        "type": "string"
-      },
-      "input_dir": {
-        "type": "string"
-      },
-      "input_file": {
-        "type": "string"
-      },
-      "language": {
-        "type": "string"
-      },
-      "output_file": {
-        "type": "string"
-      },
-      "output_format": {
-        "type": "string"
-      },
-      "text": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "action",
-      "language"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

@@ -1,81 +1,97 @@
 {
-  "name": "pin-msg",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Pin and manage critical messages from conversations, auto-injecting them as reminders in new agent sessions.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "釘選這則重要訊息",
-    "幫我記住這個程式碼規範",
-    "列出所有釘選的提醒",
-    "生成對話開頭的提示前言",
-    "取消釘選第 3 則訊息",
-    "pin this important message",
-    "generate a preamble from pinned items",
-    "list all pinned constraints",
-    "manage conversation reminders",
-    "把這條 rule pin 起來並設為 high priority"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: pin, import, list, generate-preamble, unpin",
-      "default": "pin"
+      "description": "Target project directory path"
     },
-    "message": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Message content to pin"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "category": {
-      "type": "string",
+    "exclude": {
+      "type": "array",
       "required": false,
-      "description": "Category label for the pinned message"
+      "description": "Directory names to exclude"
     },
-    "priority": {
+    "output": {
       "type": "enum",
       "required": false,
-      "description": "Priority level: high, medium, low"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "project": {
-      "type": "string",
-      "required": false,
-      "description": "Project name for project-scoped pins"
-    },
-    "clipboard": {
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Copy generated preamble to clipboard"
+      "description": "Respect .gitignore rules"
     },
-    "file": {
-      "type": "string",
+    "annotate": {
+      "type": "boolean",
       "required": false,
-      "description": "File to import pinned messages from"
+      "default": false,
+      "description": "Infer and annotate file purposes"
     },
-    "id": {
-      "type": "integer",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "description": "Pin ID to unpin"
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["preamble", "pinned_list", "project"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "釘選一則高優先級的程式碼規範",
-      "invocation": "pin-msg pin \"所有 API endpoint 必須加上 rate limiting\" --priority high --category \"程式碼規範\""
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "生成提示前言並複製到剪貼簿",
-      "invocation": "pin-msg generate-preamble --clipboard"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Pin ID not found",
-    "2": "Import file not found"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["pin", "reminder", "conversation", "agent-context"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

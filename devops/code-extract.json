@@ -59,7 +59,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["extracted_files", "language", "line_count", "output_dir"]
+    "fields": [
+      "extracted_files",
+      "language",
+      "line_count",
+      "output_dir"
+    ]
   },
   "examples": [
     {
@@ -79,5 +84,13 @@
     "1": "Source file not found",
     "2": "No code blocks detected"
   },
-  "tags": ["extract", "code", "conversation", "snippet", "devops"]
+  "tags": [
+    "extract",
+    "code",
+    "conversation",
+    "snippet",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/B30-code-extract"
 }

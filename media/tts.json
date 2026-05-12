@@ -1,108 +1,97 @@
 {
-  "name": "tts",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "media",
-  "description": "Chinese text-to-speech synthesizer with four backend auto-fallback: edge-tts, gTTS, MeloTTS, and GPT-SoVITS.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把這段文字轉成語音",
-    "幫我朗讀這篇文章",
-    "用雲希的聲音念這段話",
-    "把這個 txt 檔轉成 mp3",
-    "用本地模型合成語音",
-    "convert text to speech",
-    "read this article aloud",
-    "synthesize speech from a file",
-    "use edge-tts to generate audio",
-    "幫我用 MeloTTS 生成這段中文語音"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "text": {
+    "path": {
       "type": "string",
-      "required": false,
-      "description": "Text to synthesize"
+      "required": true,
+      "description": "Target project directory path"
     },
-    "file": {
-      "type": "string",
+    "depth": {
+      "type": "integer",
       "required": false,
-      "description": "Path to text file to read"
+      "description": "Maximum directory depth to scan"
     },
-    "voice": {
+    "ext": {
       "type": "string",
       "required": false,
-      "default": "Xiaoxiao",
-      "description": "Voice role for edge-tts (e.g., Xiaoxiao, Yunxi, HsiaoChen)"
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output audio file path"
-    },
-    "play": {
-      "type": "boolean",
-      "required": false,
-      "default": false,
-      "description": "Play audio immediately after synthesis"
-    },
-    "rate": {
-      "type": "string",
-      "required": false,
-      "default": "+0%",
-      "description": "Speech rate adjustment for edge-tts"
-    },
-    "lang": {
-      "type": "string",
-      "required": false,
-      "default": "zh-tw",
-      "description": "gTTS language code"
-    },
-    "melo_lang": {
-      "type": "string",
-      "required": false,
-      "default": "ZH",
-      "description": "MeloTTS language: ZH, EN, JP"
-    },
-    "backend": {
       "type": "enum",
       "required": false,
-      "default": "auto",
-      "description": "Backend: auto, edge, gtts, melo, gpt-sov"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "encoding": {
-      "type": "string",
-      "required": false,
-      "default": "utf-8",
-      "description": "Text file encoding"
-    },
-    "list_voices": {
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "List available voice roles"
+      "description": "Respect .gitignore rules"
     },
-    "list_backends": {
+    "annotate": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "List all backend statuses"
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["audio_path", "backend_used", "duration", "file_size"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "把一段文字轉成語音",
-      "invocation": "tts \"你好世界\" --voice Yunxi --play"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "把文章轉成 mp3 檔",
-      "invocation": "tts -f story.txt -o story.mp3 --backend edge"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "No TTS backend available",
-    "2": "Text file not found"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["tts", "speech", "audio", "voice", "synthesis"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

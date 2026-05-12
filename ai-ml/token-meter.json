@@ -78,7 +78,13 @@
   },
   "output_schema": {
     "format": "json",
-    "fields": ["token_count", "cost", "model", "usage_by_period", "budget_status"]
+    "fields": [
+      "token_count",
+      "cost",
+      "model",
+      "usage_by_period",
+      "budget_status"
+    ]
   },
   "examples": [
     {
@@ -94,5 +100,13 @@
     "1": "File not found",
     "2": "Unsupported model"
   },
-  "tags": ["token", "cost", "budget", "llm", "tracking"]
+  "tags": [
+    "token",
+    "cost",
+    "budget",
+    "llm",
+    "tracking"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/B28-token-meter"
 }

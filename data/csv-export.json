@@ -51,7 +51,10 @@
   },
   "output_schema": {
     "format": "csv",
-    "fields": ["row_count", "output_path"]
+    "fields": [
+      "row_count",
+      "output_path"
+    ]
   },
   "examples": [
     {
@@ -73,5 +76,13 @@
     "E003": "Specified field not found in data",
     "E004": "Cannot write to output path"
   },
-  "tags": ["csv", "export", "data", "spreadsheet", "json", "transform"]
+  "tags": [
+    "csv",
+    "export",
+    "data",
+    "spreadsheet",
+    "json",
+    "transform"
+  ],
+  "status": "spec"
 }

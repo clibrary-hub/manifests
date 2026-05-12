@@ -1,71 +1,97 @@
 {
-  "name": "zip",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Compress files and directories into ZIP archives with optional password protection and exclusion patterns.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把這個目錄壓縮成 zip",
-    "幫我打包這些檔案",
-    "建立一個加密的壓縮檔",
-    "把專案打包排除 node_modules",
-    "解壓縮這個 zip 檔案",
-    "compress this folder into a zip",
-    "create a password-protected archive",
-    "zip these files excluding logs",
-    "pack the project for distribution",
-    "幫我把 dist 目錄壓成 zip 並加密"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "input": {
+    "path": {
       "type": "string",
       "required": true,
-      "description": "File or directory path to compress"
+      "description": "Target project directory path"
     },
-    "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output ZIP archive path"
-    },
-    "level": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "default": 6,
-      "description": "Compression level 0-9"
+      "description": "Maximum directory depth to scan"
     },
-    "password": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Password for encrypted archive"
+      "description": "Filter by file extension (e.g., py)"
     },
     "exclude": {
       "type": "array",
       "required": false,
-      "description": "Patterns to exclude from archive"
+      "description": "Directory names to exclude"
     },
-    "command": {
+    "output": {
       "type": "enum",
       "required": false,
-      "default": "compress",
-      "description": "Operation: compress or extract"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["archive_path", "file_count", "total_size", "compression_ratio"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "壓縮目錄成 zip 檔",
-      "invocation": "zip compress ./project/ -o project.zip --exclude node_modules,*.log"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "建立加密壓縮檔",
-      "invocation": "zip compress ./docs/ -o backup.zip --password mysecret"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Input path does not exist",
-    "2": "Archive creation failed"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["zip", "compression", "archive", "packaging", "backup"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

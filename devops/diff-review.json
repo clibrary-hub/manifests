@@ -52,7 +52,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["version_history", "diff_lines", "stats", "status"]
+    "fields": [
+      "version_history",
+      "diff_lines",
+      "stats",
+      "status"
+    ]
   },
   "examples": [
     {
@@ -73,5 +78,13 @@
     "2": "Version tag not found",
     "3": "No versions exist for the file"
   },
-  "tags": ["diff", "version-control", "review", "rollback", "devops"]
+  "tags": [
+    "diff",
+    "version-control",
+    "review",
+    "rollback",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A05-diff-review"
 }

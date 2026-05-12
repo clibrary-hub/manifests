@@ -1,78 +1,97 @@
 {
-  "name": "test-gap",
+  "name": "repo-map",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Analyze coverage reports to find untested functions and branches, then generate test skeleton recommendations.",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "分析測試覆蓋率缺口",
-    "找出哪些函式還沒被測到",
-    "幫我生成測試骨架",
-    "檢查 Agent 修改的檔案測試夠不夠",
-    "找出風險最高的未測函式",
-    "analyze my test coverage gaps",
-    "find untested functions in my code",
-    "generate test skeletons for missing coverage",
-    "which functions have zero coverage",
-    "幫我跑測試並分析 coverage report"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Subcommand: analyze, run, suggest, summary, risky",
-      "default": "analyze"
-    },
     "path": {
       "type": "string",
-      "required": false,
-      "description": "Coverage report file or source path"
+      "required": true,
+      "description": "Target project directory path"
     },
-    "changed": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Only analyze files modified by the Agent"
+      "description": "Respect .gitignore rules"
     },
-    "cmd": {
-      "type": "string",
+    "annotate": {
+      "type": "boolean",
       "required": false,
-      "description": "Test command to run before analysis (run command)"
+      "default": false,
+      "description": "Infer and annotate file purposes"
     },
-    "framework": {
-      "type": "enum",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "default": "pytest",
-      "description": "Test framework: pytest, unittest, jest"
-    },
-    "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output file path for generated tests"
-    },
-    "top": {
-      "type": "integer",
-      "required": false,
-      "default": 10,
-      "description": "Number of top risky functions to show (risky command)"
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["function", "file", "coverage_percent", "risk_score", "test_skeleton"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "分析覆蓋率報告找出缺口",
-      "invocation": "test-gap analyze coverage.xml"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "為未測函式生成測試骨架",
-      "invocation": "test-gap suggest src/models/user.py --framework pytest -o tests/test_user.py"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Coverage report not found",
-    "2": "No untested functions detected"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["testing", "coverage", "pytest", "quality", "ci"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

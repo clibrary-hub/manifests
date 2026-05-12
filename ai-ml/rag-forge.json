@@ -68,7 +68,13 @@
   },
   "output_schema": {
     "format": "json",
-    "fields": ["answer", "sources", "context", "index_path", "chunk_count"]
+    "fields": [
+      "answer",
+      "sources",
+      "context",
+      "index_path",
+      "chunk_count"
+    ]
   },
   "examples": [
     {
@@ -89,5 +95,13 @@
     "2": "Index file not found",
     "3": "Required dependency not installed (fastapi/uvicorn/pymupdf/docx)"
   },
-  "tags": ["rag", "embedding", "vector-search", "semantic-search", "fastapi", "documents"]
+  "tags": [
+    "rag",
+    "embedding",
+    "vector-search",
+    "semantic-search",
+    "fastapi",
+    "documents"
+  ],
+  "status": "spec"
 }

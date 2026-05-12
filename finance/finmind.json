@@ -1,76 +1,97 @@
 {
-  "name": "finmind",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "finance",
-  "description": "Fetch financial data and generate AI analysis summaries for stocks, with single-stock analysis and multi-stock comparison.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "分析一下蘋果股票的財務數據",
-    "幫我比較幾檔股票的淨利率",
-    "查一下 TSLA 的本益比和 ROE",
-    "生成股票分析報告",
-    "看一下 MSFT 的財務指標",
-    "analyze Apple stock financials",
-    "compare net margins of AAPL and MSFT",
-    "fetch stock data and generate analysis",
-    "show me the P/E ratio for Tesla",
-    "幫我跑 finmind 分析 AAPL 並輸出 JSON"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Sub-command: analyze, compare",
-      "default": "analyze"
-    },
-    "symbol": {
+    "path": {
       "type": "string",
       "required": true,
-      "description": "Stock symbol (e.g. AAPL, MSFT, TSLA)"
+      "description": "Target project directory path"
     },
-    "output": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Output file path"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "format": {
-      "type": "enum",
-      "required": false,
-      "default": "table",
-      "description": "Output format: table, json, or text"
-    },
-    "symbols": {
+    "exclude": {
       "type": "array",
       "required": false,
-      "description": "List of stock symbols for comparison"
+      "description": "Directory names to exclude"
     },
-    "metric": {
+    "output": {
       "type": "enum",
       "required": false,
-      "default": "net_margin",
-      "description": "Comparison metric: net_margin, roe, pe_ratio, or debt_ratio"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
-    "format": "json",
-    "fields": ["symbol", "name", "sector", "price", "metrics", "analysis"]
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "分析單一股票的財務數據",
-      "invocation": "finmind analyze AAPL"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "分析並輸出 JSON 報告",
-      "invocation": "finmind analyze MSFT -o report.json -f json"
-    },
-    {
-      "intent": "比較多檔股票的 ROE",
-      "invocation": "finmind compare AAPL MSFT TSLA -m roe"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Stock symbol not found or unsupported",
-    "2": "Failed to fetch financial data"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["finance", "stock", "analysis", "investment", "metrics"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

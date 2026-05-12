@@ -1,79 +1,97 @@
 {
-  "name": "mqtt-tap",
-  "version": "0.1.0",
-  "description": "MQTT 監聽器",
-  "category": "V",
-  "number": 439,
-  "pain_point": "IoT MQTT 訊息檢視",
-  "commercial": "✅",
-  "language": "Python",
-  "dependencies": [
-    "paho-mqtt",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我監聽 MQTT Broker 的訊息",
-    "查看指定 MQTT 主題的即時訊息",
-    "IoT 設備有沒有在發送 MQTT 訊息？",
-    "訂閱這個 MQTT Topic 並顯示訊息",
-    "偵錯 IoT 設備的 MQTT 通訊",
-    "記錄 MQTT 訊息流，找出異常",
-    "比較兩個 MQTT Topic 的訊息頻率"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "監聽 broker 192.168.1.100 的 home/# 所有主題訊息",
-      "params": {
-        "broker_host": "192.168.1.100",
-        "topic": "home/#",
-        "port": 1883
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "訂閱 home/bedroom/temperature 並記錄 5 分鐘的數值",
-      "params": {
-        "topic": "home/bedroom/temperature",
-        "duration_seconds": 300,
-        "save_log": true
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "過濾顯示 payload 包含 'error' 的 MQTT 訊息",
-      "params": {
-        "topic": "#",
-        "filter_keyword": "error",
-        "broker_host": "localhost"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "broker_host": {
-        "type": "string"
-      },
-      "duration_seconds": {
-        "type": "integer"
-      },
-      "filter_keyword": {
-        "type": "string"
-      },
-      "port": {
-        "type": "integer"
-      },
-      "save_log": {
-        "type": "boolean"
-      },
-      "topic": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "topic"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

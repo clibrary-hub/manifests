@@ -57,7 +57,14 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["total", "completed", "failed", "pending", "progress_percent", "estimated_remaining"]
+    "fields": [
+      "total",
+      "completed",
+      "failed",
+      "pending",
+      "progress_percent",
+      "estimated_remaining"
+    ]
   },
   "examples": [
     {
@@ -77,5 +84,13 @@
     "1": "Task not found",
     "2": "Item already marked done"
   },
-  "tags": ["checkpoint", "task", "resume", "progress", "devops"]
+  "tags": [
+    "checkpoint",
+    "task",
+    "resume",
+    "progress",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/D65-checkpoint"
 }

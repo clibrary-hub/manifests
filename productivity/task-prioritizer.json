@@ -1,79 +1,97 @@
 {
-  "name": "task-prioritizer",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Read multi-source todo items and auto-prioritize them using Eisenhower matrix plus energy-level matching.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我排序今天的待辦事項",
-    "用艾森豪矩陣分析我的任務",
-    "推薦我現在應該先做哪件事",
-    "根據精力和截止日排行程",
-    "新增一個高優先的待辦",
-    "prioritize my todo list",
-    "sort tasks by urgency and importance",
-    "which task should I do first",
-    "add a new task with high priority",
-    "幫我分析哪些任務可以 delegate 掉"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Subcommand: prioritize, add, or status",
-      "default": "prioritize"
+      "description": "Target project directory path"
     },
-    "local": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "default": "~/todo.md",
-      "description": "Path to local todo file"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "energy": {
-      "type": "enum",
+    "exclude": {
+      "type": "array",
       "required": false,
-      "default": "auto",
-      "description": "Current energy level: high, medium, low, auto"
+      "description": "Directory names to exclude"
     },
     "output": {
       "type": "enum",
       "required": false,
-      "default": "table",
-      "description": "Output format: table, json, or markdown"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "title": {
-      "type": "string",
+    "respect_gitignore": {
+      "type": "boolean",
       "required": false,
-      "description": "Task title (add command)"
+      "default": false,
+      "description": "Respect .gitignore rules"
     },
-    "deadline": {
-      "type": "string",
+    "annotate": {
+      "type": "boolean",
       "required": false,
-      "description": "Deadline in YYYY-MM-DD format (add command)"
+      "default": false,
+      "description": "Infer and annotate file purposes"
     },
-    "priority": {
-      "type": "enum",
+    "stats": {
+      "type": "boolean",
       "required": false,
-      "default": "medium",
-      "description": "Task priority: high, medium, low"
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
-    "format": "json",
-    "fields": ["quadrant", "title", "urgency", "importance", "energy", "suggested_time"]
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "排序今天的待辦事項",
-      "invocation": "task-prioritizer prioritize --energy high"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "新增一個緊急任務",
-      "invocation": "task-prioritizer add \"準備客戶簡報\" -d 2026-04-27 -p high"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Todo file not found",
-    "2": "No tasks to prioritize"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["todo", "productivity", "eisenhower", "priority", "task"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

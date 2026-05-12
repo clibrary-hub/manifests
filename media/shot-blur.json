@@ -1,83 +1,97 @@
 {
-  "name": "shot-blur",
-  "version": "0.1.0",
-  "description": "敏感區塊模糊",
-  "category": "L",
-  "number": 229,
-  "pain_point": "截圖批次模糊敏感資訊",
-  "commercial": "✅",
-  "language": "Python",
-  "dependencies": [
-    "Pillow",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把截圖中的個人資訊模糊掉",
-    "截圖裡有信用卡號，幫我打馬賽克",
-    "批次模糊多張截圖的敏感區域",
-    "隱私保護截圖工具，自動遮蔽機敏內容",
-    "幫我把圖片中的電話號碼和地址模糊",
-    "截圖脫敏處理，模糊指定區域",
-    "資料外洩防護，模糊截圖敏感資訊"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "把 receipt.png 中座標 (50,100,200,130) 的區域模糊",
-      "params": {
-        "action": "run",
-        "input_file": "receipt.png",
-        "region": "50,100,200,130",
-        "blur_strength": 15
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "批次模糊 screenshots/ 目錄下所有截圖的右上角（可能有姓名）",
-      "params": {
-        "action": "run",
-        "input_dir": "screenshots/",
-        "region_preset": "top_right"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "將 id_card.png 的生日和身分證號欄位打馬賽克",
-      "params": {
-        "action": "run",
-        "input_file": "id_card.png",
-        "regions_file": "sensitive_regions.json"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "action": {
-        "type": "string"
-      },
-      "blur_strength": {
-        "type": "integer"
-      },
-      "input_dir": {
-        "type": "string"
-      },
-      "input_file": {
-        "type": "string"
-      },
-      "region": {
-        "type": "string"
-      },
-      "region_preset": {
-        "type": "string"
-      },
-      "regions_file": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "action"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

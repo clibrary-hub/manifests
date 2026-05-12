@@ -74,7 +74,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["extracted_text", "confidence", "language", "output_file"]
+    "fields": [
+      "extracted_text",
+      "confidence",
+      "language",
+      "output_file"
+    ]
   },
   "examples": [
     {
@@ -90,5 +95,12 @@
     "1": "Image file not found",
     "2": "Tesseract OCR not installed"
   },
-  "tags": ["ocr", "image", "text-extraction", "tesseract"]
+  "tags": [
+    "ocr",
+    "image",
+    "text-extraction",
+    "tesseract"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/E89-ocr-feed"
 }

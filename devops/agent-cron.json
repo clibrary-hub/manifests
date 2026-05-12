@@ -49,7 +49,13 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["task_name", "cron_expression", "status", "next_run", "history"]
+    "fields": [
+      "task_name",
+      "cron_expression",
+      "status",
+      "next_run",
+      "history"
+    ]
   },
   "examples": [
     {
@@ -69,5 +75,13 @@
     "1": "Invalid cron expression",
     "2": "Task not found"
   },
-  "tags": ["cron", "scheduler", "automation", "task", "devops"]
+  "tags": [
+    "cron",
+    "scheduler",
+    "automation",
+    "task",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/D63-agent-cron"
 }

@@ -36,7 +36,15 @@
   },
   "output_schema": {
     "format": "json",
-    "fields": ["skills", "categories", "recommended", "name", "directory", "description", "tags"]
+    "fields": [
+      "skills",
+      "categories",
+      "recommended",
+      "name",
+      "directory",
+      "description",
+      "tags"
+    ]
   },
   "examples": [
     {
@@ -52,5 +60,11 @@
     "1": "No matching skill found",
     "2": "Registry directory not accessible"
   },
-  "tags": ["skill", "registry", "recommendation", "indexing"]
+  "tags": [
+    "skill",
+    "registry",
+    "recommendation",
+    "indexing"
+  ],
+  "status": "spec"
 }

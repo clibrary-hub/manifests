@@ -1,86 +1,97 @@
 {
-  "name": "blind-schedule",
-  "version": "0.1.0",
-  "description": "窗簾排程器",
-  "category": "V",
-  "number": 432,
-  "pain_point": "智慧窗簾排程",
-  "commercial": "⚠️",
-  "language": "Python",
-  "dependencies": [
-    "schedule",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "設定窗簾早上自動打開",
-    "幫我建立智慧窗簾的日出日落排程",
-    "每天早上 7 點自動拉開臥室窗簾",
-    "午休時把窗簾關到 50% 遮光",
-    "根據陽光強度自動調節窗簾開度",
-    "設定週末窗簾晚一點才開",
-    "查看窗簾目前的排程設定"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "設定臥室窗簾每天 07:00 全開，22:00 全關",
-      "params": {
-        "device": "臥室窗簾",
-        "open_time": "07:00",
-        "close_time": "22:00",
-        "open_percent": 100
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "建立日光節約排程：日出時開窗簾，日落後關閉",
-      "params": {
-        "schedule_type": "sunrise_sunset",
-        "location": "台北",
-        "device": "客廳窗簾"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "週末窗簾改為 09:00 才開，比平日晚 2 小時",
-      "params": {
-        "device": "全部窗簾",
-        "weekend_open_time": "09:00",
-        "weekday_open_time": "07:00"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "close_time": {
-        "type": "string"
-      },
-      "device": {
-        "type": "string"
-      },
-      "location": {
-        "type": "string"
-      },
-      "open_percent": {
-        "type": "integer"
-      },
-      "open_time": {
-        "type": "string"
-      },
-      "schedule_type": {
-        "type": "string"
-      },
-      "weekday_open_time": {
-        "type": "string"
-      },
-      "weekend_open_time": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "device"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

@@ -1,85 +1,97 @@
 {
-  "name": "video-to-gif",
-  "version": "0.1.0",
-  "description": "影片轉 GIF",
-  "category": "L",
-  "number": 221,
-  "pain_point": "影片轉 GIF 步驟多",
-  "commercial": "✅",
-  "language": "Python",
-  "dependencies": [
-    "ffmpeg-python",
-    "click",
-    "rich"
-  ],
-  "agent_compatible": true,
-  "mcp_ready": true,
+  "name": "repo-map",
+  "version": "1.0.0",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把影片片段轉成 GIF 動圖",
-    "幫我把 MP4 的某個片段輸出成 GIF",
-    "影片轉 GIF 工具，懶人一鍵操作",
-    "截取影片 10 到 20 秒轉成動圖",
-    "我要把說明影片轉成 GIF 放到文件裡",
-    "video 轉 gif 批次處理",
-    "把 demo 影片變成 GIF 方便分享"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
-  "examples": [
-    {
-      "query": "把 demo.mp4 的前 10 秒轉成 GIF，解析度 480p",
-      "params": {
-        "action": "run",
-        "input_file": "demo.mp4",
-        "start": "00:00:00",
-        "end": "00:00:10",
-        "width": 480
-      }
+  "input_schema": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "description": "Target project directory path"
     },
-    {
-      "query": "將 tutorial.mp4 第 30 秒到 45 秒轉成 GIF",
-      "params": {
-        "action": "run",
-        "input_file": "tutorial.mp4",
-        "start": "00:00:30",
-        "end": "00:00:45"
-      }
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
     },
-    {
-      "query": "批次把 clips/ 目錄下所有 MP4 轉成 GIF",
-      "params": {
-        "action": "run",
-        "input_dir": "clips/",
-        "output_dir": "gifs/"
-      }
+    "ext": {
+      "type": "string",
+      "required": false,
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
-  ],
-  "params_schema": {
-    "type": "object",
-    "properties": {
-      "action": {
-        "type": "string"
-      },
-      "end": {
-        "type": "string"
-      },
-      "input_dir": {
-        "type": "string"
-      },
-      "input_file": {
-        "type": "string"
-      },
-      "output_dir": {
-        "type": "string"
-      },
-      "start": {
-        "type": "string"
-      },
-      "width": {
-        "type": "integer"
-      }
-    },
-    "required": [
-      "action"
+  },
+  "output_schema": {
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
     ]
   },
-  "license": "MIT"
+  "examples": [
+    {
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
+    },
+    {
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
+    }
+  ],
+  "error_codes": {
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
+  },
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

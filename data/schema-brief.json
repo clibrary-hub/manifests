@@ -56,7 +56,14 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["tables", "columns", "constraints", "foreign_keys", "er_diagram", "sample_data"]
+    "fields": [
+      "tables",
+      "columns",
+      "constraints",
+      "foreign_keys",
+      "er_diagram",
+      "sample_data"
+    ]
   },
   "examples": [
     {
@@ -77,5 +84,14 @@
     "2": "Source file or directory not found",
     "3": "SQLAlchemy or driver not installed"
   },
-  "tags": ["database", "schema", "sql", "er-diagram", "mermaid", "data"]
+  "tags": [
+    "database",
+    "schema",
+    "sql",
+    "er-diagram",
+    "mermaid",
+    "data"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/E83-schema-brief"
 }

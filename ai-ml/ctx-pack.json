@@ -65,7 +65,12 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["packed_files", "total_tokens", "token_limit", "file_list"]
+    "fields": [
+      "packed_files",
+      "total_tokens",
+      "token_limit",
+      "file_list"
+    ]
   },
   "examples": [
     {
@@ -85,5 +90,13 @@
     "1": "Entry file not found",
     "2": "Token limit too small to include any file"
   },
-  "tags": ["context", "pack", "dependencies", "token", "ai-ml"]
+  "tags": [
+    "context",
+    "pack",
+    "dependencies",
+    "token",
+    "ai-ml"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A02-ctx-pack"
 }

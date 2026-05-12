@@ -67,7 +67,14 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["task_id", "task_name", "priority", "status", "active_count", "queued_count"]
+    "fields": [
+      "task_id",
+      "task_name",
+      "priority",
+      "status",
+      "active_count",
+      "queued_count"
+    ]
   },
   "examples": [
     {
@@ -87,5 +94,13 @@
     "1": "Task dependency not found",
     "2": "Worker process failed to start"
   },
-  "tags": ["queue", "task-pool", "worker", "concurrency", "devops"]
+  "tags": [
+    "queue",
+    "task-pool",
+    "worker",
+    "concurrency",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/D69-agent-pool"
 }

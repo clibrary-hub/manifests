@@ -1,66 +1,97 @@
 {
-  "name": "style-snap",
+  "name": "repo-map",
   "version": "1.0.0",
   "category": "devops",
-  "description": "Analyze project code to extract naming conventions, formatting style, and import patterns, then generate an Agent-ready style guide.",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "分析這個專案的程式碼風格",
-    "生成一份風格指南給 Agent 用",
-    "檢查這個檔案是否符合專案風格",
-    "看一下團隊的命名慣例是什麼",
-    "幫我抓出程式碼風格不一致的地方",
-    "analyze the coding style of this project",
-    "generate a style guide for my team",
-    "check if this file follows project conventions",
-    "extract naming conventions from the codebase",
-    "幫我產出這個 repo 的 coding style guide"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "command": {
-      "type": "enum",
-      "required": true,
-      "description": "Subcommand: analyze or check",
-      "default": "analyze"
-    },
     "path": {
       "type": "string",
       "required": true,
-      "description": "Project directory or file path to analyze"
+      "description": "Target project directory path"
     },
-    "lang": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Programming language to analyze (e.g., python, javascript)"
+      "description": "Filter by file extension (e.g., py)"
+    },
+    "exclude": {
+      "type": "array",
+      "required": false,
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
+      "type": "enum",
       "required": false,
-      "description": "Output file path for the style guide"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
     },
-    "report": {
+    "respect_gitignore": {
       "type": "boolean",
       "required": false,
       "default": false,
-      "description": "Generate deviation report (check command)"
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["style_guide", "naming_conventions", "formatting_rules", "deviations"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "分析專案程式碼風格並生成指南",
-      "invocation": "style-snap analyze src/ --lang python -o style_guide.md"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "檢查檔案是否符合專案風格",
-      "invocation": "style-snap check agent_output.py --report"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Target path does not exist",
-    "2": "Unsupported language"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["style", "lint", "convention", "code-quality", "guide"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

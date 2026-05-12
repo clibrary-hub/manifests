@@ -1,71 +1,97 @@
 {
-  "name": "project-briefer",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Auto-detect project configs, README, and directory structure to generate a standardized project brief for Agent context.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "幫我生成專案摘要",
-    "產出一份專案背景說明",
-    "我要這個專案的技術棧資訊",
-    "能不能快速整理一下這個 repo 的結構",
-    "給我一份可以直接貼給 AI 的專案介紹",
-    "generate a project brief",
-    "summarize this codebase for me",
-    "what is the tech stack of this project",
-    "create a project overview markdown",
-    "幫我 scan 一下這個專案有哪些依賴和框架"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
     "path": {
       "type": "string",
       "required": true,
-      "description": "Target project directory path to scan"
+      "description": "Target project directory path"
     },
-    "output": {
-      "type": "string",
-      "required": false,
-      "default": "stdout",
-      "description": "Output file path for the brief"
-    },
-    "detail": {
-      "type": "enum",
-      "required": false,
-      "default": "full",
-      "description": "Detail level: full or compact (< 500 tokens)"
-    },
-    "git_log": {
+    "depth": {
       "type": "integer",
       "required": false,
-      "description": "Include recent N Git commits"
+      "description": "Maximum directory depth to scan"
     },
-    "template": {
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Custom template file path"
+      "description": "Filter by file extension (e.g., py)"
     },
-    "update": {
-      "type": "string",
+    "exclude": {
+      "type": "array",
       "required": false,
-      "description": "Update an existing brief file"
+      "description": "Directory names to exclude"
+    },
+    "output": {
+      "type": "enum",
+      "required": false,
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
     "format": "text",
-    "fields": ["project_name", "tech_stack", "description", "directory_structure", "recent_activity"]
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "掃描當前專案並生成摘要",
-      "invocation": "project-briefer ."
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "Generate a compact brief with recent git activity",
-      "invocation": "project-briefer . --detail compact --git-log 10 -o brief.md"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Target directory not found or inaccessible",
-    "2": "Template file not found"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["project", "brief", "summary", "tech-stack", "git"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

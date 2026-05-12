@@ -1,79 +1,97 @@
 {
-  "name": "chat-export",
+  "name": "repo-map",
   "version": "1.0.0",
-  "category": "productivity",
-  "description": "Convert chat exports from ChatGPT, Claude, Gemini, and OpenClaw into a unified standard format.",
+  "category": "devops",
+  "description": "Scan a project directory and produce a concise structure summary with file sizes, language distribution, and key entry points.",
   "intent_triggers": [
-    "把 ChatGPT 匯出檔轉成標準格式",
-    "自動偵測對話格式並轉換",
-    "批次處理整個匯出目錄",
-    "合併多個對話成一個文件",
-    "提取對話裡的所有程式碼片段",
-    "convert ChatGPT export to markdown",
-    "auto-detect and normalize chat format",
-    "batch process all exported conversations",
-    "merge multiple chats into one file",
-    "幫我統計這份匯出檔的對話資訊"
+    "撟急??怠??獢??桅?蝯?",
+    "??repo 鋆⊿?鈭?撘?閮",
+    "憿舐內撠??????身摰?",
+    "撟急??Ｙ?銝隞賜移蝪∠?撠??啣?",
+    "??獢?憭之??獢獐??",
+    "show me the structure of this repo",
+    "generate a project map",
+    "what languages are used in this project",
+    "list key entry points and config files",
+    "撟急? scan 銝銝??冗??獢?瑽?憭批?"
   ],
   "input_schema": {
-    "action": {
-      "type": "enum",
+    "path": {
+      "type": "string",
       "required": true,
-      "description": "Action: convert, batch, merge, stats, extract-code",
-      "default": null
+      "description": "Target project directory path"
     },
-    "input": {
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "description": "Maximum directory depth to scan"
+    },
+    "ext": {
       "type": "string",
       "required": false,
-      "description": "Input file or directory path",
-      "default": null
+      "description": "Filter by file extension (e.g., py)"
     },
-    "from": {
-      "type": "enum",
+    "exclude": {
+      "type": "array",
       "required": false,
-      "description": "Source platform: chatgpt, claude, gemini, openclaw",
-      "default": null
-    },
-    "auto_detect": {
-      "type": "boolean",
-      "required": false,
-      "description": "Auto-detect source platform format",
-      "default": false
+      "description": "Directory names to exclude"
     },
     "output": {
-      "type": "string",
-      "required": false,
-      "description": "Output file or directory path",
-      "default": null
-    },
-    "to": {
       "type": "enum",
       "required": false,
-      "description": "Output format: json, markdown, html",
-      "default": "markdown"
+      "default": "terminal",
+      "description": "Output format: terminal, markdown, or json"
+    },
+    "respect_gitignore": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Respect .gitignore rules"
+    },
+    "annotate": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Infer and annotate file purposes"
+    },
+    "stats": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show language distribution statistics"
     }
   },
   "output_schema": {
-    "format": "json",
-    "fields": ["conversations", "metadata", "total_messages", "output_path"]
+    "format": "text",
+    "fields": [
+      "tree",
+      "language_stats",
+      "entry_points",
+      "file_count",
+      "total_size"
+    ]
   },
   "examples": [
     {
-      "intent": "把 ChatGPT 匯出轉成 Markdown",
-      "invocation": "chat-export convert chatgpt_export.json --from chatgpt -o output.md"
+      "intent": "???嗅?撠?銝阡＊蝷箄?閮蝯梯?",
+      "invocation": "repo-map . --stats --depth 3"
     },
     {
-      "intent": "自動偵測格式並轉換",
-      "invocation": "chat-export convert export.json --auto-detect"
-    },
-    {
-      "intent": "Batch convert an entire directory",
-      "invocation": "chat-export batch ./exports/ -o ./standardized/"
+      "intent": "Export project map to Markdown",
+      "invocation": "repo-map /path/to/project --respect-gitignore -o markdown > project_map.md"
     }
   ],
   "error_codes": {
-    "1": "Unsupported source format",
-    "2": "Auto-detection failed"
+    "1": "Target directory not found",
+    "2": "Permission denied accessing directory"
   },
-  "tags": ["chat", "export", "convert", "chatgpt", "claude", "productivity"]
+  "tags": [
+    "repo",
+    "structure",
+    "tree",
+    "language-stats",
+    "devops"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/A01-repo-map"
 }

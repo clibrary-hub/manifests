@@ -61,7 +61,13 @@
   },
   "output_schema": {
     "format": "text",
-    "fields": ["changed_files", "errors", "warnings", "checks_passed", "result"]
+    "fields": [
+      "changed_files",
+      "errors",
+      "warnings",
+      "checks_passed",
+      "result"
+    ]
   },
   "examples": [
     {
@@ -81,5 +87,13 @@
     "1": "Quality gate failed",
     "2": "Invalid configuration file"
   },
-  "tags": ["ci-cd", "quality-gate", "code-quality", "security", "ai-ml"]
+  "tags": [
+    "ci-cd",
+    "quality-gate",
+    "code-quality",
+    "security",
+    "ai-ml"
+  ],
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/D67-ai-gate"
 }
