@@ -1,0 +1,92 @@
+{
+  "name": "meeting-notes",
+  "version": "0.1.0",
+  "description": "會議筆記器",
+  "category": "G",
+  "number": 129,
+  "pain_point": "會議筆記不統一",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "sqlite3",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "會議筆記格式每次都不一樣怎麼統一？",
+    "幫我用固定模板記錄今天的會議",
+    "會議決議和行動事項要怎麼自動整理",
+    "想讓 AI 幫我把會議錄音轉成結構化筆記",
+    "我需要一個標準化的會議紀錄工具",
+    "開完會要整理逐字稿太麻煩了",
+    "會議筆記要包含討論重點和後續行動"
+  ],
+  "examples": [
+    {
+      "query": "為剛才的產品討論會議建立筆記，包含決議和 action items",
+      "params": {
+        "action": "run",
+        "meeting_title": "產品討論會議",
+        "date": "today",
+        "template": "standard"
+      }
+    },
+    {
+      "query": "把 meeting-transcript.txt 轉換成結構化的會議筆記",
+      "params": {
+        "action": "run",
+        "input_file": "meeting-transcript.txt",
+        "output": "meeting-notes-2024.md"
+      }
+    },
+    {
+      "query": "搜尋上個月關於「預算」的所有會議筆記",
+      "params": {
+        "action": "run",
+        "mode": "search",
+        "keyword": "預算",
+        "period": "last_month"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "keyword": {
+        "type": "string"
+      },
+      "meeting_title": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "template": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G129-meeting-notes"
+}

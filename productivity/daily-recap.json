@@ -1,0 +1,81 @@
+{
+  "name": "daily-recap",
+  "version": "0.1.0",
+  "description": "每日自動回顧器",
+  "category": "G",
+  "number": 124,
+  "pain_point": "每日回顧需手動整理",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "sqlite3",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "每天下班想自動生成今天做了什麼的摘要",
+    "幫我整理今日工作回顧，不想手動寫",
+    "想在下午五點自動產生每日回顧報告",
+    "我要怎麼每天快速回顧成就和待辦？",
+    "用 AI 幫我寫每日日誌摘要",
+    "daily standup 的回顧文字怎麼自動生成",
+    "我需要一個自動化每日復盤工具"
+  ],
+  "examples": [
+    {
+      "query": "根據今天的 git commits 和 focus-log 產生每日回顧",
+      "params": {
+        "action": "run",
+        "sources": "git_commits,focus_log",
+        "date": "today"
+      }
+    },
+    {
+      "query": "生成 2024-03-15 的工作回顧並以繁體中文輸出",
+      "params": {
+        "action": "run",
+        "date": "2024-03-15",
+        "language": "zh-TW"
+      }
+    },
+    {
+      "query": "自動整理今天的工作成果和明天的計畫輸出 recap.md",
+      "params": {
+        "action": "run",
+        "include_tomorrow_plan": "true",
+        "output": "recap.md"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "include_tomorrow_plan": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "sources": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G124-daily-recap"
+}

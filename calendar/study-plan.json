@@ -1,0 +1,91 @@
+{
+  "name": "study-plan",
+  "version": "0.1.0",
+  "description": "學習計畫追蹤",
+  "category": "H",
+  "number": 157,
+  "pain_point": "學習計畫沒有進度條",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我的學習計畫一直沒有在追蹤進度",
+    "幫我建立 Python 課程的學習進度追蹤",
+    "想知道自己的技術學習計畫完成了幾趴",
+    "學習目標和實際進度的差距要怎麼視覺化",
+    "每天讀書 1 小時，幫我追蹤並顯示進度",
+    "需要一個有進度條的個人學習管理工具",
+    "生成學習計畫並自動記錄完成情況"
+  ],
+  "examples": [
+    {
+      "query": "生成 3 個月的 AWS 認證學習計畫，每週 10 小時",
+      "params": {
+        "action": "generate",
+        "goal": "AWS 認證",
+        "months": "3",
+        "weekly_hours": "10"
+      }
+    },
+    {
+      "query": "更新今天完成了第 5 章讀書進度",
+      "params": {
+        "action": "generate",
+        "mode": "update",
+        "task": "讀書",
+        "chapter": "5",
+        "date": "today"
+      }
+    },
+    {
+      "query": "顯示「機器學習課程」的目前進度和預計完成日",
+      "params": {
+        "action": "generate",
+        "mode": "status",
+        "plan": "機器學習課程"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "chapter": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "goal": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "months": {
+        "type": "string"
+      },
+      "plan": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      },
+      "weekly_hours": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

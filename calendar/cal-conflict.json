@@ -1,0 +1,84 @@
+{
+  "name": "cal-conflict",
+  "version": "0.1.0",
+  "description": "衝突偵測器",
+  "category": "H",
+  "number": 145,
+  "pain_point": "行程衝突不知道",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "icalendar",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我的行事曆裡有沒有時間衝突？",
+    "幫我找出這週有衝突的行程",
+    "開了兩個重疊的會議我沒有發現",
+    "自動掃描行事曆找出時段重疊",
+    "行程衝突偵測工具，提前預警",
+    "想在新增行程時自動檢查是否衝突",
+    "多日曆整合後有衝突的行程在哪裡"
+  ],
+  "examples": [
+    {
+      "query": "掃描 calendar.ics 找出本週所有衝突的行程",
+      "params": {
+        "action": "diff",
+        "calendar_file": "calendar.ics",
+        "period": "this_week"
+      }
+    },
+    {
+      "query": "比對 work.ics 和 personal.ics，找出重疊的時段",
+      "params": {
+        "action": "diff",
+        "file_a": "work.ics",
+        "file_b": "personal.ics"
+      }
+    },
+    {
+      "query": "檢查明天的行程是否有衝突，如有則輸出警告",
+      "params": {
+        "action": "diff",
+        "date": "tomorrow",
+        "notify": "true"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "calendar_file": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "file_a": {
+        "type": "string"
+      },
+      "file_b": {
+        "type": "string"
+      },
+      "notify": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H145-cal-conflict"
+}

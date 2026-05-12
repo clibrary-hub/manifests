@@ -1,0 +1,82 @@
+{
+  "name": "quick-idea",
+  "version": "0.1.0",
+  "description": "想法即時投擲器",
+  "category": "G",
+  "number": 140,
+  "pain_point": "有想法散落沒地方丟",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "突然有個想法要快速記下來",
+    "想法一閃而過，要怎麼即時捕捉？",
+    "我需要一個快速記錄靈感的工具",
+    "用命令列快速丟入一個 idea",
+    "靈感出現時要能用最少步驟記錄",
+    "想法盒子 inbox 要怎麼建立",
+    "隨手記想法然後之後可以搜尋整理"
+  ],
+  "examples": [
+    {
+      "query": "快速記錄：「可以用 AI 自動生成 changelog」",
+      "params": {
+        "action": "run",
+        "idea": "可以用 AI 自動生成 changelog",
+        "tag": "automation"
+      }
+    },
+    {
+      "query": "搜尋所有標記為 product 的想法",
+      "params": {
+        "action": "run",
+        "mode": "search",
+        "tag": "product"
+      }
+    },
+    {
+      "query": "列出本週所有捕捉的想法並標記優先度",
+      "params": {
+        "action": "run",
+        "mode": "list",
+        "period": "this_week",
+        "sort_by": "priority"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "idea": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "sort_by": {
+        "type": "string"
+      },
+      "tag": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G140-quick-idea"
+}

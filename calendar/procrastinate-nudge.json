@@ -1,0 +1,75 @@
+{
+  "name": "procrastinate-nudge",
+  "version": "0.1.0",
+  "description": "反拖延提醒",
+  "category": "H",
+  "number": 159,
+  "pain_point": "拖延任務需推播",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "plyer"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我有一個任務一直拖著不做，需要有人來推我",
+    "幫我設定反拖延提醒，每 30 分鐘提示我完成任務",
+    "有沒有工具可以在我拖延太久時發出警告",
+    "想要一個能追蹤我拖延了幾次的任務推播工具",
+    "拖延症很嚴重，需要定期桌面通知催我完成事情",
+    "某個任務超過 3 天沒有進展，幫我設定提醒",
+    "需要一個反拖延系統，讓我對未完成任務有壓力感"
+  ],
+  "examples": [
+    {
+      "query": "設定每 45 分鐘提醒我完成「寫報告」任務，直到標記完成",
+      "params": {
+        "action": "nudge",
+        "task": "寫報告",
+        "interval_minutes": "45"
+      }
+    },
+    {
+      "query": "查看所有正在被推播提醒的拖延任務",
+      "params": {
+        "action": "list",
+        "status": "active"
+      }
+    },
+    {
+      "query": "標記「回覆客戶信件」完成，停止提醒並記錄完成時間",
+      "params": {
+        "action": "done",
+        "task": "回覆客戶信件",
+        "log": "true"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "interval_minutes": {
+        "type": "string"
+      },
+      "log": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

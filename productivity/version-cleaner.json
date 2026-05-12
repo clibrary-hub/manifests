@@ -1,0 +1,83 @@
+{
+  "name": "version-cleaner",
+  "version": "0.1.0",
+  "description": "版本清理器",
+  "category": "G",
+  "number": 134,
+  "pain_point": "文件版本太多搞不清",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "pathlib",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "資料夾裡有太多版本的文件，要怎麼清理？",
+    "幫我刪除舊版本只保留最新版本",
+    "文件版本命名混亂 v1 v2 final finalfinal 怎麼整理",
+    "想自動識別並清除過時的文件版本",
+    "專案資料夾版本檔案太多佔空間",
+    "只保留最近 3 個版本，其他可以刪嗎",
+    "自動清理重複和舊版本文件的工具"
+  ],
+  "examples": [
+    {
+      "query": "清理 reports/ 資料夾，每個文件只保留最新 3 個版本",
+      "params": {
+        "action": "run",
+        "directory": "reports/",
+        "keep_versions": "3"
+      }
+    },
+    {
+      "query": "掃描 docs/ 目錄，找出所有包含 v1、v2、final 的重複版本文件",
+      "params": {
+        "action": "run",
+        "directory": "docs/",
+        "mode": "scan",
+        "pattern": "v[0-9]+|final"
+      }
+    },
+    {
+      "query": "刪除 downloads/ 目錄中超過 90 天的舊版本文件",
+      "params": {
+        "action": "run",
+        "directory": "downloads/",
+        "older_than_days": "90"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "directory": {
+        "type": "string"
+      },
+      "keep_versions": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "older_than_days": {
+        "type": "string"
+      },
+      "pattern": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "directory"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G134-version-cleaner"
+}

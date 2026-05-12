@@ -1,0 +1,85 @@
+{
+  "name": "inbox-zero",
+  "version": "0.1.0",
+  "description": "收件匣自動清空器",
+  "category": "G",
+  "number": 138,
+  "pain_point": "想對 inbox 自動分類",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "imaplib",
+    "anthropic",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "信箱裡有一千封未讀要怎麼自動整理？",
+    "幫我一鍵清空收件匣達到 inbox zero",
+    "郵件自動分類到不同資料夾的工具",
+    "我想讓 AI 幫我過濾並分類所有郵件",
+    "訂閱信、廣告信、重要信自動分開",
+    "如何自動把郵件歸類到正確資料夾",
+    "收件匣太亂，需要 AI 智慧整理"
+  ],
+  "examples": [
+    {
+      "query": "分析 inbox 裡的所有郵件，自動分類到 work、newsletter、personal 資料夾",
+      "params": {
+        "action": "run",
+        "categories": "work,newsletter,personal",
+        "dry_run": "false"
+      }
+    },
+    {
+      "query": "先預覽會怎麼分類，不要實際執行",
+      "params": {
+        "action": "run",
+        "dry_run": "true",
+        "limit": "50"
+      }
+    },
+    {
+      "query": "刪除超過 6 個月的已讀廣告郵件",
+      "params": {
+        "action": "run",
+        "mode": "cleanup",
+        "category": "newsletter",
+        "older_than_months": "6"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "categories": {
+        "type": "string"
+      },
+      "category": {
+        "type": "string"
+      },
+      "dry_run": {
+        "type": "string"
+      },
+      "limit": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "older_than_months": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G138-inbox-zero"
+}

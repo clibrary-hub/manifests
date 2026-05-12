@@ -1,0 +1,84 @@
+{
+  "name": "deadline-board",
+  "version": "0.1.0",
+  "description": "截止日看板",
+  "category": "H",
+  "number": 150,
+  "pain_point": "截止日壓力散亂",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "rich",
+    "click",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我有好多截止日不知道最近哪個最緊急",
+    "幫我建立截止日看板一目了然",
+    "想看到所有任務的截止日期彙總表",
+    "今天和本週的截止日快速總覽",
+    "截止日壓力管理工具，按緊急度排列",
+    "我需要一個可視化的截止日儀表板",
+    "哪些任務快到期了要提前警示"
+  ],
+  "examples": [
+    {
+      "query": "顯示本週所有截止日看板，依緊急度排列",
+      "params": {
+        "action": "run",
+        "period": "this_week",
+        "sort_by": "urgency"
+      }
+    },
+    {
+      "query": "新增截止日：2024-04-30 前完成 API 文件撰寫",
+      "params": {
+        "action": "run",
+        "mode": "add",
+        "task": "API 文件撰寫",
+        "deadline": "2024-04-30"
+      }
+    },
+    {
+      "query": "列出距今 7 天內即將到期的所有任務",
+      "params": {
+        "action": "run",
+        "within_days": "7"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "deadline": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "sort_by": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      },
+      "within_days": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H150-deadline-board"
+}

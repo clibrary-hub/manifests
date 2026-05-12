@@ -1,0 +1,82 @@
+{
+  "name": "time-blocks",
+  "version": "0.1.0",
+  "description": "時間區塊視覺化",
+  "category": "H",
+  "number": 160,
+  "pain_point": "想生產時間區塊圖",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "rich",
+    "click",
+    "matplotlib"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我想把一天的時間規劃用區塊圖顯示出來",
+    "幫我把今天的日程用視覺化時間軸呈現",
+    "想生成一張一週工作時間分配的區塊圖",
+    "有沒有工具能把我的行事曆轉成時間區塊視覺化",
+    "我需要一個甘特圖風格的每日時間規劃工具",
+    "想比較每週各類任務佔用的時間比例",
+    "把 time-track 的記錄匯出成彩色時間區塊圖"
+  ],
+  "examples": [
+    {
+      "query": "生成今天的時間區塊圖，顯示工作、休息、會議各區塊",
+      "params": {
+        "action": "generate",
+        "date": "today",
+        "output": "today-blocks.png"
+      }
+    },
+    {
+      "query": "從 timetrack.db 匯入本週記錄並生成彩色時間區塊圖",
+      "params": {
+        "action": "generate",
+        "input": "timetrack.db",
+        "period": "this_week",
+        "output": "week-blocks.png"
+      }
+    },
+    {
+      "query": "在終端機顯示今天的 ASCII 時間區塊圖",
+      "params": {
+        "action": "generate",
+        "date": "today",
+        "format": "terminal"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "format": {
+        "type": "string"
+      },
+      "input": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H160-time-blocks"
+}

@@ -1,0 +1,85 @@
+{
+  "name": "dnd-rules",
+  "version": "0.1.0",
+  "description": "勿擾規則器",
+  "category": "H",
+  "number": 155,
+  "pain_point": "不在打擾時段想擋訊息",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "工作專注時不想被訊息打擾",
+    "設定晚上 10 點後進入勿擾模式",
+    "深度工作時段怎麼自動阻擋通知",
+    "建立勿擾規則，只有緊急事項才能打斷",
+    "週末勿擾模式怎麼設定？",
+    "想讓特定聯絡人永遠可以打擾我",
+    "根據時段和條件設定彈性的勿擾規則"
+  ],
+  "examples": [
+    {
+      "query": "設定週一到週五 14:00 到 16:00 的深工勿擾時段",
+      "params": {
+        "action": "run",
+        "days": "weekdays",
+        "start_time": "14:00",
+        "end_time": "16:00",
+        "mode": "deep_work"
+      }
+    },
+    {
+      "query": "建立勿擾規則：除老闆和緊急警報外，晚上 9 點後不通知",
+      "params": {
+        "action": "run",
+        "after_time": "21:00",
+        "exceptions": "boss,emergency_alerts"
+      }
+    },
+    {
+      "query": "查看目前所有勿擾規則設定",
+      "params": {
+        "action": "run",
+        "mode": "list"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "after_time": {
+        "type": "string"
+      },
+      "days": {
+        "type": "string"
+      },
+      "end_time": {
+        "type": "string"
+      },
+      "exceptions": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "start_time": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H155-dnd-rules"
+}

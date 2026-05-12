@@ -1,0 +1,84 @@
+{
+  "name": "time-track",
+  "version": "0.1.0",
+  "description": "自動時間追蹤",
+  "category": "G",
+  "number": 133,
+  "pain_point": "想知道時間都花到哪",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "rich",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我想知道一天時間都花在哪些事情上",
+    "幫我追蹤每個專案的實際工時",
+    "時間管理工具可以幫我分析哪個任務最耗時",
+    "我需要一個時間追蹤工具來改善效率",
+    "怎麼知道我每週在開會上花了多少時間",
+    "計時器加上任務分類的工時追蹤工具",
+    "想比較預期工時和實際工時的差異"
+  ],
+  "examples": [
+    {
+      "query": "比較本週和上週在各類任務上的工時分配",
+      "params": {
+        "action": "diff",
+        "week_a": "this_week",
+        "week_b": "last_week"
+      }
+    },
+    {
+      "query": "開始計時「程式碼審查」任務",
+      "params": {
+        "action": "diff",
+        "mode": "start",
+        "task": "程式碼審查"
+      }
+    },
+    {
+      "query": "查看本月各項目工時分佈圓餅圖",
+      "params": {
+        "action": "diff",
+        "period": "this_month",
+        "chart": "pie"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "chart": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      },
+      "week_a": {
+        "type": "string"
+      },
+      "week_b": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G133-time-track"
+}

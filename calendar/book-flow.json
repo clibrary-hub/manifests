@@ -1,0 +1,87 @@
+{
+  "name": "book-flow",
+  "version": "0.1.0",
+  "description": "預約流程器",
+  "category": "H",
+  "number": 144,
+  "pain_point": "預約跑流程繁瑣",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "預約流程太繁瑣想自動化",
+    "幫我建立一個標準化的預約系統",
+    "客戶預約要填太多表單很麻煩",
+    "想用 CLI 管理預約排程和確認流程",
+    "預約確認和提醒郵件要自動發送",
+    "怎麼簡化內部設備借用預約流程",
+    "建立一個預約管理工具，支援衝突偵測"
+  ],
+  "examples": [
+    {
+      "query": "新增會議室 A 明天下午 2 點的預約，供產品評審會議使用",
+      "params": {
+        "action": "run",
+        "resource": "會議室A",
+        "datetime": "明天14:00",
+        "purpose": "產品評審會議",
+        "duration": "60"
+      }
+    },
+    {
+      "query": "查看本週所有設備預約狀況",
+      "params": {
+        "action": "run",
+        "mode": "list",
+        "period": "this_week"
+      }
+    },
+    {
+      "query": "取消 2024-04-16 10:00 的會議室 B 預約",
+      "params": {
+        "action": "run",
+        "mode": "cancel",
+        "resource": "會議室B",
+        "datetime": "2024-04-16 10:00"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "datetime": {
+        "type": "string"
+      },
+      "duration": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "purpose": {
+        "type": "string"
+      },
+      "resource": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H144-book-flow"
+}

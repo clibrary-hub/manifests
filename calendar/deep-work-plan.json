@@ -1,0 +1,96 @@
+{
+  "name": "deep-work-plan",
+  "version": "0.1.0",
+  "description": "深工排程器",
+  "category": "H",
+  "number": 152,
+  "pain_point": "想自動排深度工作時段",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我在行事曆找空檔排入深度工作時段",
+    "我想每天有 3 小時不被打擾的深工時間",
+    "怎麼自動安排 deep work session？",
+    "想根據任務複雜度分配深度工作時間",
+    "幫我生成這週的深度工作時間表",
+    "Cal Newport 深度工作法的排程工具",
+    "自動找最佳時段排入需要專注的任務"
+  ],
+  "examples": [
+    {
+      "query": "生成本週深度工作計畫，每天上午留 3 小時不開會",
+      "params": {
+        "action": "generate",
+        "daily_hours": "3",
+        "preferred_time": "morning",
+        "week": "this_week"
+      }
+    },
+    {
+      "query": "排定寫論文的 4 個深度工作時段到本週日曆",
+      "params": {
+        "action": "generate",
+        "task": "寫論文",
+        "sessions": "4",
+        "session_hours": "2",
+        "export_to": "calendar.ics"
+      }
+    },
+    {
+      "query": "查看本週已排定的深工時段",
+      "params": {
+        "action": "generate",
+        "mode": "list",
+        "period": "this_week"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "daily_hours": {
+        "type": "string"
+      },
+      "export_to": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "preferred_time": {
+        "type": "string"
+      },
+      "session_hours": {
+        "type": "string"
+      },
+      "sessions": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      },
+      "week": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H152-deep-work-plan"
+}

@@ -1,0 +1,90 @@
+{
+  "name": "recur-helper",
+  "version": "0.1.0",
+  "description": "重複規則助手",
+  "category": "H",
+  "number": 146,
+  "pain_point": "重複事件規則難寫",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "icalendar",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "ical 的重複規則 RRULE 怎麼寫？",
+    "幫我設定每月第一個週一重複的行程",
+    "重複事件的 recurrence 規則太複雜了",
+    "想建立每隔兩週週四下午的例會",
+    "iCalendar 重複規則語法助手",
+    "怎麼設定工作日每天早上 9 點的重複提醒",
+    "RRULE FREQ 設定幫我生成正確格式"
+  ],
+  "examples": [
+    {
+      "query": "生成每週一、三、五早上 9 點的重複規則",
+      "params": {
+        "action": "run",
+        "frequency": "weekly",
+        "days": "MO,WE,FR",
+        "time": "09:00"
+      }
+    },
+    {
+      "query": "建立每月最後一個工作日下午 4 點的重複行程",
+      "params": {
+        "action": "run",
+        "frequency": "monthly",
+        "position": "last",
+        "day_type": "weekday",
+        "time": "16:00"
+      }
+    },
+    {
+      "query": "驗證這條 RRULE 是否正確：FREQ=WEEKLY;BYDAY=MO,WE",
+      "params": {
+        "action": "run",
+        "mode": "validate",
+        "rrule": "FREQ=WEEKLY;BYDAY=MO,WE"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "day_type": {
+        "type": "string"
+      },
+      "days": {
+        "type": "string"
+      },
+      "frequency": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "position": {
+        "type": "string"
+      },
+      "rrule": {
+        "type": "string"
+      },
+      "time": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H146-recur-helper"
+}

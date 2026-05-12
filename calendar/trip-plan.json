@@ -1,0 +1,103 @@
+{
+  "name": "trip-plan",
+  "version": "0.1.0",
+  "description": "行程排程器",
+  "category": "H",
+  "number": 147,
+  "pain_point": "旅行行程規劃難",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "pydantic"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "生成詳細的旅遊時間表和行程計劃",
+    "旅行計劃生成，考量交通時間",
+    "想自動生成每日旅遊時間表",
+    "出遊時間安排",
+    "旅行行程排程工具",
+    "旅行行程太多景點不知道怎麼安排",
+    "根據景點位置優化旅遊順序",
+    "旅行規劃工具，考慮交通時間",
+    "幫我規劃多個景點的旅行行程",
+    "幫我規劃五天的日本旅遊行程",
+    "幫我根據景點位置優化行程順序",
+    "生成有時間表的詳細旅遊行程計畫",
+    "我有 10 個景點，幫我排成 3 天的行程",
+    "旅遊行程自動規劃",
+    "安排出遊時間表，包含每天的路線",
+    "行程排程器，安排出發和抵達時間",
+    "執行旅行行程排程器",
+    "跑行程排程器來安排旅遊",
+    "執行行程規劃",
+    "啟動旅遊行程排程"
+  ],
+  "examples": [
+    {
+      "query": "規劃 5 天 4 夜東京旅遊行程，包含迪士尼和淺草",
+      "params": {
+        "action": "generate",
+        "destination": "東京",
+        "days": "5",
+        "attractions": "迪士尼,淺草,新宿,秋葉原,原宿"
+      }
+    },
+    {
+      "query": "根據 spots.json 中的景點清單生成最優行程",
+      "params": {
+        "action": "generate",
+        "spots_file": "spots.json",
+        "optimize": "distance"
+      }
+    },
+    {
+      "query": "輸出台南 3 天行程為可匯入日曆的 ics 格式",
+      "params": {
+        "action": "generate",
+        "destination": "台南",
+        "days": "3",
+        "output_format": "ics",
+        "output": "tainan-trip.ics"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "attractions": {
+        "type": "string"
+      },
+      "days": {
+        "type": "string"
+      },
+      "destination": {
+        "type": "string"
+      },
+      "optimize": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      },
+      "spots_file": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H147-trip-plan"
+}

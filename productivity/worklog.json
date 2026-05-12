@@ -1,0 +1,96 @@
+{
+  "name": "worklog",
+  "version": "0.1.0",
+  "description": "自動工時日誌",
+  "category": "G",
+  "number": 127,
+  "pain_point": "找不到上週做了什麼",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "gitpython",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我忘了上週做了什麼，怎麼自動記錄？",
+    "幫我從 git commit 自動產生工作日誌",
+    "想追蹤每天的工作紀錄和工時",
+    "填工時報告時完全想不起來做了什麼",
+    "自動從程式碼變更生成工作日誌",
+    "需要一個自動化工時追蹤和記錄工具",
+    "工作日誌懶得手寫，有辦法自動產生嗎"
+  ],
+  "examples": [
+    {
+      "query": "從 git log 自動生成本週工作日誌",
+      "params": {
+        "action": "run",
+        "source": "git",
+        "period": "this_week",
+        "repo": "."
+      }
+    },
+    {
+      "query": "生成 2024-03-01 到 2024-03-31 的工時報告",
+      "params": {
+        "action": "run",
+        "start_date": "2024-03-01",
+        "end_date": "2024-03-31",
+        "output": "march-worklog.pdf"
+      }
+    },
+    {
+      "query": "手動新增今天工作記錄：完成使用者認證模組開發",
+      "params": {
+        "action": "run",
+        "mode": "add",
+        "date": "today",
+        "description": "完成使用者認證模組開發"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "end_date": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "repo": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "start_date": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G127-worklog"
+}

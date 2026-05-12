@@ -1,0 +1,89 @@
+{
+  "name": "slot-find",
+  "version": "0.1.0",
+  "description": "共同時段搜尋",
+  "category": "H",
+  "number": 142,
+  "pain_point": "開會時段難找",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "icalendar",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "五個人要找共同的空閒時間開會",
+    "幫我找明天下午大家都有空的時段",
+    "多人日程協調找共同空閒時段",
+    "怎麼快速找到三人都可以開會的時間？",
+    "會議時間協調工具，找共同空檔",
+    "掃描大家的行事曆找最早可以開會的時間",
+    "想找本週所有人都空閒的一小時時段"
+  ],
+  "examples": [
+    {
+      "query": "掃描 alice.ics、bob.ics、carol.ics，找出週三下午共同空閒的 1 小時時段",
+      "params": {
+        "action": "scan",
+        "calendars": "alice.ics,bob.ics,carol.ics",
+        "duration_minutes": "60",
+        "day": "週三下午"
+      }
+    },
+    {
+      "query": "搜尋本週五個人日曆中所有共同空閒時段",
+      "params": {
+        "action": "search",
+        "period": "this_week",
+        "min_duration": "30"
+      }
+    },
+    {
+      "query": "找 2024-04-15 到 2024-04-19 之間適合開 2 小時會議的時段",
+      "params": {
+        "action": "search",
+        "start_date": "2024-04-15",
+        "end_date": "2024-04-19",
+        "duration_minutes": "120"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "calendars": {
+        "type": "string"
+      },
+      "day": {
+        "type": "string"
+      },
+      "duration_minutes": {
+        "type": "string"
+      },
+      "end_date": {
+        "type": "string"
+      },
+      "min_duration": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "start_date": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H142-slot-find"
+}

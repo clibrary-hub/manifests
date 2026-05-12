@@ -1,0 +1,85 @@
+{
+  "name": "audio-minutes",
+  "version": "0.1.0",
+  "description": "會議轉摘要",
+  "category": "G",
+  "number": 137,
+  "pain_point": "開會錄音轉文字麻煩",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "whisper",
+    "anthropic",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "開會錄音要怎麼自動轉成文字摘要？",
+    "幫我把會議 mp3 轉成逐字稿和重點",
+    "我有一個一小時的會議錄音想自動產生摘要",
+    "語音轉文字加上 AI 整理會議要點",
+    "會議錄音轉成結構化筆記的工具",
+    "把 zoom 錄音檔自動產生會議紀錄",
+    "音訊逐字稿加行動項目整理"
+  ],
+  "examples": [
+    {
+      "query": "把 meeting-20240315.mp3 轉成中文逐字稿和摘要",
+      "params": {
+        "action": "run",
+        "audio_file": "meeting-20240315.mp3",
+        "language": "zh",
+        "output": "meeting-minutes.md"
+      }
+    },
+    {
+      "query": "轉錄並分析 board-meeting.wav，提取所有行動事項",
+      "params": {
+        "action": "run",
+        "audio_file": "board-meeting.wav",
+        "extract": "action_items"
+      }
+    },
+    {
+      "query": "批次轉錄 recordings/ 目錄下所有會議錄音",
+      "params": {
+        "action": "run",
+        "input_dir": "recordings/",
+        "output_dir": "transcripts/"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "audio_file": {
+        "type": "string"
+      },
+      "extract": {
+        "type": "string"
+      },
+      "input_dir": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "output_dir": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G137-audio-minutes"
+}

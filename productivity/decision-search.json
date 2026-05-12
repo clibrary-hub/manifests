@@ -1,0 +1,89 @@
+{
+  "name": "decision-search",
+  "version": "0.1.0",
+  "description": "決策搜尋器",
+  "category": "G",
+  "number": 136,
+  "pain_point": "同事問你過往決策找不到",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "whoosh",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "同事問我為什麼這樣設計，我找不到當時的決策記錄",
+    "想搜尋過去做過哪些技術決策",
+    "幫我建立一個可搜尋的決策知識庫",
+    "去年討論過的架構決定記在哪裡？",
+    "需要一個工具記錄並快速搜尋決策背景",
+    "ADR 決策記錄要怎麼管理和搜尋",
+    "想找之前為什麼選擇 PostgreSQL 的理由"
+  ],
+  "examples": [
+    {
+      "query": "搜尋所有包含「資料庫選型」的決策記錄",
+      "params": {
+        "action": "search",
+        "keyword": "資料庫選型"
+      }
+    },
+    {
+      "query": "新增一筆決策記錄：選擇 React 而非 Vue 的理由",
+      "params": {
+        "action": "search",
+        "mode": "add",
+        "title": "前端框架選型",
+        "decision": "選擇 React",
+        "reason": "生態系較大，團隊熟悉度高"
+      }
+    },
+    {
+      "query": "匯出 2024 年所有的決策記錄為 decisions-2024.md",
+      "params": {
+        "action": "search",
+        "mode": "export",
+        "year": "2024",
+        "output": "decisions-2024.md"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "decision": {
+        "type": "string"
+      },
+      "keyword": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "year": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G136-decision-search"
+}

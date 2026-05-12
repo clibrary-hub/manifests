@@ -1,0 +1,86 @@
+{
+  "name": "meeting-prep",
+  "version": "0.1.0",
+  "description": "會議準備器",
+  "category": "G",
+  "number": 128,
+  "pain_point": "開會前資料整理麻煩",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "開會前五分鐘還在整理資料太亂了",
+    "幫我自動準備明天 10 點會議的資料",
+    "開會前需要哪些準備工作可以自動化？",
+    "想讓 AI 幫我整理開會議程和背景資料",
+    "會議前背景資料整理要花太多時間",
+    "我要怎麼快速生成一份會議準備摘要？",
+    "幫我根據會議主題整理相關文件和重點"
+  ],
+  "examples": [
+    {
+      "query": "準備明天下午 2 點的產品評審會議，整理上週進度報告",
+      "params": {
+        "action": "run",
+        "meeting_title": "產品評審",
+        "meeting_time": "明天14:00",
+        "context_files": "weekly-report.md,sprint-status.json"
+      }
+    },
+    {
+      "query": "為週五的客戶提案會議生成 5 分鐘快速摘要",
+      "params": {
+        "action": "run",
+        "meeting_type": "client_pitch",
+        "summary_minutes": "5"
+      }
+    },
+    {
+      "query": "根據 agenda.md 自動整理相關背景資料和待確認事項",
+      "params": {
+        "action": "run",
+        "agenda_file": "agenda.md",
+        "output": "meeting-prep-kit.md"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "agenda_file": {
+        "type": "string"
+      },
+      "context_files": {
+        "type": "string"
+      },
+      "meeting_time": {
+        "type": "string"
+      },
+      "meeting_title": {
+        "type": "string"
+      },
+      "meeting_type": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "summary_minutes": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

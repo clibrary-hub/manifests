@@ -1,0 +1,85 @@
+{
+  "name": "meeting-cost",
+  "version": "0.1.0",
+  "description": "會議成本計算",
+  "category": "H",
+  "number": 156,
+  "pain_point": "想統計每月會議耗時",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "這個月開會花了多少時間和成本？",
+    "幫我計算每週會議的人力成本",
+    "想知道這個團隊每年花多少時間開會",
+    "計算每場會議的真實費用（薪資 x 人數 x 時間）",
+    "會議效益分析工具，算出開會成本",
+    "我的月薪換算下來開一小時會議值多少錢",
+    "統計本月所有會議的總耗時和參與人數"
+  ],
+  "examples": [
+    {
+      "query": "計算本週 5 場會議的總人力成本，平均薪資 15000 月薪",
+      "params": {
+        "action": "run",
+        "period": "this_week",
+        "avg_hourly_rate": "94",
+        "currency": "TWD"
+      }
+    },
+    {
+      "query": "分析 calendar.ics 中所有會議，按照部門統計耗時",
+      "params": {
+        "action": "run",
+        "calendar_file": "calendar.ics",
+        "group_by": "department"
+      }
+    },
+    {
+      "query": "計算 Q1 會議總成本並輸出報告",
+      "params": {
+        "action": "run",
+        "period": "Q1",
+        "output": "q1-meeting-costs.csv"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "avg_hourly_rate": {
+        "type": "string"
+      },
+      "calendar_file": {
+        "type": "string"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "group_by": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H156-meeting-cost"
+}

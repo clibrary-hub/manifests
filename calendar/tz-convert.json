@@ -1,0 +1,78 @@
+{
+  "name": "tz-convert",
+  "version": "0.1.0",
+  "description": "時區換算器",
+  "category": "H",
+  "number": 143,
+  "pain_point": "跨時區換算麻煩",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "pytz",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "台北時間下午 3 點是紐約幾點？",
+    "幫我換算跨時區會議時間",
+    "時區換算工具命令列版本",
+    "我需要把 UTC 時間轉換成台灣時間",
+    "跨國會議要怎麼換算各地時區",
+    "把 2024-03-15 14:00 EST 換算成台北時間",
+    "列出同一時刻在主要城市的當地時間"
+  ],
+  "examples": [
+    {
+      "query": "把台北時間 2024-04-15 09:00 換算成紐約和倫敦時間",
+      "params": {
+        "action": "run",
+        "time": "2024-04-15 09:00",
+        "from_tz": "Asia/Taipei",
+        "to_tz": "America/New_York,Europe/London"
+      }
+    },
+    {
+      "query": "現在 UTC 是幾點，對應台北是幾點",
+      "params": {
+        "action": "run",
+        "from_tz": "UTC",
+        "to_tz": "Asia/Taipei"
+      }
+    },
+    {
+      "query": "列出目前時間在東京、首爾、上海、台北的對應時間",
+      "params": {
+        "action": "run",
+        "cities": "Tokyo,Seoul,Shanghai,Taipei"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "cities": {
+        "type": "string"
+      },
+      "from_tz": {
+        "type": "string"
+      },
+      "time": {
+        "type": "string"
+      },
+      "to_tz": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H143-tz-convert"
+}

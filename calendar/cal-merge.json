@@ -1,0 +1,86 @@
+{
+  "name": "cal-merge",
+  "version": "0.1.0",
+  "description": "日曆合併器",
+  "category": "H",
+  "number": 141,
+  "pain_point": "多日曆來源無法統一",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "icalendar",
+    "caldav",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我有 Google Calendar 和 Outlook 日曆，想合成一個",
+    "多個行事曆來源怎麼統一管理？",
+    "幫我把家庭日曆和工作日曆合在一起",
+    "不同平台的行事曆要怎麼整合？",
+    "想把三個 ics 檔案合成一個完整日曆",
+    "跨平台行事曆合併工具",
+    "日曆資料分散在不同帳號很麻煩"
+  ],
+  "examples": [
+    {
+      "query": "合併 work.ics 和 personal.ics 輸出 merged-calendar.ics",
+      "params": {
+        "action": "diff",
+        "file_a": "work.ics",
+        "file_b": "personal.ics",
+        "output": "merged-calendar.ics"
+      }
+    },
+    {
+      "query": "比對 google.ics 和 outlook.ics 找出衝突的行程",
+      "params": {
+        "action": "diff",
+        "file_a": "google.ics",
+        "file_b": "outlook.ics",
+        "mode": "conflicts_only"
+      }
+    },
+    {
+      "query": "從 CalDAV 伺服器拉取並合併所有日曆",
+      "params": {
+        "action": "diff",
+        "source": "caldav",
+        "server_url": "https://caldav.example.com"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "file_a": {
+        "type": "string"
+      },
+      "file_b": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "server_url": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H141-cal-merge"
+}

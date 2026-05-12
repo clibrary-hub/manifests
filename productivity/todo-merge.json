@@ -1,0 +1,88 @@
+{
+  "name": "todo-merge",
+  "version": "0.1.0",
+  "description": "待辦集中器",
+  "category": "G",
+  "number": 121,
+  "pain_point": "待辦事項散落多處",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "rich",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我的 todo 分散在 Notion、Todoist、手寫便條怎麼統一？",
+    "想把所有待辦事項集中到一個地方看",
+    "幫我合併多個平台的 todo 清單",
+    "待辦任務散落各處很難掌握進度",
+    "如何把 GitHub issue 和 Trello 卡片合成一個清單",
+    "我需要一個統一的待辦事項匯集工具",
+    "跨平台待辦清單怎麼整合？"
+  ],
+  "examples": [
+    {
+      "query": "合併 notion-todos.json 和 github-issues.json 去重後輸出統一清單",
+      "params": {
+        "action": "diff",
+        "file_a": "notion-todos.json",
+        "file_b": "github-issues.json",
+        "output": "merged-todos.json"
+      }
+    },
+    {
+      "query": "把 Todoist 和 Apple Reminders 的待辦整合為每日工作清單",
+      "params": {
+        "action": "run",
+        "sources": "todoist,apple_reminders",
+        "output_format": "daily_list"
+      }
+    },
+    {
+      "query": "生成本週合併待辦清單並標記緊急度",
+      "params": {
+        "action": "generate",
+        "period": "this_week",
+        "tag_urgency": "true"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "file_a": {
+        "type": "string"
+      },
+      "file_b": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "sources": {
+        "type": "string"
+      },
+      "tag_urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G121-todo-merge"
+}

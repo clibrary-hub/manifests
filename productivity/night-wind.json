@@ -1,0 +1,77 @@
+{
+  "name": "night-wind",
+  "version": "0.1.0",
+  "description": "睡前清場器",
+  "category": "G",
+  "number": 126,
+  "pain_point": "想睡前自動關閉所有應用",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "psutil",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "睡前想一鍵關閉所有不必要的程式",
+    "怎麼設定下班清場關閉所有工作應用",
+    "幫我自動關閉 Slack 和工作相關程式準備休息",
+    "每晚 11 點自動清場電腦環境",
+    "收工程式關一大堆好煩，有工具嗎？",
+    "想設定哪些程式睡前不能留著",
+    "自動化關機前的清場流程工具"
+  ],
+  "examples": [
+    {
+      "query": "關閉所有工作程式：VS Code、Slack、Chrome，保留 Spotify",
+      "params": {
+        "action": "run",
+        "close_apps": "vscode,slack,chrome",
+        "keep_apps": "spotify"
+      }
+    },
+    {
+      "query": "執行睡前清場：關閉所有正在運行的程式並儲存工作狀態",
+      "params": {
+        "action": "run",
+        "mode": "sleep",
+        "save_state": "true"
+      }
+    },
+    {
+      "query": "掃描現在所有開啟的應用程式並顯示列表",
+      "params": {
+        "action": "run",
+        "mode": "list"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "close_apps": {
+        "type": "string"
+      },
+      "keep_apps": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "save_state": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G126-night-wind"
+}

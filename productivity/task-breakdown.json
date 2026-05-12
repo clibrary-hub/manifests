@@ -1,0 +1,88 @@
+{
+  "name": "task-breakdown",
+  "version": "0.1.0",
+  "description": "任務拆解器",
+  "category": "G",
+  "number": 132,
+  "pain_point": "子任務拆得太細懶得拆",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "大任務不知道怎麼拆分成子任務",
+    "幫我把「開發電商系統」拆成具體步驟",
+    "任務太大不知道從哪裡開始，想拆細",
+    "AI 幫我把複雜需求拆解成執行清單",
+    "我有一個龐大的專案，幫我拆成可執行的子任務",
+    "任務拆解太費時，有工具可以自動做嗎",
+    "想把模糊的目標變成具體的行動步驟"
+  ],
+  "examples": [
+    {
+      "query": "把「建立用戶認證系統」拆解成 10 個子任務",
+      "params": {
+        "action": "run",
+        "task": "建立用戶認證系統",
+        "max_subtasks": "10"
+      }
+    },
+    {
+      "query": "生成「上線行銷活動」的詳細執行步驟清單",
+      "params": {
+        "action": "generate",
+        "goal": "上線行銷活動",
+        "detail_level": "high"
+      }
+    },
+    {
+      "query": "把 requirements.md 中的需求文件拆解成 sprint tasks",
+      "params": {
+        "action": "send",
+        "input_file": "requirements.md",
+        "output_format": "sprint_tasks",
+        "output": "sprint-backlog.json"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "detail_level": {
+        "type": "string"
+      },
+      "goal": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "max_subtasks": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "output_format": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G132-task-breakdown"
+}

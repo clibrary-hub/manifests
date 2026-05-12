@@ -1,0 +1,81 @@
+{
+  "name": "pomo",
+  "version": "0.1.0",
+  "description": "終端番茄鐘",
+  "category": "G",
+  "number": 122,
+  "pain_point": "番茄鐘工具切換麻煩",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "rich",
+    "click",
+    "plyer"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "在終端用番茄工作法計時",
+    "幫我開一個 25 分鐘的工作計時器",
+    "我想用 CLI 做番茄鐘不想開 app",
+    "怎麼在命令列設定休息和工作倒數計時",
+    "番茄鐘完成後桌面通知怎麼設定",
+    "pomodoro 工作法計時器命令列版本",
+    "需要一個簡單的終端計時器配合工作節奏"
+  ],
+  "examples": [
+    {
+      "query": "開始一個 25 分鐘工作計時，結束後休息 5 分鐘",
+      "params": {
+        "action": "run",
+        "work_minutes": "25",
+        "break_minutes": "5"
+      }
+    },
+    {
+      "query": "連續做 4 個番茄後休息 30 分鐘",
+      "params": {
+        "action": "run",
+        "pomodoros": "4",
+        "long_break_minutes": "30"
+      }
+    },
+    {
+      "query": "自訂 40 分鐘工作時段，桌面通知提醒",
+      "params": {
+        "action": "run",
+        "work_minutes": "40",
+        "notify": "true"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "break_minutes": {
+        "type": "string"
+      },
+      "long_break_minutes": {
+        "type": "string"
+      },
+      "notify": {
+        "type": "string"
+      },
+      "pomodoros": {
+        "type": "string"
+      },
+      "work_minutes": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G122-pomo"
+}

@@ -1,0 +1,81 @@
+{
+  "name": "focus-log",
+  "version": "0.1.0",
+  "description": "專注時間記錄器",
+  "category": "G",
+  "number": 123,
+  "pain_point": "想記錄專注時間",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "rich",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "怎麼記錄我每天的深度工作時間？",
+    "想知道自己一週花多少時間在程式開發上",
+    "幫我記錄今天的專注工作時段",
+    "我每次進入心流狀態都不知道花了多久",
+    "需要一個時間日誌工具追蹤工作效率",
+    "想分析哪些時段我最能專注工作",
+    "記錄並統計專注模式的 CLI 工具"
+  ],
+  "examples": [
+    {
+      "query": "開始記錄「撰寫報告」的專注時段",
+      "params": {
+        "action": "run",
+        "task": "撰寫報告",
+        "mode": "start"
+      }
+    },
+    {
+      "query": "查看本週所有專注時段記錄，按任務分類統計",
+      "params": {
+        "action": "run",
+        "period": "this_week",
+        "group_by": "task"
+      }
+    },
+    {
+      "query": "輸出上個月的專注時間報告到 focus-oct.csv",
+      "params": {
+        "action": "run",
+        "period": "last_month",
+        "output": "focus-oct.csv"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "group_by": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G123-focus-log"
+}

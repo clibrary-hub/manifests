@@ -1,0 +1,76 @@
+{
+  "name": "morning-boot",
+  "version": "0.1.0",
+  "description": "晨啟動工作流",
+  "category": "G",
+  "number": 125,
+  "pain_point": "開機要打開一堆程式",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "subprocess",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "每天早上開機都要手動打開一堆程式",
+    "幫我設定晨間工作流自動啟動環境",
+    "上班前的準備工作能不能自動化？",
+    "怎麼讓電腦開機就自動設定好工作環境",
+    "我想一個指令就開好所有工作需要的 app",
+    "每天早上啟動固定程式清單的腳本",
+    "自動化開機工作流程，減少準備時間"
+  ],
+  "examples": [
+    {
+      "query": "執行早晨工作流：開啟 VS Code、Slack、Chrome 和 Terminal",
+      "params": {
+        "action": "run",
+        "apps": "vscode,slack,chrome,terminal"
+      }
+    },
+    {
+      "query": "用 morning-profile.yaml 設定的工作流啟動今天的工作環境",
+      "params": {
+        "action": "run",
+        "profile": "morning-profile.yaml"
+      }
+    },
+    {
+      "query": "新增 Notion 到晨間啟動程式清單",
+      "params": {
+        "action": "run",
+        "mode": "add",
+        "app": "notion"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "app": {
+        "type": "string"
+      },
+      "apps": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "profile": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G125-morning-boot"
+}

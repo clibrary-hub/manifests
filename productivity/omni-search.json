@@ -1,0 +1,80 @@
+{
+  "name": "omni-search",
+  "version": "0.1.0",
+  "description": "跨工具統一搜尋",
+  "category": "G",
+  "number": 139,
+  "pain_point": "跨工具搜尋很慢",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "whoosh",
+    "click",
+    "rich"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我想一次搜尋 Notion、GitHub、Slack 的內容",
+    "跨多個平台搜尋同一個關鍵字的工具",
+    "幫我在所有工作工具中搜尋「API 設計」",
+    "想要一個統一的全文搜尋入口",
+    "文件散落各處，搜尋很浪費時間",
+    "跨工具知識管理的統一搜尋怎麼做",
+    "一個指令搜尋所有工具的內容"
+  ],
+  "examples": [
+    {
+      "query": "在 Notion 和本地 markdown 檔案中搜尋「微服務架構」",
+      "params": {
+        "action": "search",
+        "query": "微服務架構",
+        "sources": "notion,local_md"
+      }
+    },
+    {
+      "query": "搜尋所有工具中 2024 年以後關於「API」的內容",
+      "params": {
+        "action": "search",
+        "query": "API",
+        "after_date": "2024-01-01"
+      }
+    },
+    {
+      "query": "在 docs/ 目錄和 GitHub issues 中全文搜尋「效能優化」",
+      "params": {
+        "action": "search",
+        "query": "效能優化",
+        "sources": "local_docs,github_issues",
+        "limit": "20"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "after_date": {
+        "type": "string"
+      },
+      "limit": {
+        "type": "string"
+      },
+      "query": {
+        "type": "string"
+      },
+      "sources": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "query"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G139-omni-search"
+}

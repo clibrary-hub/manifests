@@ -1,0 +1,88 @@
+{
+  "name": "countdown",
+  "version": "0.1.0",
+  "description": "倒數提醒器",
+  "category": "H",
+  "number": 151,
+  "pain_point": "倒數活動需提醒",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "plyer"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "幫我設定一個倒數到婚禮的計時器",
+    "專案上線還有幾天要怎麼倒數？",
+    "想在終端看到距離特定事件的倒數天數",
+    "設定重要活動的倒數提醒",
+    "怎麼建立倒數計時並在接近時發通知",
+    "距離考試還有多少天的命令列工具",
+    "幫我追蹤多個重要事件的倒數日期"
+  ],
+  "examples": [
+    {
+      "query": "建立婚禮倒數計時器，2024-06-15，提前 7 天提醒",
+      "params": {
+        "action": "scan",
+        "event": "婚禮",
+        "target_date": "2024-06-15",
+        "remind_days_before": "7"
+      }
+    },
+    {
+      "query": "列出所有設定中的倒數事件",
+      "params": {
+        "action": "run",
+        "mode": "list"
+      }
+    },
+    {
+      "query": "設定 30 分鐘後的倒數提醒並桌面通知",
+      "params": {
+        "action": "run",
+        "minutes": "30",
+        "message": "會議開始",
+        "notify": "desktop"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "event": {
+        "type": "string"
+      },
+      "message": {
+        "type": "string"
+      },
+      "minutes": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "notify": {
+        "type": "string"
+      },
+      "remind_days_before": {
+        "type": "string"
+      },
+      "target_date": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H151-countdown"
+}

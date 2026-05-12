@@ -1,0 +1,80 @@
+{
+  "name": "away-mode",
+  "version": "0.1.0",
+  "description": "出差代辦模式",
+  "category": "H",
+  "number": 153,
+  "pain_point": "旅遊期間自動代辦",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "出差期間要自動設定代辦人和自動回覆",
+    "旅行時想讓系統自動處理日常事務",
+    "開啟出差模式，暫停非緊急通知",
+    "我出去旅遊三天，幫我設定代辦模式",
+    "離開辦公室期間的自動化處理流程",
+    "怎麼設定缺席期間的自動任務代辦",
+    "出差模式自動設定 out-of-office 和任務轉移"
+  ],
+  "examples": [
+    {
+      "query": "啟動出差模式 2024-04-10 到 2024-04-14，代辦人設為 alice",
+      "params": {
+        "action": "run",
+        "start_date": "2024-04-10",
+        "end_date": "2024-04-14",
+        "delegate_to": "alice"
+      }
+    },
+    {
+      "query": "設定出差期間只接收緊急通知，其他先暫緩",
+      "params": {
+        "action": "run",
+        "notification_filter": "urgent_only"
+      }
+    },
+    {
+      "query": "結束出差模式並還原所有設定",
+      "params": {
+        "action": "run",
+        "mode": "end"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "delegate_to": {
+        "type": "string"
+      },
+      "end_date": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "notification_filter": {
+        "type": "string"
+      },
+      "start_date": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H153-away-mode"
+}

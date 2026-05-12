@@ -1,0 +1,81 @@
+{
+  "name": "routine-bot",
+  "version": "0.1.0",
+  "description": "例行事務提醒",
+  "category": "H",
+  "number": 158,
+  "pain_point": "例行事務忘了做",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "plyer"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我常常忘記每天要做的例行事務，需要提醒工具",
+    "幫我設定每天早上喝水、做運動的定時提醒",
+    "每週一要備份資料，但老是忘記，怎麼辦",
+    "我需要一個能管理我日常例行任務清單的工具",
+    "每月要繳帳單，幫我設定重複性提醒",
+    "想追蹤自己的日常習慣有沒有確實執行",
+    "需要一個簡單的 CLI 工具管理我每天的固定任務"
+  ],
+  "examples": [
+    {
+      "query": "新增每天早上 8 點喝水提醒，連續 30 天",
+      "params": {
+        "action": "add",
+        "task": "喝水",
+        "time": "08:00",
+        "repeat": "daily",
+        "duration_days": "30"
+      }
+    },
+    {
+      "query": "列出所有已設定的例行提醒任務",
+      "params": {
+        "action": "list"
+      }
+    },
+    {
+      "query": "標記今天的備份任務已完成並查看本週完成率",
+      "params": {
+        "action": "done",
+        "task": "備份資料",
+        "report": "weekly"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "duration_days": {
+        "type": "string"
+      },
+      "repeat": {
+        "type": "string"
+      },
+      "report": {
+        "type": "string"
+      },
+      "task": {
+        "type": "string"
+      },
+      "time": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H158-routine-bot"
+}

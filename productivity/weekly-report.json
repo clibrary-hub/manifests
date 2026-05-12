@@ -1,0 +1,89 @@
+{
+  "name": "weekly-report",
+  "version": "0.1.0",
+  "description": "週報產生器",
+  "category": "G",
+  "number": 130,
+  "pain_point": "想自動寫週報",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "sqlite3",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "每週要寫週報很煩，可以自動產生嗎？",
+    "幫我根據本週 git commits 寫週報",
+    "週報要包含本週成果和下週計畫",
+    "想用 AI 把工時記錄轉成週報",
+    "寫週報要花我一小時，有工具可以加速嗎",
+    "本週工作摘要自動生成工具",
+    "我要怎麼把本週 TODO 完成狀況轉成週報？"
+  ],
+  "examples": [
+    {
+      "query": "根據本週的 git commits 和工時日誌自動生成週報",
+      "params": {
+        "action": "run",
+        "sources": "git,worklog",
+        "week": "this_week",
+        "output": "weekly-report.md"
+      }
+    },
+    {
+      "query": "生成 2024-W12 的週報，格式符合公司模板",
+      "params": {
+        "action": "run",
+        "week": "2024-W12",
+        "template": "company_template.md"
+      }
+    },
+    {
+      "query": "每週五下午 5 點自動生成週報並傳送到 Slack",
+      "params": {
+        "action": "run",
+        "schedule": "每週五17:00",
+        "send_to": "slack",
+        "channel": "#weekly-reports"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "channel": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "schedule": {
+        "type": "string"
+      },
+      "send_to": {
+        "type": "string"
+      },
+      "sources": {
+        "type": "string"
+      },
+      "template": {
+        "type": "string"
+      },
+      "week": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G130-weekly-report"
+}

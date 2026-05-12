@@ -1,0 +1,86 @@
+{
+  "name": "archive-bot",
+  "version": "0.1.0",
+  "description": "自動封存器",
+  "category": "G",
+  "number": 135,
+  "pain_point": "想批次封存舊專案",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "shutil",
+    "pathlib",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "舊專案要怎麼批次封存歸檔？",
+    "我有 20 個舊資料夾想壓縮封存",
+    "幫我把一年以上沒動的專案自動打包",
+    "想把完成的專案移到 archive 目錄",
+    "批次封存舊專案不想一個一個手動做",
+    "怎麼自動把過期專案壓縮成 zip？",
+    "專案結束後需要整理封存的自動化工具"
+  ],
+  "examples": [
+    {
+      "query": "把 projects/ 目錄下超過 6 個月沒有修改的專案封存",
+      "params": {
+        "action": "run",
+        "source_dir": "projects/",
+        "archive_dir": "archives/",
+        "inactive_months": "6"
+      }
+    },
+    {
+      "query": "封存 old-client-abc 和 old-project-xyz 到 2023-archives.zip",
+      "params": {
+        "action": "run",
+        "targets": "old-client-abc,old-project-xyz",
+        "output": "2023-archives.zip"
+      }
+    },
+    {
+      "query": "掃描工作目錄，列出可以封存的舊專案清單",
+      "params": {
+        "action": "run",
+        "mode": "preview",
+        "source_dir": ".",
+        "inactive_months": "12"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "archive_dir": {
+        "type": "string"
+      },
+      "inactive_months": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "source_dir": {
+        "type": "string"
+      },
+      "targets": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/G135-archive-bot"
+}

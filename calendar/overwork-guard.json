@@ -1,0 +1,81 @@
+{
+  "name": "overwork-guard",
+  "version": "0.1.0",
+  "description": "過勞守門員",
+  "category": "H",
+  "number": 149,
+  "pain_point": "工時超時無警告",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我工時超時了但沒有任何警告",
+    "幫我監測每日工時不要超過 8 小時",
+    "快要過勞了，需要工作時間守門工具",
+    "每週工時超過 50 小時要自動提醒我",
+    "怎麼設定工時上限並在接近時發出警告",
+    "我需要一個防過勞的工作時間監控工具",
+    "追蹤並警告超時工作的 CLI 工具"
+  ],
+  "examples": [
+    {
+      "query": "掃描本週工時記錄，若超過 45 小時發出警告",
+      "params": {
+        "action": "scan",
+        "period": "this_week",
+        "limit_hours": "45"
+      }
+    },
+    {
+      "query": "設定每日工時上限 9 小時，超過時桌面通知",
+      "params": {
+        "action": "scan",
+        "daily_limit": "9",
+        "notify": "desktop"
+      }
+    },
+    {
+      "query": "查看本月工時統計和過勞警告紀錄",
+      "params": {
+        "action": "scan",
+        "mode": "report",
+        "period": "this_month"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "daily_limit": {
+        "type": "string"
+      },
+      "limit_hours": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "notify": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H149-overwork-guard"
+}

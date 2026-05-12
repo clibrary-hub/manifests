@@ -1,0 +1,85 @@
+{
+  "name": "reminder-rank",
+  "version": "0.1.0",
+  "description": "提醒優先排序",
+  "category": "H",
+  "number": 148,
+  "pain_point": "提醒太多沒主次",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "click",
+    "rich",
+    "sqlite3"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我有 50 個提醒不知道先處理哪個",
+    "幫我把提醒按重要性排列優先順序",
+    "提醒太多了，想讓 AI 幫我判斷主次",
+    "今天最重要的三件事要怎麼自動挑出來",
+    "提醒清單優先排序工具",
+    "我的待辦提醒亂成一團，需要整理",
+    "根據截止日和重要性排列提醒事項"
+  ],
+  "examples": [
+    {
+      "query": "把今天的 20 個提醒按重要性和緊急度排序",
+      "params": {
+        "action": "run",
+        "date": "today",
+        "sort_by": "importance,urgency"
+      }
+    },
+    {
+      "query": "從提醒清單中挑出本週最重要的前 5 件事",
+      "params": {
+        "action": "run",
+        "period": "this_week",
+        "top_n": "5"
+      }
+    },
+    {
+      "query": "匯入 reminders.json 並按截止日重新排序",
+      "params": {
+        "action": "run",
+        "input_file": "reminders.json",
+        "sort_by": "deadline",
+        "output": "ranked-reminders.json"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "sort_by": {
+        "type": "string"
+      },
+      "top_n": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H148-reminder-rank"
+}

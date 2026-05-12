@@ -1,0 +1,83 @@
+{
+  "name": "okr-track",
+  "version": "0.1.0",
+  "description": "OKR 追蹤器",
+  "category": "G",
+  "number": 131,
+  "pain_point": "OKR 進度難追蹤",
+  "commercial": "✅",
+  "language": "Python",
+  "dependencies": [
+    "sqlite3",
+    "rich",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "我的 OKR 設定了但不知道進度怎麼樣",
+    "幫我追蹤本季 OKR 的完成率",
+    "想看今天的 Key Results 進度條",
+    "OKR 目標設了三個月沒人追蹤",
+    "怎麼用 CLI 管理和更新 OKR 進度",
+    "需要一個輕量級的 OKR 進度儀表板",
+    "每週自動更新 OKR 進度報告"
+  ],
+  "examples": [
+    {
+      "query": "比較 Q1 和 Q2 的 OKR 達成率差異",
+      "params": {
+        "action": "diff",
+        "period_a": "Q1",
+        "period_b": "Q2"
+      }
+    },
+    {
+      "query": "查看「提升產品品質」目標下所有 KR 的最新進度",
+      "params": {
+        "action": "diff",
+        "objective": "提升產品品質",
+        "mode": "status"
+      }
+    },
+    {
+      "query": "更新 KR1 的進度到 75%",
+      "params": {
+        "action": "diff",
+        "kr": "KR1",
+        "progress": "75",
+        "mode": "update"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "kr": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string"
+      },
+      "objective": {
+        "type": "string"
+      },
+      "period_a": {
+        "type": "string"
+      },
+      "period_b": {
+        "type": "string"
+      },
+      "progress": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT"
+}

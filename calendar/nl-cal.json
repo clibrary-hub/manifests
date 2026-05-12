@@ -1,0 +1,78 @@
+{
+  "name": "nl-cal",
+  "version": "0.1.0",
+  "description": "自然語言建會",
+  "category": "H",
+  "number": 154,
+  "pain_point": "行事曆事件 NL 建立",
+  "commercial": "⚠️",
+  "language": "Python",
+  "dependencies": [
+    "anthropic",
+    "icalendar",
+    "click"
+  ],
+  "agent_compatible": true,
+  "mcp_ready": true,
+  "intent_triggers": [
+    "用自然語言幫我新增行事曆事件",
+    "我說「明天下午三點開產品會議」幫我加到日曆",
+    "不想手動點日曆，直接說話新增事件",
+    "自然語言轉日曆事件的工具",
+    "幫我把「週五早上 10 點牙醫」加入行事曆",
+    "說中文就能建立 ical 事件",
+    "語音或文字描述自動轉換成行事曆格式"
+  ],
+  "examples": [
+    {
+      "query": "把「後天早上十一點和 Bob 討論合約內容，1.5 小時」加入日曆",
+      "params": {
+        "action": "run",
+        "text": "後天早上十一點和 Bob 討論合約內容，1.5 小時",
+        "output": "calendar.ics"
+      }
+    },
+    {
+      "query": "將「每週四下午兩點 team meeting 持續 1 小時」建立為重複事件",
+      "params": {
+        "action": "run",
+        "text": "每週四下午兩點 team meeting 持續 1 小時",
+        "recurring": "true"
+      }
+    },
+    {
+      "query": "解析 events.txt 中每行的自然語言描述並批次建立日曆事件",
+      "params": {
+        "action": "run",
+        "input_file": "events.txt",
+        "output": "new-events.ics"
+      }
+    }
+  ],
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "input_file": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "recurring": {
+        "type": "string"
+      },
+      "text": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "license": "MIT",
+  "status": "available",
+  "source": "https://github.com/clibrary-hub/cli-tools/tree/main/manifests/H154-nl-cal"
+}
